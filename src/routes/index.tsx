@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lucide-react";
 
 import heroImage from "@/assets/iceberg-leap.jpg";
-import waag from "@/assets/waag-penguin.png";
+import { EventAgenda } from "@/components/EventAgenda";
+import { PinguinGoLogo } from "@/components/PinguinGoLogo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
