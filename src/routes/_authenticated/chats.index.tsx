@@ -34,7 +34,11 @@ function ChatList() {
         .eq("user_id", user!.id);
       const ids = (mine ?? []).map((m) => m.conversation_id);
       if (!ids.length) return [];
-      const { data: convs } = await supabase.from("conversations").select("*").in("id", ids);
+      const { data: convs } = await supabase
+        .from("conversations")
+        .select("*")
+        .in("id", ids)
+        .eq("is_group", true);
       const { data: allParts } = await supabase
         .from("conversation_participants")
         .select("conversation_id, user_id")

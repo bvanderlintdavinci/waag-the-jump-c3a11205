@@ -34,8 +34,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
           <Link to="/feed" className="flex items-center gap-2">
-            <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-8 object-contain" />
-            <span className="text-lg font-extrabold tracking-tight text-primary">PinguinGo</span>
+            <PinguinGoLogo className="size-9" />
+            <span className="text-lg font-extrabold tracking-tight text-foreground">PinguinGo</span>
           </Link>
           <nav className="ml-auto hidden items-center gap-1 sm:flex">
             {NAV.map((item) => (
