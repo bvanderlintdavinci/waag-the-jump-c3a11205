@@ -70,7 +70,7 @@ function ChatList() {
 
   return (
     <AppShell>
-      <h1 className="mb-5 text-2xl font-extrabold text-foreground">Chats</h1>
+      <h1 className="mb-5 text-2xl font-extrabold text-foreground">Groepschats</h1>
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Laden...</p>
       ) : !chats?.length ? (
