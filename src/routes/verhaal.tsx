@@ -58,12 +58,14 @@ function Story() {
             Na een verhuizing naar een nieuwe plaats, het stichten van een gezin en een drukke fulltime baan
             merkte ik iets wat veel mensen herkennen: spontaan nieuwe vrienden maken gaat niet meer vanzelf. En
             een partner ontmoeten al helemaal niet. Je agenda zit vol, je kent nog niemand in de straat, en de
-            avonden gaan op aan opruimen en slapen.
+            avonden gaan op aan opruimen en slapen. Voor je hobby's, je sport of je studie blijft nauwelijks
+            tijd over — laat staan voor de mensen die je daar zou kunnen ontmoeten.
           </p>
           <p>
-            Tegelijkertijd zag ik overal mensen die precies hetzelfde wilden: even koffie, een rondje
-            motorrijden, samen naar de dierenweide met de kids, of gewoon een eerste date zonder maandenlang
-            zwiepen op een app.
+            Tegelijkertijd zag ik overal mensen die precies hetzelfde wilden: even koffie of samen shoppen, een
+            rondje motorrijden of wandelen, met de kids naar de dierenweide, de speeltuin of het
+            pannenkoekenhuis, samen sporten of studeren — of gewoon een eerste date zonder maandenlang zwiepen
+            op een app.
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">De missie</h2>
           <p>
