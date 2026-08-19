@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
-import waag from "@/assets/waag-penguin.png";
+import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -102,7 +102,7 @@ function AuthPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-10">
       <Link to="/" className="mb-6 flex items-center gap-2">
-        <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-10 object-contain" />
+        <Dare2MeetLogo className="size-10" />
         <span className="text-2xl font-extrabold text-primary">Dare2Meet</span>
       </Link>
 

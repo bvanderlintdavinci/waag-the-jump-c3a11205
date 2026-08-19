@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import waag from "@/assets/waag-penguin.png";
+import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { Button } from "@/components/ui/button";
 
@@ -28,7 +28,7 @@ function Story() {
     <div className="min-h-screen bg-background">
       <header className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
         <Link to="/" className="flex items-center gap-2">
-          <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-8 object-contain" />
+          <Dare2MeetLogo className="size-8" />
           <span className="text-lg font-extrabold text-primary">Dare2Meet</span>
         </Link>
         <Link to="/auth">
