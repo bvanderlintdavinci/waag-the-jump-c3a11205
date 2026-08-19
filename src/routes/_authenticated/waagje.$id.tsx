@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
+import { openDirectChat } from "@/lib/direct-chat";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
@@ -94,6 +95,16 @@ function ActivityDetail() {
     }
     await qc.invalidateQueries();
     toast.success("Je hebt de sprong gewaagd!", { description: "De groepschat staat voor je klaar." });
+  }
+
+  async function messageMember(otherId: string, name: string) {
+    if (!user) return;
+    try {
+      const convId = await openDirectChat(user.id, otherId, name);
+      navigate({ to: "/chats/$id", params: { id: convId } });
+    } catch (e) {
+      toast.error("Bericht starten mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
   }
 
   return (
