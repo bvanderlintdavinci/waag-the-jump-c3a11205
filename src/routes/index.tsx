@@ -146,6 +146,10 @@ function Landing() {
       <footer className="border-t border-border bg-card">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
+            <Dare2MeetLogo className="size-8" />
+            <span className="font-bold text-foreground">Dare2Meet.nl</span>
+          </span>
+          <span className="inline-flex items-center gap-2">
             <Coffee className="size-4" />{" "}
             <a href="/api/public/doneer" className="underline hover:text-foreground">
               Steun ons met een kop koffie
