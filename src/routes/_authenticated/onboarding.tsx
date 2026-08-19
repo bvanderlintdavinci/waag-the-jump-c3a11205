@@ -21,9 +21,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({
     meta: [
-      { title: "Je profiel opbouwen — PinguinGo" },
+      { title: "Je profiel opbouwen — Dare2Meet" },
       { name: "description", content: "Vul je profiel aan zodat leden bij jou in de buurt je kunnen vinden." },
-      { property: "og:title", content: "Je profiel opbouwen — PinguinGo" },
+      { property: "og:title", content: "Je profiel opbouwen — Dare2Meet" },
       { property: "og:description", content: "Vertel wie je bent en waar je voor openstaat." },
     ],
   }),
@@ -116,7 +116,7 @@ function Onboarding() {
       return;
     }
     await qc.invalidateQueries();
-    toast.success("Welkom bij PinguinGo!");
+    toast.success("Welkom bij Dare2Meet!");
     navigate({ to: "/feed" });
   }
 

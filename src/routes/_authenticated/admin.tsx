@@ -13,10 +13,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin dashboard — PinguinGo" },
+      { title: "Admin dashboard — Dare2Meet" },
       { name: "description", content: "Beheer meldingen, blokkeerredenen, moderatielogs en verwijderverzoeken." },
-      { property: "og:title", content: "Admin dashboard — PinguinGo" },
-      { property: "og:description", content: "Moderatie en beheer van PinguinGo." },
+      { property: "og:title", content: "Admin dashboard — Dare2Meet" },
+      { property: "og:description", content: "Moderatie en beheer van Dare2Meet." },
       { name: "robots", content: "noindex" },
     ],
   }),

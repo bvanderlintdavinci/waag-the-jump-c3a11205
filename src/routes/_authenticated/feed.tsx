@@ -16,9 +16,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/feed")({
   head: () => ({
     meta: [
-      { title: "Waagjes bij jou in de buurt — PinguinGo" },
+      { title: "Waagjes bij jou in de buurt — Dare2Meet" },
       { name: "description", content: "Bekijk alle oproepjes voor activiteiten en dates bij jou in de buurt." },
-      { property: "og:title", content: "Waagjes bij jou in de buurt — PinguinGo" },
+      { property: "og:title", content: "Waagjes bij jou in de buurt — Dare2Meet" },
       { property: "og:description", content: "Ontdek wat er te doen is en waag de sprong." },
     ],
   }),

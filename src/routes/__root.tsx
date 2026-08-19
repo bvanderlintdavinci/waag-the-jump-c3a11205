@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PinguinGo — Waag de sprong en ontmoet maatjes" },
+      { title: "Dare2Meet — Waag de sprong en ga er samen op uit" },
       {
         name: "description",
         content:
-          "PinguinGo is het lokale sociale netwerk voor vrienden, gezamenlijke activiteiten en dating. Gratis, veilig en dichtbij.",
+          "Dare2Meet is het lokale sociale netwerk voor vrienden, gezamenlijke activiteiten en dating. Gratis basisaccount, premium functies eenmalig.",
       },
       { name: "theme-color", content: "#EA580C" },
-      { property: "og:title", content: "PinguinGo — Waag de sprong" },
+      { property: "og:title", content: "Dare2Meet — Waag de sprong" },
       { property: "og:description", content: "Ontmoet maatjes of een date bij jou in de buurt." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -97,8 +97,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/pinguingo-logo.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", href: "/pinguingo-logo.svg" },
+      { rel: "icon", href: "/dare2meet-logo.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/dare2meet-logo.svg" },
     ],
   }),
   shellComponent: RootShell,
