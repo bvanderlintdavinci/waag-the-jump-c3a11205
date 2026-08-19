@@ -16,9 +16,9 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/_authenticated/leden")({
   head: () => ({
     meta: [
-      { title: "Leden zoeken — PinguinGo" },
+      { title: "Leden zoeken — Dare2Meet" },
       { name: "description", content: "Zoek leden op plaatsnaam, afstand, intentie en interesses." },
-      { property: "og:title", content: "Leden zoeken — PinguinGo" },
+      { property: "og:title", content: "Leden zoeken — Dare2Meet" },
       { property: "og:description", content: "Vind maatjes of een date binnen jouw afstandscirkel." },
     ],
   }),

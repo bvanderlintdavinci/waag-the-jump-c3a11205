@@ -3,19 +3,19 @@ import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lu
 
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { EventAgenda } from "@/components/EventAgenda";
-import { PinguinGoLogo } from "@/components/PinguinGoLogo";
+import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PinguinGo.nl — Waggel uit je comfortzone en waag de sprong" },
+      { title: "Dare2Meet.nl — Waggel uit je comfortzone en waag de sprong" },
       {
         name: "description",
         content:
           "Lokaal sociaal netwerk voor vriendschap, samen dingen ondernemen en daten. Gratis, veilig en zonder abonnementen.",
       },
-      { property: "og:title", content: "PinguinGo.nl — Waag de sprong" },
+      { property: "og:title", content: "Dare2Meet.nl — Waag de sprong" },
       {
         property: "og:description",
         content: "Ontmoet maatjes of een date bij jou in de buurt. Gratis en zonder abonnementen.",
@@ -48,9 +48,9 @@ function Landing() {
     <div className="min-h-screen bg-background">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-3">
-          <PinguinGoLogo className="size-10" />
+          <Dare2MeetLogo className="size-10" />
           <span className="flex flex-col leading-tight">
-            <span className="text-xl font-extrabold tracking-tight text-foreground">PinguinGo</span>
+            <span className="text-xl font-extrabold tracking-tight text-foreground">Dare2Meet</span>
             <span className="text-[11px] font-medium text-muted-foreground">
               Basisaccount 100% gratis · Premium functies eenmalig
             </span>
@@ -76,7 +76,7 @@ function Landing() {
           </h1>
           <p className="mt-4 max-w-xl text-base text-muted-foreground">
             Pinguïns staan op de rand van de ijsberg te twijfelen — totdat de eerste springt en de rest volgt.
-            PinguinGo brengt mensen bij jou in de buurt samen: koffie, sporten, motorrijden, een uitje met de
+            Dare2Meet brengt mensen bij jou in de buurt samen: koffie, sporten, motorrijden, een uitje met de
             kids of een eerste date.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
@@ -149,7 +149,7 @@ function Landing() {
           <span className="inline-flex items-center gap-2">
             <Coffee className="size-4" /> Gratis initiatief · steun ons met een koffie
           </span>
-          <span>© {new Date().getFullYear()} PinguinGo.nl</span>
+          <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
       </footer>
     </div>

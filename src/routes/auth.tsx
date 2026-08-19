@@ -14,13 +14,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Inloggen of registreren — PinguinGo" },
+      { title: "Inloggen of registreren — Dare2Meet" },
       {
         name: "description",
-        content: "Maak gratis een PinguinGo-account en ontmoet maatjes of een date bij jou in de buurt.",
+        content: "Maak gratis een Dare2Meet-account en ontmoet maatjes of een date bij jou in de buurt.",
       },
-      { property: "og:title", content: "Inloggen of registreren — PinguinGo" },
-      { property: "og:description", content: "Gratis meedoen aan het lokale netwerk van PinguinGo." },
+      { property: "og:title", content: "Inloggen of registreren — Dare2Meet" },
+      { property: "og:description", content: "Gratis meedoen aan het lokale netwerk van Dare2Meet." },
     ],
   }),
   component: AuthPage,
@@ -103,7 +103,7 @@ function AuthPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-10">
       <Link to="/" className="mb-6 flex items-center gap-2">
         <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-10 object-contain" />
-        <span className="text-2xl font-extrabold text-primary">PinguinGo</span>
+        <span className="text-2xl font-extrabold text-primary">Dare2Meet</span>
       </Link>
 
       <div className="surface w-full max-w-md p-6">

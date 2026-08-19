@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export function PinguinGoLogo({ className }: { className?: string | undefined }) {
+export function Dare2MeetLogo({ className }: { className?: string | undefined }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,7 @@ export function PinguinGoLogo({ className }: { className?: string | undefined })
       width="100%"
       height="100%"
       role="img"
-      aria-label="PinguinGo logo"
+      aria-label="Dare2Meet logo"
       className={cn("size-9", className)}
     >
       <defs>

@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/verhaal")({
   head: () => ({
     meta: [
-      { title: "Ons verhaal — PinguinGo.nl" },
+      { title: "Ons verhaal — Dare2Meet.nl" },
       {
         name: "description",
         content:
-          "Waarom PinguinGo bestaat: na een verhuizing, een gezin en een drukke baan is nieuwe mensen ontmoeten niet vanzelfsprekend meer.",
+          "Waarom Dare2Meet bestaat: na een verhuizing, een gezin en een drukke baan is nieuwe mensen ontmoeten niet vanzelfsprekend meer.",
       },
-      { property: "og:title", content: "Ons verhaal — PinguinGo.nl" },
+      { property: "og:title", content: "Ons verhaal — Dare2Meet.nl" },
       {
         property: "og:description",
         content: "Een eerlijk, veilig en gratis initiatief om mensen samen dingen te laten ondernemen.",
@@ -29,7 +29,7 @@ function Story() {
       <header className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
         <Link to="/" className="flex items-center gap-2">
           <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-8 object-contain" />
-          <span className="text-lg font-extrabold text-primary">PinguinGo</span>
+          <span className="text-lg font-extrabold text-primary">Dare2Meet</span>
         </Link>
         <Link to="/auth">
           <Button size="sm">Meedoen</Button>
@@ -38,7 +38,7 @@ function Story() {
 
       <article className="mx-auto max-w-3xl px-4 pb-20">
         <h1 className="text-4xl font-extrabold leading-tight text-foreground">
-          Waarom ik PinguinGo begon
+          Waarom ik Dare2Meet begon
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
           Waggel uit je comfortzone, waag de sprong en ontmoet maatjes of een date.
@@ -67,7 +67,7 @@ function Story() {
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">De missie</h2>
           <p>
-            PinguinGo is een eerlijk, veilig en gratis initiatief om mensen uit hun comfortzone te laten stappen
+            Dare2Meet is een eerlijk, veilig en gratis initiatief om mensen uit hun comfortzone te laten stappen
             en bij elkaar te brengen. Niet via eindeloos chatten op de bank, maar door samen dingen te
             ondernemen. Iemand moet als eerste van de ijsberg springen — de rest volgt vanzelf.
           </p>
