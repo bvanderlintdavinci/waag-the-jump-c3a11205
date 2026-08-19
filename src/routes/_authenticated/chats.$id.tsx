@@ -15,9 +15,9 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/_authenticated/chats/$id")({
   head: () => ({
     meta: [
-      { title: "Gesprek — Dare2Meet" },
+      { title: "Gesprek | Dare2Meet" },
       { name: "description", content: "Besloten gesprek tussen waaggenoten." },
-      { property: "og:title", content: "Gesprek — Dare2Meet" },
+      { property: "og:title", content: "Gesprek | Dare2Meet" },
       { property: "og:description", content: "Praat verder met je waaggenoten." },
     ],
   }),

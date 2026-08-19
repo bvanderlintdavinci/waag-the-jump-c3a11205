@@ -11,9 +11,9 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/_authenticated/chats/")({
   head: () => ({
     meta: [
-      { title: "Chats — Dare2Meet" },
+      { title: "Chats | Dare2Meet" },
       { name: "description", content: "Je 1-op-1 gesprekken en groepschats van waagjes." },
-      { property: "og:title", content: "Chats — Dare2Meet" },
+      { property: "og:title", content: "Chats | Dare2Meet" },
       { property: "og:description", content: "Praat verder met je waaggenoten." },
     ],
   }),

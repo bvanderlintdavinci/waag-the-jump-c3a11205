@@ -10,9 +10,9 @@ import { UserAvatar } from "@/components/UserAvatar";
 export const Route = createFileRoute("/_authenticated/berichten")({
   head: () => ({
     meta: [
-      { title: "Berichten — Dare2Meet" },
+      { title: "Berichten | Dare2Meet" },
       { name: "description", content: "Je persoonlijke 1-op-1 gesprekken met andere leden." },
-      { property: "og:title", content: "Berichten — Dare2Meet" },
+      { property: "og:title", content: "Berichten | Dare2Meet" },
       { property: "og:description", content: "Stuur een persoonlijk bericht naar je waaggenoten." },
     ],
   }),

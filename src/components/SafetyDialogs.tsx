@@ -31,7 +31,7 @@ export function BlockDialog({ userId, userName }: { userId: string; userName: st
   async function submit() {
     if (!user) return;
     setSaving(true);
-    const fullReason = details.trim() ? `${reason} — ${details.trim()}` : reason;
+    const fullReason = details.trim() ? `${reason} | ${details.trim()}` : reason;
     const { error } = await supabase
       .from("blocks")
       .insert({ blocker_id: user.id, blocked_id: userId, reason: fullReason });
