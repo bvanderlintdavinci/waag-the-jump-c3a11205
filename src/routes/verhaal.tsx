@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/verhaal")({
   head: () => ({
     meta: [
-      { title: "Ons verhaal — Dare2Meet.nl" },
+      { title: "Ons verhaal | Dare2Meet.nl" },
       {
         name: "description",
         content:
           "Waarom Dare2Meet bestaat: na een verhuizing, een gezin en een drukke baan is nieuwe mensen ontmoeten niet vanzelfsprekend meer.",
       },
-      { property: "og:title", content: "Ons verhaal — Dare2Meet.nl" },
+      { property: "og:title", content: "Ons verhaal | Dare2Meet.nl" },
       {
         property: "og:description",
         content: "Een eerlijk en veilig initiatief om mensen samen dingen te laten ondernemen.",
@@ -59,24 +59,24 @@ function Story() {
             merkte ik iets wat veel mensen herkennen: spontaan nieuwe vrienden maken gaat niet meer vanzelf. En
             een partner ontmoeten al helemaal niet. Je agenda zit vol, je kent nog niemand in de straat, en de
             avonden gaan op aan opruimen en slapen. Voor je hobby's, je sport of je studie blijft nauwelijks
-            tijd over — laat staan voor de mensen die je daar zou kunnen ontmoeten.
+            tijd over, laat staan voor de mensen die je daar zou kunnen ontmoeten.
           </p>
           <p>
             Tegelijkertijd zag ik overal mensen die precies hetzelfde wilden: even koffie of samen shoppen, een
             rondje motorrijden of wandelen, met de kids naar de dierenweide, de speeltuin of het
-            pannenkoekenhuis, samen sporten of studeren — of gewoon een eerste date zonder maandenlang zwiepen
+            pannenkoekenhuis, samen sporten of studeren, of gewoon een eerste date zonder maandenlang zwiepen
             op een app.
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">De missie</h2>
           <p>
             Dare2Meet is een eerlijk en veilig initiatief om mensen uit hun comfortzone te laten stappen
             en bij elkaar te brengen. Niet via eindeloos chatten op de bank, maar door samen dingen te
-            ondernemen. Iemand moet als eerste van de ijsberg springen — de rest volgt vanzelf.
+            ondernemen. Iemand moet als eerste van de ijsberg springt. De rest volgt vanzelf.
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">Transparantie</h2>
           <p>
             Geen verplichte maandelijkse abonnementen en geen verborgen kosten. Een basisaccount met de
-            kernfuncties is gratis; een aantal extra functies is eenmalig te ontgrendelen — daar draait het
+            kernfuncties is gratis; een aantal extra functies is eenmalig te ontgrendelen. Daar draait het
             platform op. Wil je ons daarnaast steunen? Doneer vrijwillig{" "}
             <a href="/api/public/doneer" className="font-semibold text-primary underline">
               een kop koffie
