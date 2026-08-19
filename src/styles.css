@@ -25,6 +25,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -157,6 +158,11 @@
   h3 {
     letter-spacing: -0.02em;
   }
+}
+
+@utility gradient-primary {
+  background-image: var(--gradient-primary);
+  color: var(--color-primary-foreground);
 }
 
 @utility surface {
