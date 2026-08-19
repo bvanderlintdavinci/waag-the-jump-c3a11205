@@ -14,12 +14,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Inloggen of registreren — Dare2Meet" },
+      { title: "Inloggen of registreren | Dare2Meet" },
       {
         name: "description",
         content: "Maak een gratis Dare2Meet-basisaccount en ontmoet maatjes of een date bij jou in de buurt.",
       },
-      { property: "og:title", content: "Inloggen of registreren — Dare2Meet" },
+      { property: "og:title", content: "Inloggen of registreren | Dare2Meet" },
       { property: "og:description", content: "Waag de sprong en ga er samen op uit met Dare2Meet." },
     ],
   }),

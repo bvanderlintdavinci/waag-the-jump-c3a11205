@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dare2Meet.nl — Waag de sprong en ga er samen op uit" },
+      { title: "Dare2Meet.nl | Waag de sprong en ga er samen op uit" },
       {
         name: "description",
         content:
           "Lokaal sociaal netwerk voor vriendschap, samen dingen ondernemen en daten. Gratis basisaccount, premium functies eenmalig.",
       },
-      { property: "og:title", content: "Dare2Meet.nl — Waag de sprong" },
+      { property: "og:title", content: "Dare2Meet.nl | Waag de sprong" },
       {
         property: "og:description",
         content: "Ontmoet maatjes of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
@@ -72,7 +72,7 @@ function Landing() {
             <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
           </span>
           <h1 className="mt-4 text-4xl font-extrabold leading-tight text-foreground sm:text-5xl">
-            Dare2Meet — Waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
+            Dare2Meet: waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
           </h1>
           <p className="mt-4 max-w-xl text-base text-muted-foreground">
             Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een Waagje, haak

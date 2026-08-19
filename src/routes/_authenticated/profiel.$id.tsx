@@ -17,9 +17,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/profiel/$id")({
   head: () => ({
     meta: [
-      { title: "Profiel — Dare2Meet" },
+      { title: "Profiel | Dare2Meet" },
       { name: "description", content: "Bekijk dit profiel en stuur een chatverzoek." },
-      { property: "og:title", content: "Profiel — Dare2Meet" },
+      { property: "og:title", content: "Profiel | Dare2Meet" },
       { property: "og:description", content: "Bekijk dit lid van Dare2Meet." },
     ],
   }),

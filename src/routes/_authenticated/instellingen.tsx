@@ -34,9 +34,9 @@ import {
 export const Route = createFileRoute("/_authenticated/instellingen")({
   head: () => ({
     meta: [
-      { title: "Account & instellingen — Dare2Meet" },
+      { title: "Account & instellingen | Dare2Meet" },
       { name: "description", content: "Beheer je profiel, geblokkeerde leden, profielbezoekers en je account." },
-      { property: "og:title", content: "Account & instellingen — Dare2Meet" },
+      { property: "og:title", content: "Account & instellingen | Dare2Meet" },
       { property: "og:description", content: "Beheer je Dare2Meet-account en privacy-instellingen." },
     ],
   }),

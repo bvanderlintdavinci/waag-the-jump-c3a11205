@@ -19,9 +19,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export const Route = createFileRoute("/_authenticated/waagje/nieuw")({
   head: () => ({
     meta: [
-      { title: "Een Waagje plaatsen — Dare2Meet" },
+      { title: "Een Waagje plaatsen | Dare2Meet" },
       { name: "description", content: "Plaats een oproepje voor een activiteit of date bij jou in de buurt." },
-      { property: "og:title", content: "Een Waagje plaatsen — Dare2Meet" },
+      { property: "og:title", content: "Een Waagje plaatsen | Dare2Meet" },
       { property: "og:description", content: "Nodig anderen uit om samen iets te ondernemen." },
     ],
   }),

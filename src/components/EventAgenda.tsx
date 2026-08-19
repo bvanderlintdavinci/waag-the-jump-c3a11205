@@ -10,6 +10,15 @@ import musicImg from "@/assets/event-music.jpg";
 import motorImg from "@/assets/event-motor.jpg";
 import natureImg from "@/assets/event-nature.jpg";
 import socialImg from "@/assets/event-social.jpg";
+import beachImg from "@/assets/event-beach.jpg";
+import foodImg from "@/assets/event-food.jpg";
+import sportImg from "@/assets/event-sport.jpg";
+import familyImg from "@/assets/event-family.jpg";
+import marketImg from "@/assets/event-market.jpg";
+import craftImg from "@/assets/event-craft.jpg";
+import tastingImg from "@/assets/event-tasting.jpg";
+import shoppingImg from "@/assets/event-shopping.jpg";
+import pancakeImg from "@/assets/event-pancake.jpg";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
@@ -25,6 +34,15 @@ const IMAGES: Record<string, string> = {
   motor: motorImg,
   nature: natureImg,
   social: socialImg,
+  beach: beachImg,
+  food: foodImg,
+  sport: sportImg,
+  family: familyImg,
+  market: marketImg,
+  craft: craftImg,
+  tasting: tastingImg,
+  shopping: shoppingImg,
+  pancake: pancakeImg,
 };
 
 type DemoAttendee = { name: string };
