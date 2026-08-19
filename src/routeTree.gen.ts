@@ -10,33 +10,193 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as VerhaalRouteImport } from './routes/verhaal'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
+import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
+import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
+import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
+import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
+import { Route as AuthenticatedWaagjeIdRouteImport } from './routes/_authenticated/waagje.$id'
+import { Route as AuthenticatedWaagjeNieuwRouteImport } from './routes/_authenticated/waagje.nieuw'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerhaalRoute = VerhaalRouteImport.update({
+  id: '/verhaal',
+  path: '/verhaal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedInstellingenRoute =
+  AuthenticatedInstellingenRouteImport.update({
+    id: '/instellingen',
+    path: '/instellingen',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLedenRoute = AuthenticatedLedenRouteImport.update({
+  id: '/leden',
+  path: '/leden',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
+  id: '/chats/',
+  path: '/chats/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatsIdRoute = AuthenticatedChatsIdRouteImport.update({
+  id: '/chats/$id',
+  path: '/chats/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfielIdRoute = AuthenticatedProfielIdRouteImport.update({
+  id: '/profiel/$id',
+  path: '/profiel/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedWaagjeIdRoute = AuthenticatedWaagjeIdRouteImport.update({
+  id: '/waagje/$id',
+  path: '/waagje/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedWaagjeNieuwRoute =
+  AuthenticatedWaagjeNieuwRouteImport.update({
+    id: '/waagje/nieuw',
+    path: '/waagje/nieuw',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/verhaal': typeof VerhaalRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/feed': typeof AuthenticatedFeedRoute
+  '/instellingen': typeof AuthenticatedInstellingenRoute
+  '/leden': typeof AuthenticatedLedenRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/profiel/$id': typeof AuthenticatedProfielIdRoute
+  '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
+  '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/verhaal': typeof VerhaalRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/feed': typeof AuthenticatedFeedRoute
+  '/instellingen': typeof AuthenticatedInstellingenRoute
+  '/leden': typeof AuthenticatedLedenRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/profiel/$id': typeof AuthenticatedProfielIdRoute
+  '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
+  '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/chats': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/verhaal': typeof VerhaalRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/feed': typeof AuthenticatedFeedRoute
+  '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
+  '/_authenticated/leden': typeof AuthenticatedLedenRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
+  '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
+  '/_authenticated/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/verhaal'
+    | '/admin'
+    | '/feed'
+    | '/instellingen'
+    | '/leden'
+    | '/onboarding'
+    | '/chats/$id'
+    | '/profiel/$id'
+    | '/waagje/$id'
+    | '/waagje/nieuw'
+    | '/chats/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/verhaal'
+    | '/admin'
+    | '/feed'
+    | '/instellingen'
+    | '/leden'
+    | '/onboarding'
+    | '/chats/$id'
+    | '/profiel/$id'
+    | '/waagje/$id'
+    | '/waagje/nieuw'
+    | '/chats'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/verhaal'
+    | '/_authenticated/admin'
+    | '/_authenticated/feed'
+    | '/_authenticated/instellingen'
+    | '/_authenticated/leden'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/chats/$id'
+    | '/_authenticated/profiel/$id'
+    | '/_authenticated/waagje/$id'
+    | '/_authenticated/waagje/nieuw'
+    | '/_authenticated/chats/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  VerhaalRoute: typeof VerhaalRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +208,134 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verhaal': {
+      id: '/verhaal'
+      path: '/verhaal'
+      fullPath: '/verhaal'
+      preLoaderRoute: typeof VerhaalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/feed': {
+      id: '/_authenticated/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof AuthenticatedFeedRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/instellingen': {
+      id: '/_authenticated/instellingen'
+      path: '/instellingen'
+      fullPath: '/instellingen'
+      preLoaderRoute: typeof AuthenticatedInstellingenRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/leden': {
+      id: '/_authenticated/leden'
+      path: '/leden'
+      fullPath: '/leden'
+      preLoaderRoute: typeof AuthenticatedLedenRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chats/': {
+      id: '/_authenticated/chats/'
+      path: '/chats'
+      fullPath: '/chats/'
+      preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chats/$id': {
+      id: '/_authenticated/chats/$id'
+      path: '/chats/$id'
+      fullPath: '/chats/$id'
+      preLoaderRoute: typeof AuthenticatedChatsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profiel/$id': {
+      id: '/_authenticated/profiel/$id'
+      path: '/profiel/$id'
+      fullPath: '/profiel/$id'
+      preLoaderRoute: typeof AuthenticatedProfielIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/waagje/$id': {
+      id: '/_authenticated/waagje/$id'
+      path: '/waagje/$id'
+      fullPath: '/waagje/$id'
+      preLoaderRoute: typeof AuthenticatedWaagjeIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/waagje/nieuw': {
+      id: '/_authenticated/waagje/nieuw'
+      path: '/waagje/nieuw'
+      fullPath: '/waagje/nieuw'
+      preLoaderRoute: typeof AuthenticatedWaagjeNieuwRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
+  AuthenticatedInstellingenRoute: typeof AuthenticatedInstellingenRoute
+  AuthenticatedLedenRoute: typeof AuthenticatedLedenRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedChatsIdRoute: typeof AuthenticatedChatsIdRoute
+  AuthenticatedProfielIdRoute: typeof AuthenticatedProfielIdRoute
+  AuthenticatedWaagjeIdRoute: typeof AuthenticatedWaagjeIdRoute
+  AuthenticatedWaagjeNieuwRoute: typeof AuthenticatedWaagjeNieuwRoute
+  AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedFeedRoute: AuthenticatedFeedRoute,
+  AuthenticatedInstellingenRoute: AuthenticatedInstellingenRoute,
+  AuthenticatedLedenRoute: AuthenticatedLedenRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedChatsIdRoute: AuthenticatedChatsIdRoute,
+  AuthenticatedProfielIdRoute: AuthenticatedProfielIdRoute,
+  AuthenticatedWaagjeIdRoute: AuthenticatedWaagjeIdRoute,
+  AuthenticatedWaagjeNieuwRoute: AuthenticatedWaagjeNieuwRoute,
+  AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  VerhaalRoute: VerhaalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
