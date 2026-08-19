@@ -24,6 +24,7 @@ import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
 import { Route as AuthenticatedWaagjeIdRouteImport } from './routes/_authenticated/waagje.$id'
 import { Route as AuthenticatedWaagjeNieuwRouteImport } from './routes/_authenticated/waagje.nieuw'
+import { Route as ApiPublicDoneerRouteImport } from './routes/api/public/doneer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -101,6 +102,11 @@ const AuthenticatedWaagjeNieuwRoute =
     path: '/waagje/nieuw',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicDoneerRoute = ApiPublicDoneerRouteImport.update({
+  id: '/api/public/doneer',
+  path: '/api/public/doneer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
   '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
   '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesById {
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
   '/_authenticated/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
+  '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRouteTypes {
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/profiel/$id'
     | '/waagje/$id'
     | '/waagje/nieuw'
+    | '/api/public/doneer'
     | '/chats/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/profiel/$id'
     | '/waagje/$id'
     | '/waagje/nieuw'
+    | '/api/public/doneer'
     | '/chats'
   id:
     | '__root__'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profiel/$id'
     | '/_authenticated/waagje/$id'
     | '/_authenticated/waagje/nieuw'
+    | '/api/public/doneer'
     | '/_authenticated/chats/'
   fileRoutesById: FileRoutesById
 }
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   VerhaalRoute: typeof VerhaalRoute
+  ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -318,6 +331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWaagjeNieuwRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/doneer': {
+      id: '/api/public/doneer'
+      path: '/api/public/doneer'
+      fullPath: '/api/public/doneer'
+      preLoaderRoute: typeof ApiPublicDoneerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -357,6 +377,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   VerhaalRoute: VerhaalRoute,
+  ApiPublicDoneerRoute: ApiPublicDoneerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

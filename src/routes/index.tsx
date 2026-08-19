@@ -9,16 +9,16 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dare2Meet.nl — Waggel uit je comfortzone en waag de sprong" },
+      { title: "Dare2Meet.nl — Waag de sprong en ga er samen op uit" },
       {
         name: "description",
         content:
-          "Lokaal sociaal netwerk voor vriendschap, samen dingen ondernemen en daten. Gratis, veilig en zonder abonnementen.",
+          "Lokaal sociaal netwerk voor vriendschap, samen dingen ondernemen en daten. Gratis basisaccount, premium functies eenmalig.",
       },
       { property: "og:title", content: "Dare2Meet.nl — Waag de sprong" },
       {
         property: "og:description",
-        content: "Ontmoet maatjes of een date bij jou in de buurt. Gratis en zonder abonnementen.",
+        content: "Ontmoet maatjes of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
       },
     ],
   }),
@@ -69,15 +69,14 @@ function Landing() {
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
-            <Sparkles className="size-3.5" /> 100% gratis · geen abonnementen
+            <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
           </span>
           <h1 className="mt-4 text-4xl font-extrabold leading-tight text-foreground sm:text-5xl">
-            Waggel uit je comfortzone, waag de sprong en ontmoet maatjes of een date!
+            Dare2Meet — Waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
           </h1>
           <p className="mt-4 max-w-xl text-base text-muted-foreground">
-            Pinguïns staan op de rand van de ijsberg te twijfelen — totdat de eerste springt en de rest volgt.
-            Dare2Meet brengt mensen bij jou in de buurt samen: koffie, sporten, motorrijden, een uitje met de
-            kids of een eerste date.
+            Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een Waagje, haak
+            aan bij uitjes in de 3-weken agenda en ontmoet maatjes of een date.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link to="/auth">
@@ -147,7 +146,10 @@ function Landing() {
       <footer className="border-t border-border bg-card">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
-            <Coffee className="size-4" /> Gratis initiatief · steun ons met een koffie
+            <Coffee className="size-4" />{" "}
+            <a href="/api/public/doneer" className="underline hover:text-foreground">
+              Steun ons met een kop koffie
+            </a>
           </span>
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>

@@ -16,7 +16,7 @@ export const Route = createFileRoute("/verhaal")({
       { property: "og:title", content: "Ons verhaal — Dare2Meet.nl" },
       {
         property: "og:description",
-        content: "Een eerlijk, veilig en gratis initiatief om mensen samen dingen te laten ondernemen.",
+        content: "Een eerlijk en veilig initiatief om mensen samen dingen te laten ondernemen.",
       },
     ],
   }),
@@ -67,15 +67,19 @@ function Story() {
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">De missie</h2>
           <p>
-            Dare2Meet is een eerlijk, veilig en gratis initiatief om mensen uit hun comfortzone te laten stappen
+            Dare2Meet is een eerlijk en veilig initiatief om mensen uit hun comfortzone te laten stappen
             en bij elkaar te brengen. Niet via eindeloos chatten op de bank, maar door samen dingen te
             ondernemen. Iemand moet als eerste van de ijsberg springen — de rest volgt vanzelf.
           </p>
           <h2 className="pt-2 text-2xl font-extrabold">Transparantie</h2>
           <p>
-            Geen verplichte maandelijkse abonnementen, geen premium-accounts en geen verborgen kosten. Alle
-            kernfuncties zijn en blijven 100% gratis voor iedereen. Wil je het platform steunen? Dan kun je
-            vrijwillig een koffie doneren. Dat is alles.
+            Geen verplichte maandelijkse abonnementen en geen verborgen kosten. Een basisaccount met de
+            kernfuncties is gratis; een aantal extra functies is eenmalig te ontgrendelen — daar draait het
+            platform op. Wil je ons daarnaast steunen? Doneer vrijwillig{" "}
+            <a href="/api/public/doneer" className="font-semibold text-primary underline">
+              een kop koffie
+            </a>
+            . Dat is alles.
           </p>
         </div>
 

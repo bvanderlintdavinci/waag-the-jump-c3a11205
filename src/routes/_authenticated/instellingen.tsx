@@ -365,11 +365,13 @@ function Visitors() {
         <div className="min-w-52 flex-1">
           <p className="font-bold text-foreground">Buy Me a Coffee</p>
           <p className="text-sm text-muted-foreground">
-            Dare2Meet is en blijft gratis. Een vrijwillige donatie van € 2,99 houdt het draaiend.
+            Het basisaccount is gratis. Een vrijwillige donatie houdt Dare2Meet draaiend.
           </p>
         </div>
-        <Button onClick={() => toast.info("Betaalprovider koppelen", { description: "Stripe of Mollie moet nog gekoppeld worden om betalingen live te zetten." })}>
-          Doneer € 2,99
+        <Button asChild>
+          <a href="/api/public/doneer" target="_blank" rel="noreferrer noopener">
+            Doneer een koffie
+          </a>
         </Button>
       </div>
 

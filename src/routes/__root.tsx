@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dare2Meet — Waag de sprong en ontmoet maatjes" },
+      { title: "Dare2Meet — Waag de sprong en ga er samen op uit" },
       {
         name: "description",
         content:
-          "Dare2Meet is het lokale sociale netwerk voor vrienden, gezamenlijke activiteiten en dating. Gratis, veilig en dichtbij.",
+          "Dare2Meet is het lokale sociale netwerk voor vrienden, gezamenlijke activiteiten en dating. Gratis basisaccount, premium functies eenmalig.",
       },
       { name: "theme-color", content: "#EA580C" },
       { property: "og:title", content: "Dare2Meet — Waag de sprong" },
