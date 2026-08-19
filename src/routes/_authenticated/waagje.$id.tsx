@@ -38,7 +38,9 @@ function ActivityDetail() {
         .from("activity_participants")
         .select("user_id")
         .eq("activity_id", id);
-      const ids = [...new Set([activity.creator_id, ...(participants ?? []).map((p) => p.user_id)])];
+      const ids = [
+        ...new Set([activity.creator_id, ...(participants ?? []).map((p) => p.user_id)]),
+      ].filter((v): v is string => !!v);
       const { data: profiles } = await supabase
         .from("profiles")
         .select("id, first_name, avatar_url, city")
