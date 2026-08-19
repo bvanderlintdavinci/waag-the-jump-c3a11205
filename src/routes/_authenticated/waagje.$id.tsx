@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
+import { openDirectChat } from "@/lib/direct-chat";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
@@ -38,7 +39,9 @@ function ActivityDetail() {
         .from("activity_participants")
         .select("user_id")
         .eq("activity_id", id);
-      const ids = [...new Set([activity.creator_id, ...(participants ?? []).map((p) => p.user_id)])];
+      const ids = [
+        ...new Set([activity.creator_id, ...(participants ?? []).map((p) => p.user_id)]),
+      ].filter((v): v is string => !!v);
       const { data: profiles } = await supabase
         .from("profiles")
         .select("id, first_name, avatar_url, city")
@@ -92,6 +95,16 @@ function ActivityDetail() {
     }
     await qc.invalidateQueries();
     toast.success("Je hebt de sprong gewaagd!", { description: "De groepschat staat voor je klaar." });
+  }
+
+  async function messageMember(otherId: string, name: string) {
+    if (!user) return;
+    try {
+      const convId = await openDirectChat(user.id, otherId, name);
+      navigate({ to: "/chats/$id", params: { id: convId } });
+    } catch (e) {
+      toast.error("Bericht starten mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
   }
 
   return (
@@ -153,11 +166,18 @@ function ActivityDetail() {
         {profiles
           .filter((p) => participants.includes(p.id))
           .map((p) => (
-            <Link key={p.id} to="/profiel/$id" params={{ id: p.id }} className="surface flex items-center gap-3 p-3">
-              <UserAvatar path={p.avatar_url} name={p.first_name} className="size-9" />
-              <span className="text-sm font-semibold text-foreground">{p.first_name}</span>
-              <span className="text-xs text-muted-foreground">{p.city}</span>
-            </Link>
+            <div key={p.id} className="surface flex items-center gap-3 p-3">
+              <Link to="/profiel/$id" params={{ id: p.id }} className="flex min-w-0 flex-1 items-center gap-3">
+                <UserAvatar path={p.avatar_url} name={p.first_name} className="size-9" />
+                <span className="truncate text-sm font-semibold text-foreground">{p.first_name}</span>
+                <span className="truncate text-xs text-muted-foreground">{p.city}</span>
+              </Link>
+              {user && p.id !== user.id ? (
+                <Button size="sm" variant="outline" onClick={() => void messageMember(p.id, p.first_name)}>
+                  <MessageCircle /> Bericht sturen
+                </Button>
+              ) : null}
+            </div>
           ))}
       </div>
     </AppShell>

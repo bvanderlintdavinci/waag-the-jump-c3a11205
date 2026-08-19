@@ -1,16 +1,17 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarHeart, LogOut, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
+import { CalendarHeart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
 
-import waag from "@/assets/waag-penguin.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
+import { PinguinGoLogo } from "@/components/PinguinGoLogo";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 
 const NAV = [
   { to: "/feed", label: "Waagjes", icon: CalendarHeart },
   { to: "/leden", label: "Leden", icon: Users },
+  { to: "/berichten", label: "Berichten", icon: Mail },
   { to: "/chats", label: "Chats", icon: MessageCircle },
   { to: "/instellingen", label: "Account", icon: Settings },
 ] as const;
@@ -33,8 +34,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
           <Link to="/feed" className="flex items-center gap-2">
-            <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-8 object-contain" />
-            <span className="text-lg font-extrabold tracking-tight text-primary">PinguinGo</span>
+            <PinguinGoLogo className="size-9" />
+            <span className="text-lg font-extrabold tracking-tight text-foreground">PinguinGo</span>
           </Link>
           <nav className="ml-auto hidden items-center gap-1 sm:flex">
             {NAV.map((item) => (

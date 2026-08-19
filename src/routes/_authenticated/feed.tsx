@@ -37,17 +37,19 @@ export function useActivitiesFeed() {
         .order("starts_at", { ascending: true })
         .limit(200);
       if (error) throw error;
-      const ids = [...new Set((activities ?? []).map((a) => a.creator_id))];
+      const ids = [...new Set((activities ?? []).map((a) => a.creator_id))].filter(
+        (v): v is string => !!v,
+      );
       const { data: profiles } = ids.length
         ? await supabase.from("profiles").select("id, first_name, avatar_url, city").in("id", ids)
         : { data: [] };
       const { data: parts } = await supabase.from("activity_participants").select("activity_id, user_id");
       const map = new Map((profiles ?? []).map((p) => [p.id, p]));
       return (activities ?? [])
-        .filter((a) => map.has(a.creator_id))
+        .filter((a) => !!a.creator_id && map.has(a.creator_id))
         .map((a) => ({
           ...a,
-          creator: map.get(a.creator_id)!,
+          creator: map.get(a.creator_id!)!,
           participants: (parts ?? []).filter((p) => p.activity_id === a.id).length,
         }));
     },

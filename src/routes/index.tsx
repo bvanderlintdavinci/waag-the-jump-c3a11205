@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lucide-react";
 
 import heroImage from "@/assets/iceberg-leap.jpg";
-import waag from "@/assets/waag-penguin.png";
+import { EventAgenda } from "@/components/EventAgenda";
+import { PinguinGoLogo } from "@/components/PinguinGoLogo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -46,9 +47,14 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
-        <div className="flex items-center gap-2">
-          <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-9 object-contain" />
-          <span className="text-xl font-extrabold tracking-tight text-primary">PinguinGo</span>
+        <div className="flex items-center gap-3">
+          <PinguinGoLogo className="size-10" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-xl font-extrabold tracking-tight text-foreground">PinguinGo</span>
+            <span className="text-[11px] font-medium text-muted-foreground">
+              Basisaccount 100% gratis · Premium functies eenmalig
+            </span>
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <Link to="/verhaal" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
@@ -92,6 +98,8 @@ function Landing() {
           className="w-full rounded-xl border border-border shadow-[var(--shadow-lift)]"
         />
       </section>
+
+      <EventAgenda />
 
       <section className="mx-auto max-w-5xl px-4 py-14">
         <div className="grid gap-4 sm:grid-cols-3">

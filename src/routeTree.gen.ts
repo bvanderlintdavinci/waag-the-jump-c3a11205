@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedBerichtenRouteImport } from './routes/_authenticated/berichten'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
 import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
@@ -46,6 +47,11 @@ const VerhaalRoute = VerhaalRouteImport.update({
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBerichtenRoute = AuthenticatedBerichtenRouteImport.update({
+  id: '/berichten',
+  path: '/berichten',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/berichten': typeof AuthenticatedBerichtenRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/berichten': typeof AuthenticatedBerichtenRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/berichten': typeof AuthenticatedBerichtenRoute
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
   '/_authenticated/leden': typeof AuthenticatedLedenRoute
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/verhaal'
     | '/admin'
+    | '/berichten'
     | '/feed'
     | '/instellingen'
     | '/leden'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/verhaal'
     | '/admin'
+    | '/berichten'
     | '/feed'
     | '/instellingen'
     | '/leden'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/verhaal'
     | '/_authenticated/admin'
+    | '/_authenticated/berichten'
     | '/_authenticated/feed'
     | '/_authenticated/instellingen'
     | '/_authenticated/leden'
@@ -234,6 +246,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/berichten': {
+      id: '/_authenticated/berichten'
+      path: '/berichten'
+      fullPath: '/berichten'
+      preLoaderRoute: typeof AuthenticatedBerichtenRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/feed': {
@@ -304,6 +323,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedBerichtenRoute: typeof AuthenticatedBerichtenRoute
   AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedInstellingenRoute: typeof AuthenticatedInstellingenRoute
   AuthenticatedLedenRoute: typeof AuthenticatedLedenRoute
@@ -317,6 +337,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedBerichtenRoute: AuthenticatedBerichtenRoute,
   AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedInstellingenRoute: AuthenticatedInstellingenRoute,
   AuthenticatedLedenRoute: AuthenticatedLedenRoute,
