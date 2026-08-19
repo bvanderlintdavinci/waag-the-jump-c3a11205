@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
+import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
@@ -41,11 +43,22 @@ const VerhaalRoute = VerhaalRouteImport.update({
   path: '/verhaal',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
   id: '/feed',
   path: '/feed',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedInstellingenRoute =
+  AuthenticatedInstellingenRouteImport.update({
+    id: '/instellingen',
+    path: '/instellingen',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedLedenRoute = AuthenticatedLedenRouteImport.update({
   id: '/leden',
   path: '/leden',
@@ -87,7 +100,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/feed': typeof AuthenticatedFeedRoute
+  '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
@@ -100,7 +115,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/feed': typeof AuthenticatedFeedRoute
+  '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
@@ -115,7 +132,9 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/verhaal': typeof VerhaalRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
+  '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
   '/_authenticated/leden': typeof AuthenticatedLedenRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
@@ -130,7 +149,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/verhaal'
+    | '/admin'
     | '/feed'
+    | '/instellingen'
     | '/leden'
     | '/onboarding'
     | '/chats/$id'
@@ -143,7 +164,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/verhaal'
+    | '/admin'
     | '/feed'
+    | '/instellingen'
     | '/leden'
     | '/onboarding'
     | '/chats/$id'
@@ -157,7 +180,9 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/verhaal'
+    | '/_authenticated/admin'
     | '/_authenticated/feed'
+    | '/_authenticated/instellingen'
     | '/_authenticated/leden'
     | '/_authenticated/onboarding'
     | '/_authenticated/chats/$id'
@@ -204,11 +229,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerhaalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/feed': {
       id: '/_authenticated/feed'
       path: '/feed'
       fullPath: '/feed'
       preLoaderRoute: typeof AuthenticatedFeedRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/instellingen': {
+      id: '/_authenticated/instellingen'
+      path: '/instellingen'
+      fullPath: '/instellingen'
+      preLoaderRoute: typeof AuthenticatedInstellingenRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/leden': {
@@ -264,7 +303,9 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
+  AuthenticatedInstellingenRoute: typeof AuthenticatedInstellingenRoute
   AuthenticatedLedenRoute: typeof AuthenticatedLedenRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedChatsIdRoute: typeof AuthenticatedChatsIdRoute
@@ -275,7 +316,9 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedFeedRoute: AuthenticatedFeedRoute,
+  AuthenticatedInstellingenRoute: AuthenticatedInstellingenRoute,
   AuthenticatedLedenRoute: AuthenticatedLedenRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedChatsIdRoute: AuthenticatedChatsIdRoute,

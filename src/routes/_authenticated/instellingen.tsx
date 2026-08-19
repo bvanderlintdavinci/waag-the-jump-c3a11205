@@ -84,7 +84,8 @@ function ProfileForm() {
 
   if (!profile) return <p className="text-sm text-muted-foreground">Laden...</p>;
 
-  const val = (key: keyof typeof profile) => form[key as string] ?? ((profile[key] as string | null) ?? "");
+  const val = (key: string) =>
+    form[key] ?? ((profile as unknown as Record<string, string | null>)[key] ?? "");
   const currentInterests = interests ?? profile.interests ?? [];
   const currentBadge = badge ?? profile.lgbtq_badge;
   const currentConsent = consent ?? profile.lgbtq_consent;
