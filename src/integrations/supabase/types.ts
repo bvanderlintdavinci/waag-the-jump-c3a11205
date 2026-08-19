@@ -19,9 +19,13 @@ export type Database = {
           cancelled: boolean
           category: string
           created_at: string
-          creator_id: string
+          creator_id: string | null
+          demo_attendees: Json
           description: string
+          host_name: string | null
           id: string
+          image_key: string
+          is_public: boolean
           kind: Database["public"]["Enums"]["activity_kind"]
           lat: number | null
           lng: number | null
@@ -34,9 +38,13 @@ export type Database = {
           cancelled?: boolean
           category?: string
           created_at?: string
-          creator_id: string
+          creator_id?: string | null
+          demo_attendees?: Json
           description?: string
+          host_name?: string | null
           id?: string
+          image_key?: string
+          is_public?: boolean
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
           lng?: number | null
@@ -49,9 +57,13 @@ export type Database = {
           cancelled?: boolean
           category?: string
           created_at?: string
-          creator_id?: string
+          creator_id?: string | null
+          demo_attendees?: Json
           description?: string
+          host_name?: string | null
           id?: string
+          image_key?: string
+          is_public?: boolean
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
           lng?: number | null
