@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "PinguinGo is het lokale sociale netwerk voor vrienden, gezamenlijke activiteiten en dating. Gratis, veilig en dichtbij.",
       },
-      { name: "theme-color", content: "#115E59" },
+      { name: "theme-color", content: "#EA580C" },
       { property: "og:title", content: "PinguinGo — Waag de sprong" },
       { property: "og:description", content: "Ontmoet maatjes of een date bij jou in de buurt." },
       { property: "og:type", content: "website" },
@@ -97,7 +97,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/pinguingo-logo.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/pinguingo-logo.svg" },
     ],
   }),
   shellComponent: RootShell,
