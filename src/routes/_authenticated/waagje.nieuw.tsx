@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -42,6 +42,23 @@ function NewActivity() {
   const [locationName, setLocationName] = useState(profile?.city ?? "");
   const [busy, setBusy] = useState(false);
 
+  const { data: postedThisMonth = 0 } = useQuery({
+    queryKey: ["my-monthly-activities", user?.id],
+    enabled: !!user,
+    queryFn: async () => {
+      const monthStart = new Date();
+      monthStart.setDate(1);
+      monthStart.setHours(0, 0, 0, 0);
+      const { count } = await supabase
+        .from("activities")
+        .select("id", { count: "exact", head: true })
+        .eq("creator_id", user!.id)
+        .gte("created_at", monthStart.toISOString());
+      return count ?? 0;
+    },
+  });
+  const remaining = Math.max(0, 2 - postedThisMonth);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!user) return;
@@ -71,7 +88,12 @@ function NewActivity() {
 
     if (error || !activity) {
       setBusy(false);
-      toast.error("Plaatsen mislukt", { description: error?.message });
+      const limitHit = error?.message?.includes("maximaal 2 Waagjes");
+      toast.error(limitHit ? "Maandlimiet bereikt" : "Plaatsen mislukt", {
+        description: limitHit
+          ? "Je kunt maximaal 2 keer per maand zelf een Waagje plaatsen. Sluit ondertussen gerust aan bij de agenda."
+          : error?.message,
+      });
       return;
     }
 
@@ -95,7 +117,8 @@ function NewActivity() {
     <AppShell>
       <h1 className="text-2xl font-extrabold text-foreground">Een Waagje plaatsen</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Wie zich aanmeldt komt automatisch in een besloten groepschat.
+        Wie zich aanmeldt komt automatisch in een besloten groepschat. Je kunt maximaal 2 Waagjes per maand
+        plaatsen, je hebt er deze maand nog {remaining} over.
       </p>
 
       <form onSubmit={submit} className="surface mt-5 grid gap-4 p-5">

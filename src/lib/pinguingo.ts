@@ -14,7 +14,7 @@ export const CATEGORIES = [
 export const GENDERS = ["Man", "Vrouw", "Non-binair", "Anders / Zeg ik liever niet"] as const;
 
 export const INTENTS = [
-  { value: "friendship", label: "Vriendschap & Maatjes" },
+  { value: "friendship", label: "Vriendschap & Buddy's" },
   { value: "dating", label: "Dating & Partner zoeken" },
   { value: "both", label: "Beide / Ik zie wel wat er ontstaat" },
 ] as const;

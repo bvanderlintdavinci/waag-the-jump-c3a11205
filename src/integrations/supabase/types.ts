@@ -215,6 +215,36 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback_messages: {
+        Row: {
+          created_at: string
+          email: string | null
+          handled: boolean
+          id: string
+          kind: string
+          message: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          handled?: boolean
+          id?: string
+          kind: string
+          message: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          handled?: boolean
+          id?: string
+          kind?: string
+          message?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           body: string

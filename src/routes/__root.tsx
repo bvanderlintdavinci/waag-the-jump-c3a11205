@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "theme-color", content: "#EA580C" },
       { property: "og:title", content: "Dare2Meet | Waag de sprong" },
-      { property: "og:description", content: "Ontmoet maatjes of een date bij jou in de buurt." },
+      { property: "og:description", content: "Ontmoet nieuwe mensen of een date bij jou in de buurt." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

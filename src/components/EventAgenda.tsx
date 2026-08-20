@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -23,9 +23,11 @@ import pancakeImg from "@/assets/event-pancake.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { distanceKm } from "@/lib/geo";
+import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 
 const IMAGES: Record<string, string> = {
   festival: festivalImg,
@@ -54,21 +56,24 @@ function demoAttendees(value: unknown): DemoAttendee[] {
     .map((v) => ({ name: v.name }));
 }
 
-function weekLabel(index: number) {
-  return ["Deze week", "Volgende week", "Over twee weken"][index] ?? "Later";
-}
+const WEEK_LABELS = ["Deze week", "Volgende week", "Over 2 weken", "Over 3 weken"] as const;
+const REGION_RADIUS_KM = 20;
+
+
+
 
 export function EventAgenda() {
   const { user } = useSession();
   const { data: profile } = useMyProfile();
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const [week, setWeek] = useState<number | "all">("all");
 
   const { data, isLoading } = useQuery({
     queryKey: ["public-agenda", user?.id ?? "anon"],
     queryFn: async () => {
       const from = new Date();
-      const to = new Date(Date.now() + 21 * 24 * 60 * 60 * 1000);
+      const to = new Date(Date.now() + 28 * 24 * 60 * 60 * 1000);
       const { data: events, error } = await supabase
         .from("activities")
         .select("*")
@@ -90,27 +95,37 @@ export function EventAgenda() {
     },
   });
 
+  const hasHome = profile?.lat != null && profile?.lng != null;
+
   const groups = useMemo(() => {
     const events = data?.events ?? [];
     const parts = data?.parts ?? [];
     const nameOf = new Map((data?.profiles ?? []).map((p) => [p.id, p]));
+    const interests = (profile?.interests ?? []).map((i) => i.toLowerCase());
+    const intent = profile?.intent ?? null;
     const start = new Date();
     start.setHours(0, 0, 0, 0);
 
-    const buckets: { label: string; items: ReturnType<typeof decorate>[] }[] = [
-      { label: weekLabel(0), items: [] },
-      { label: weekLabel(1), items: [] },
-      { label: weekLabel(2), items: [] },
-    ];
+    const buckets: { label: string; items: ReturnType<typeof decorate>[] }[] = WEEK_LABELS.map((label) => ({
+      label,
+      items: [],
+    }));
 
     function decorate(event: (typeof events)[number]) {
       const joined = parts.filter((p) => p.activity_id === event.id);
+      const category = (event.category ?? "").toLowerCase();
+      const matchesInterest = interests.some((i) => category.includes(i) || i.includes(category));
+      const matchesIntent =
+        (intent === "dating" && event.kind === "date") ||
+        (intent === "friendship" && event.kind !== "date") ||
+        intent === "both";
       return {
         ...event,
         demo: demoAttendees(event.demo_attendees),
         members: joined.map((p) => nameOf.get(p.user_id)).filter((p): p is NonNullable<typeof p> => !!p),
         joinedCount: joined.length,
         isJoined: !!user && joined.some((p) => p.user_id === user.id),
+        matchScore: (matchesInterest ? 2 : 0) + (matchesIntent ? 1 : 0),
         distance:
           profile?.lat != null && profile?.lng != null
             ? distanceKm({ lat: profile.lat, lng: profile.lng }, event)
@@ -120,11 +135,21 @@ export function EventAgenda() {
 
     for (const event of events) {
       const days = Math.floor((new Date(event.starts_at).getTime() - start.getTime()) / (24 * 60 * 60 * 1000));
-      const index = Math.min(2, Math.max(0, Math.floor(days / 7)));
-      buckets[index]!.items.push(decorate(event));
+      const index = Math.min(3, Math.max(0, Math.floor(days / 7)));
+      const item = decorate(event);
+      if (item.distance != null && item.distance > REGION_RADIUS_KM) continue;
+      buckets[index]!.items.push(item);
     }
-    return buckets.filter((b) => b.items.length > 0);
-  }, [data, profile, user]);
+    for (const bucket of buckets) {
+      bucket.items.sort(
+        (a, b) =>
+          b.matchScore - a.matchScore || new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime(),
+      );
+    }
+    return buckets
+      .map((bucket, index) => ({ ...bucket, index }))
+      .filter((b) => b.items.length > 0 && (week === "all" || week === b.index));
+  }, [data, profile, user, week]);
 
   async function join(activityId: string) {
     if (!user) {
@@ -138,18 +163,65 @@ export function EventAgenda() {
       toast.error("Aanmelden mislukt", { description: error.message });
       return;
     }
-    toast.success("Je bent aangemeld! Waag de sprong.");
+    const event = (data?.events ?? []).find((e) => e.id === activityId);
+    if (event) {
+      downloadIcs({
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        location: event.location_name,
+        startsAt: event.starts_at,
+      });
+      toast.success("Je bent aangemeld! Waag de sprong.", {
+        description: "De agenda-uitnodiging is gedownload.",
+        action: {
+          label: "Google Agenda",
+          onClick: () =>
+            window.open(
+              googleCalendarUrl({
+                id: event.id,
+                title: event.title,
+                description: event.description,
+                location: event.location_name,
+                startsAt: event.starts_at,
+              }),
+              "_blank",
+              "noopener",
+            ),
+        },
+      });
+    } else {
+      toast.success("Je bent aangemeld! Waag de sprong.");
+    }
     await qc.invalidateQueries({ queryKey: ["public-agenda"] });
   }
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-12" id="agenda">
       <div className="mb-6">
-        <h2 className="text-2xl font-extrabold text-foreground sm:text-3xl">De komende drie weken</h2>
+        <h2 className="text-2xl font-extrabold text-foreground sm:text-3xl">De komende vier weken</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Van festivals en koffie-hotspots tot motorritten en spontane ontmoetingen. Sluit aan bij wat je leuk lijkt.
+          Bekijk de actuele 4-weken agenda voor lokale uitjes, festivals en bijeenkomsten bij jou in de buurt.
+          {hasHome ? ` We tonen wat er speelt binnen ${REGION_RADIUS_KM} km van ${profile?.city ?? "je woonplaats"}.` : ""}
         </p>
       </div>
+
+      <div className="mb-6 flex flex-wrap gap-2">
+        <Button size="sm" variant={week === "all" ? "default" : "outline"} onClick={() => setWeek("all")}>
+          Hele maand
+        </Button>
+        {WEEK_LABELS.map((label, index) => (
+          <Button
+            key={label}
+            size="sm"
+            variant={week === index ? "default" : "outline"}
+            onClick={() => setWeek(index)}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
+
 
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Agenda laden...</p>

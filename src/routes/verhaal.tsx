@@ -41,7 +41,7 @@ function Story() {
           Waarom ik Dare2Meet begon
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Waggel uit je comfortzone, waag de sprong en ontmoet maatjes of een date.
+          Waggel uit je comfortzone, waag de sprong en ontmoet nieuwe mensen of een date.
         </p>
 
         <img
