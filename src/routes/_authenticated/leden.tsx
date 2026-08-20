@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/leden")({
       { title: "Leden zoeken | Dare2Meet" },
       { name: "description", content: "Zoek leden op plaatsnaam, afstand, intentie en interesses." },
       { property: "og:title", content: "Leden zoeken | Dare2Meet" },
-      { property: "og:description", content: "Vind maatjes of een date binnen jouw afstandscirkel." },
+      { property: "og:description", content: "Vind buddy's of een date binnen jouw afstandscirkel." },
     ],
   }),
   component: Members,

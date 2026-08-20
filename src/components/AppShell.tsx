@@ -5,6 +5,7 @@ import { CalendarHeart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, User
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
+import { FeedbackButtons } from "@/components/FeedbackButtons";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 
@@ -70,6 +71,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="mx-auto w-full max-w-5xl px-4 pb-28 pt-6 sm:pb-12">{children}</main>
+
+      <FeedbackButtons />
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card px-2 py-1 sm:hidden">
         <div className="flex items-stretch justify-around">

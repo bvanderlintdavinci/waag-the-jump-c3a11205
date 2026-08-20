@@ -4,6 +4,7 @@ import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lu
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { EventAgenda } from "@/components/EventAgenda";
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
+import { FeedbackButtons } from "@/components/FeedbackButtons";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Dare2Meet.nl | Waag de sprong" },
       {
         property: "og:description",
-        content: "Ontmoet maatjes of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
+        content: "Ontmoet nieuwe mensen of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
       },
     ],
   }),
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/")({
 const PILLARS = [
   {
     icon: Users,
-    title: "Maatjes vinden",
+    title: "Mensen ontmoeten",
     text: "Nieuw in de stad, jonge ouders, hobbyisten of gewoon toe aan nieuwe gezichten.",
   },
   {
@@ -76,7 +77,7 @@ function Landing() {
           </h1>
           <p className="mt-4 max-w-xl text-base text-muted-foreground">
             Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een Waagje, haak
-            aan bij uitjes in de 3-weken agenda en ontmoet maatjes of een date.
+            aan bij uitjes in de 4-weken agenda en ontmoet nieuwe mensen, buddy's of een date.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link to="/auth">
@@ -155,6 +156,7 @@ function Landing() {
               Steun ons met een kop koffie
             </a>
           </span>
+          <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
       </footer>

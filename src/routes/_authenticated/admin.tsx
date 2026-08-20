@@ -47,6 +47,7 @@ function AdminPage() {
       <Tabs defaultValue="reports">
         <TabsList className="flex-wrap">
           <TabsTrigger value="reports">Meldingen</TabsTrigger>
+          <TabsTrigger value="feedback">Postvak</TabsTrigger>
           <TabsTrigger value="blocks">Blokkeerredenen</TabsTrigger>
           <TabsTrigger value="words">Woordfilter</TabsTrigger>
           <TabsTrigger value="users">Leden</TabsTrigger>
@@ -54,6 +55,9 @@ function AdminPage() {
         </TabsList>
         <TabsContent value="reports" className="mt-5">
           <Reports />
+        </TabsContent>
+        <TabsContent value="feedback" className="mt-5">
+          <Feedback />
         </TabsContent>
         <TabsContent value="blocks" className="mt-5">
           <BlockLog />
@@ -74,6 +78,51 @@ function AdminPage() {
 
 function Row({ children }: { children: React.ReactNode }) {
   return <div className="surface flex flex-wrap items-center gap-3 p-4 text-sm">{children}</div>;
+}
+
+function Feedback() {
+  const qc = useQueryClient();
+  const { data } = useQuery({
+    queryKey: ["admin-feedback"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("feedback_messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+      return data ?? [];
+    },
+  });
+
+  async function handle(id: string) {
+    await supabase.from("feedback_messages").update({ handled: true }).eq("id", id);
+    await qc.invalidateQueries({ queryKey: ["admin-feedback"] });
+    toast.success("Bericht afgehandeld");
+  }
+
+  if (!data?.length) return <EmptyState title="Geen berichten" />;
+  return (
+    <div className="grid gap-2">
+      {data.map((f) => (
+        <Row key={f.id}>
+          <Badge variant={f.kind === "abuse" ? "destructive" : "secondary"}>
+            {f.kind === "abuse" ? "Ongewenst gedrag" : "Idee of advies"}
+          </Badge>
+          <span className="min-w-0 flex-1 break-words">{f.message}</span>
+          <span className="text-xs text-muted-foreground">{f.email}</span>
+          <span className="text-xs text-muted-foreground">
+            {new Date(f.created_at).toLocaleString("nl-NL")}
+          </span>
+          {!f.handled ? (
+            <Button size="sm" variant="outline" onClick={() => handle(f.id)}>
+              Afhandelen
+            </Button>
+          ) : (
+            <Badge variant="secondary">Afgehandeld</Badge>
+          )}
+        </Row>
+      ))}
+    </div>
+  );
 }
 
 function Reports() {
