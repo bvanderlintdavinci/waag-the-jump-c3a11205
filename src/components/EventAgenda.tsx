@@ -23,9 +23,11 @@ import pancakeImg from "@/assets/event-pancake.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { distanceKm } from "@/lib/geo";
+import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 
 const IMAGES: Record<string, string> = {
   festival: festivalImg,
