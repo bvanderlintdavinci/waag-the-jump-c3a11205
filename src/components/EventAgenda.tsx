@@ -59,9 +59,8 @@ function demoAttendees(value: unknown): DemoAttendee[] {
 const WEEK_LABELS = ["Deze week", "Volgende week", "Over 2 weken", "Over 3 weken"] as const;
 const REGION_RADIUS_KM = 20;
 
-function weekLabel(index: number) {
-  return WEEK_LABELS[index] ?? "Later deze maand";
-}
+
+
 
 export function EventAgenda() {
   const { user } = useSession();
