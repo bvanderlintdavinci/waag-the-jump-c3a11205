@@ -232,18 +232,18 @@ function ConsentRow({
   id,
   checked,
   onChange,
-  text,
+  children,
 }: {
   id: string;
   checked: boolean;
   onChange: (v: boolean) => void;
-  text: string;
+  children: React.ReactNode;
 }) {
   return (
     <div className="flex items-start gap-2">
       <Checkbox id={id} checked={checked} onCheckedChange={(v) => onChange(v === true)} className="mt-0.5" />
       <Label htmlFor={id} className="text-xs font-normal leading-snug text-muted-foreground">
-        {text}
+        {children}
       </Label>
     </div>
   );
