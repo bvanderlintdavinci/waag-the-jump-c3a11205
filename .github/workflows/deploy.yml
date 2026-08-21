@@ -35,21 +35,30 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-        run: npx vite build --outDir .output/public
+        run: npm run build
 
-      - name: Create SPA fallback
+      - name: Bundle all static assets
         run: |
-          if [ -f ".output/public/index.html" ]; then
-            cp .output/public/index.html .output/public/404.html
-          fi
-
-      - name: Copy CNAME
-        run: cp CNAME .output/public/ 2>/dev/null || true
+          mkdir -p static_deploy
+          
+          # Kopieer bestanden als ze bestaan uit bekende build-mappen
+          [ -d "dist" ] && cp -r dist/* static_deploy/ || true
+          [ -d ".output/public" ] && cp -r .output/public/* static_deploy/ || true
+          [ -f "index.html" ] && cp index.html static_deploy/ || true
+          
+          # Maak 404 fallback voor SPA
+          [ -f "static_deploy/index.html" ] && cp static_deploy/index.html static_deploy/404.html || true
+          
+          # CNAME overzetten
+          [ -f "CNAME" ] && cp CNAME static_deploy/ || true
+          
+          echo "--- Inhoud van deployment map ---"
+          ls -la static_deploy/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: static_deploy
 
       - name: Deploy to GitHub Pages
         id: deployment
