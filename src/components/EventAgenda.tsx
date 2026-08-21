@@ -296,11 +296,18 @@ export function EventAgenda() {
                           </span>
                         </div>
 
-                        <div className="mt-4">
+                        <div className="mt-4 grid gap-2">
                           {event.isJoined ? (
-                            <Button variant="secondary" className="w-full" disabled>
-                              <Check /> Aangemeld
-                            </Button>
+                            <>
+                              <Button variant="secondary" className="w-full" disabled>
+                                <Check /> Aangemeld
+                              </Button>
+                              <Link to="/waagje/$id" params={{ id: event.id }}>
+                                <Button variant="outline" className="w-full">
+                                  Overleggen over tijd en plek
+                                </Button>
+                              </Link>
+                            </>
                           ) : (
                             <Button className="w-full" onClick={() => void join(event.id)}>
                               Aansluiten / Ik ga ook
