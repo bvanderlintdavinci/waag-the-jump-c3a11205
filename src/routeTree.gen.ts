@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
+import { Route as VoorwaardenRouteImport } from './routes/voorwaarden'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedBerichtenRouteImport } from './routes/_authenticated/berichten'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
@@ -40,9 +44,29 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerhaalRoute = VerhaalRouteImport.update({
   id: '/verhaal',
   path: '/verhaal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoorwaardenRoute = VoorwaardenRouteImport.update({
+  id: '/voorwaarden',
+  path: '/voorwaarden',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -111,7 +135,11 @@ const ApiPublicDoneerRoute = ApiPublicDoneerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/cookies': typeof CookiesRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/privacy': typeof PrivacyRoute
   '/verhaal': typeof VerhaalRoute
+  '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/berichten': typeof AuthenticatedBerichtenRoute
   '/feed': typeof AuthenticatedFeedRoute
@@ -128,7 +156,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/cookies': typeof CookiesRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/privacy': typeof PrivacyRoute
   '/verhaal': typeof VerhaalRoute
+  '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/berichten': typeof AuthenticatedBerichtenRoute
   '/feed': typeof AuthenticatedFeedRoute
@@ -147,7 +179,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/cookies': typeof CookiesRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/privacy': typeof PrivacyRoute
   '/verhaal': typeof VerhaalRoute
+  '/voorwaarden': typeof VoorwaardenRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/berichten': typeof AuthenticatedBerichtenRoute
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
@@ -166,7 +202,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/cookies'
+    | '/disclaimer'
+    | '/privacy'
     | '/verhaal'
+    | '/voorwaarden'
     | '/admin'
     | '/berichten'
     | '/feed'
@@ -183,7 +223,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/cookies'
+    | '/disclaimer'
+    | '/privacy'
     | '/verhaal'
+    | '/voorwaarden'
     | '/admin'
     | '/berichten'
     | '/feed'
@@ -201,7 +245,11 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/cookies'
+    | '/disclaimer'
+    | '/privacy'
     | '/verhaal'
+    | '/voorwaarden'
     | '/_authenticated/admin'
     | '/_authenticated/berichten'
     | '/_authenticated/feed'
@@ -220,7 +268,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  CookiesRoute: typeof CookiesRoute
+  DisclaimerRoute: typeof DisclaimerRoute
+  PrivacyRoute: typeof PrivacyRoute
   VerhaalRoute: typeof VerhaalRoute
+  VoorwaardenRoute: typeof VoorwaardenRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
 }
 
@@ -247,11 +299,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verhaal': {
       id: '/verhaal'
       path: '/verhaal'
       fullPath: '/verhaal'
       preLoaderRoute: typeof VerhaalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voorwaarden': {
+      id: '/voorwaarden'
+      path: '/voorwaarden'
+      fullPath: '/voorwaarden'
+      preLoaderRoute: typeof VoorwaardenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -376,7 +456,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  CookiesRoute: CookiesRoute,
+  DisclaimerRoute: DisclaimerRoute,
+  PrivacyRoute: PrivacyRoute,
   VerhaalRoute: VerhaalRoute,
+  VoorwaardenRoute: VoorwaardenRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
 }
 export const routeTree = rootRouteImport
