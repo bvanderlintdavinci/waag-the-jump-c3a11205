@@ -38,9 +38,9 @@ jobs:
         run: npm run build
 
       - name: Locate output directory and Upload
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ hashFiles('dist/index.html') != '' && './dist' || './build' }}
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
