@@ -33,26 +33,29 @@ jobs:
 
       - name: Build project
         env:
+          NITRO_PRESET: static
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: Bundle all static assets
+      - name: Prepare Static Deployment
         run: |
           mkdir -p static_deploy
           
-          # Kopieer bestanden als ze bestaan uit bekende build-mappen
-          [ -d "dist" ] && cp -r dist/* static_deploy/ || true
-          [ -d ".output/public" ] && cp -r .output/public/* static_deploy/ || true
-          [ -f "index.html" ] && cp index.html static_deploy/ || true
-          
+          # Kopieer de gegenereerde statische HTML/JS bestanden uit Nitro
+          if [ -d ".output/public" ]; then
+            cp -r .output/public/* static_deploy/
+          elif [ -d "dist" ]; then
+            cp -r dist/* static_deploy/
+          fi
+
           # Maak 404 fallback voor SPA
           [ -f "static_deploy/index.html" ] && cp static_deploy/index.html static_deploy/404.html || true
-          
+
           # CNAME overzetten
           [ -f "CNAME" ] && cp CNAME static_deploy/ || true
-          
-          echo "--- Inhoud van deployment map ---"
+
+          echo "--- Inhoud van static_deploy ---"
           ls -la static_deploy/
 
       - name: Upload artifact
