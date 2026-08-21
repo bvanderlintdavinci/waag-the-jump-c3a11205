@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarHeart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
+import { CalendarHeart, LogOut, Mail, MessageCircle, Rocket, Settings, ShieldCheck, Users } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
