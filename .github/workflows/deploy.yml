@@ -40,12 +40,19 @@ jobs:
       - name: Prepare Static Deployment
         run: |
           mkdir -p static_deploy
-          
-          # Kopieer gegenereerde bestanden uit de output mappen
-          if [ -d ".output/public" ]; then
+
+          # Zoek waar de build-bestanden zijn neergezet
+          if [ -d ".output/public" ] && [ "$(ls -A .output/public)" ]; then
             cp -r .output/public/* static_deploy/
-          elif [ -d "dist" ]; then
+          elif [ -d "dist" ] && [ "$(ls -A dist)" ]; then
             cp -r dist/* static_deploy/
+          elif [ -d ".tanstack" ]; then
+            cp -r .tanstack/* static_deploy/
+          fi
+
+          # Als er nog steeds geen index.html is, kopieer public inhoud
+          if [ -d "public" ]; then
+            cp -r public/* static_deploy/
           fi
 
           # Maak 404 fallback aan voor SPA routing
@@ -54,7 +61,7 @@ jobs:
           # CNAME behouden voor custom domein
           [ -f "CNAME" ] && cp CNAME static_deploy/ || true
 
-          echo "--- Inhoud van static_deploy ---"
+          echo "--- Inhoud die geüpload wordt naar GitHub Pages: ---"
           ls -la static_deploy/
 
       - name: Upload artifact
