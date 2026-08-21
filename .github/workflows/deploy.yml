@@ -37,13 +37,13 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: Check build directory structure
-        run: ls -la
+      - name: Prepare SPA routing for GitHub Pages
+        run: cp dist/index.html dist/404.html
 
       - name: Locate output directory and Upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ hashFiles('dist/index.html') != '' && './dist' || (hashFiles('build/index.html') != '' && './build' || '.') }}
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
