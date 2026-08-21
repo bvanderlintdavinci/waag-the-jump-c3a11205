@@ -58,6 +58,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <ShieldCheck className="inline size-4" /> Admin
               </Link>
             ) : null}
+            {isAdmin ? (
+              <Link
+                to="/deploy"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-warning"
+                activeProps={{ className: "bg-mint" }}
+              >
+                <Rocket className="inline size-4" /> Deploy
+              </Link>
+            ) : null}
           </nav>
           <div className="ml-auto flex items-center gap-2 sm:ml-2">
             <Link to="/profiel/$id" params={{ id: profile?.id ?? "" }}>
