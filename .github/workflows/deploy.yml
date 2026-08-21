@@ -37,18 +37,13 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: Setup SPA fallback
-        run: |
-          if [ -d ".output/public" ]; then
-            cp .output/public/index.html .output/public/404.html
-          elif [ -d "dist" ]; then
-            cp dist/index.html dist/404.html
-          fi
+      - name: Check build directory structure
+        run: ls -la
 
       - name: Locate output directory and Upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ hashFiles('.output/public/index.html') != '' && './.output/public' || (hashFiles('dist/index.html') != '' && './dist' || '.') }}
+          path: ${{ hashFiles('dist/index.html') != '' && './dist' || (hashFiles('build/index.html') != '' && './build' || '.') }}
 
       - name: Deploy to GitHub Pages
         id: deployment
