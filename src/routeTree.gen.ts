@@ -19,6 +19,7 @@ import { Route as VerhaalRouteImport } from './routes/verhaal'
 import { Route as VoorwaardenRouteImport } from './routes/voorwaarden'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedBerichtenRouteImport } from './routes/_authenticated/berichten'
+import { Route as AuthenticatedDeployRouteImport } from './routes/_authenticated/deploy'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
 import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
@@ -77,6 +78,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 const AuthenticatedBerichtenRoute = AuthenticatedBerichtenRouteImport.update({
   id: '/berichten',
   path: '/berichten',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDeployRoute = AuthenticatedDeployRouteImport.update({
+  id: '/deploy',
+  path: '/deploy',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/berichten': typeof AuthenticatedBerichtenRoute
+  '/deploy': typeof AuthenticatedDeployRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/berichten': typeof AuthenticatedBerichtenRoute
+  '/deploy': typeof AuthenticatedDeployRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/voorwaarden': typeof VoorwaardenRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/berichten': typeof AuthenticatedBerichtenRoute
+  '/_authenticated/deploy': typeof AuthenticatedDeployRoute
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
   '/_authenticated/leden': typeof AuthenticatedLedenRoute
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/voorwaarden'
     | '/admin'
     | '/berichten'
+    | '/deploy'
     | '/feed'
     | '/instellingen'
     | '/leden'
@@ -230,6 +240,7 @@ export interface FileRouteTypes {
     | '/voorwaarden'
     | '/admin'
     | '/berichten'
+    | '/deploy'
     | '/feed'
     | '/instellingen'
     | '/leden'
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/voorwaarden'
     | '/_authenticated/admin'
     | '/_authenticated/berichten'
+    | '/_authenticated/deploy'
     | '/_authenticated/feed'
     | '/_authenticated/instellingen'
     | '/_authenticated/leden'
@@ -348,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBerichtenRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/deploy': {
+      id: '/_authenticated/deploy'
+      path: '/deploy'
+      fullPath: '/deploy'
+      preLoaderRoute: typeof AuthenticatedDeployRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/feed': {
       id: '/_authenticated/feed'
       path: '/feed'
@@ -424,6 +443,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedBerichtenRoute: typeof AuthenticatedBerichtenRoute
+  AuthenticatedDeployRoute: typeof AuthenticatedDeployRoute
   AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedInstellingenRoute: typeof AuthenticatedInstellingenRoute
   AuthenticatedLedenRoute: typeof AuthenticatedLedenRoute
@@ -438,6 +458,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedBerichtenRoute: AuthenticatedBerichtenRoute,
+  AuthenticatedDeployRoute: AuthenticatedDeployRoute,
   AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedInstellingenRoute: AuthenticatedInstellingenRoute,
   AuthenticatedLedenRoute: AuthenticatedLedenRoute,
