@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarHeart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
+import { CalendarHeart, LogOut, Mail, MessageCircle, Rocket, Settings, ShieldCheck, Users } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
@@ -56,6 +56,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 activeProps={{ className: "bg-mint" }}
               >
                 <ShieldCheck className="inline size-4" /> Admin
+              </Link>
+            ) : null}
+            {isAdmin ? (
+              <Link
+                to="/deploy"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-warning"
+                activeProps={{ className: "bg-mint" }}
+              >
+                <Rocket className="inline size-4" /> Deploy
               </Link>
             ) : null}
           </nav>
