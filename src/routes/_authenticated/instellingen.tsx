@@ -375,6 +375,64 @@ function Visitors() {
         </Button>
       </div>
 
+      <div className="surface p-5">
+        <p className="font-bold text-foreground">Jouw gegevens en privacy</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Download een kopie van alles wat we van je bewaren, of lees hoe we met je gegevens omgaan.
+        </p>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <Button
+            variant="outline"
+            onClick={async () => {
+              if (!user) return;
+              const uid = user.id;
+              const [profile, activities, joins, blocks, reports, feedback] = await Promise.all([
+                supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
+                supabase.from("activities").select("*").eq("creator_id", uid),
+                supabase.from("activity_participants").select("*").eq("user_id", uid),
+                supabase.from("blocks").select("*").eq("blocker_id", uid),
+                supabase.from("reports").select("*").eq("reporter_id", uid),
+                supabase.from("feedback_messages").select("id, kind, message, created_at").eq("user_id", uid),
+              ]);
+              const payload = {
+                geexporteerd_op: new Date().toISOString(),
+                account: { id: uid, email: user.email },
+                profiel: profile.data,
+                geplaatste_uitjes: activities.data ?? [],
+                aanmeldingen: joins.data ?? [],
+                blokkades: blocks.data ?? [],
+                meldingen: reports.data ?? [],
+                feedback: feedback.data ?? [],
+              };
+              const url = URL.createObjectURL(
+                new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }),
+              );
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "dare2meet-mijn-gegevens.json";
+              a.click();
+              URL.revokeObjectURL(url);
+              toast.success("Je gegevens zijn gedownload.");
+            }}
+          >
+            Download mijn gegevens
+          </Button>
+          <a href="/privacy" className="text-sm underline text-muted-foreground hover:text-foreground">
+            Privacybeleid
+          </a>
+          <a href="/cookies" className="text-sm underline text-muted-foreground hover:text-foreground">
+            Cookies
+          </a>
+          <a href="/voorwaarden" className="text-sm underline text-muted-foreground hover:text-foreground">
+            Voorwaarden
+          </a>
+          <a href="/disclaimer" className="text-sm underline text-muted-foreground hover:text-foreground">
+            Disclaimer
+          </a>
+        </div>
+      </div>
+
+
       {!unlocked ? (
         <div className="surface flex flex-wrap items-center gap-4 p-5">
           <Eye className="size-6 text-primary" />

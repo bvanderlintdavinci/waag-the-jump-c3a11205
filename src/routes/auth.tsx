@@ -81,6 +81,16 @@ function AuthPage() {
       return;
     }
     if (data.session) {
+      await supabase
+        .from("profiles")
+        .update({
+          consent_terms: true,
+          consent_privacy: true,
+          consent_visibility: true,
+          consent_law_enforcement: true,
+          consent_at: new Date().toISOString(),
+        })
+        .eq("id", data.session.user.id);
       navigate({ to: "/onboarding" });
       return;
     }
@@ -178,31 +188,37 @@ function AuthPage() {
               </div>
 
               <div className="grid gap-3 rounded-xl bg-muted p-4">
-                <ConsentRow
-                  id="terms"
-                  checked={terms}
-                  onChange={setTerms}
-                  text="Ik ga akkoord met de Algemene Voorwaarden."
-                />
-                <ConsentRow
-                  id="privacy"
-                  checked={privacy}
-                  onChange={setPrivacy}
-                  text="Ik ga akkoord met het Privacybeleid (AVG)."
-                />
-                <ConsentRow
-                  id="visibility"
-                  checked={visibility}
-                  onChange={setVisibility}
-                  text="Mijn profiel mag zichtbaar zijn voor andere ingelogde leden."
-                />
-                <ConsentRow
-                  id="law"
-                  checked={law}
-                  onChange={setLaw}
-                  text="Bij ernstige overtredingen of misdrijven (bedreiging, intimidatie, oplichting) mogen relevante accountgegevens en logs gedeeld worden met officiële meldpunten en de politie."
-                />
+                <ConsentRow id="terms" checked={terms} onChange={setTerms}>
+                  Ik ga akkoord met de{" "}
+                  <Link to="/voorwaarden" className="font-semibold text-primary underline">
+                    Algemene Voorwaarden
+                  </Link>{" "}
+                  en de{" "}
+                  <Link to="/disclaimer" className="font-semibold text-primary underline">
+                    disclaimer
+                  </Link>
+                  , en ik ben 18 jaar of ouder.
+                </ConsentRow>
+                <ConsentRow id="privacy" checked={privacy} onChange={setPrivacy}>
+                  Ik ga akkoord met het{" "}
+                  <Link to="/privacy" className="font-semibold text-primary underline">
+                    Privacybeleid (AVG)
+                  </Link>{" "}
+                  en de{" "}
+                  <Link to="/cookies" className="font-semibold text-primary underline">
+                    cookieverklaring
+                  </Link>
+                  .
+                </ConsentRow>
+                <ConsentRow id="visibility" checked={visibility} onChange={setVisibility}>
+                  Mijn profiel mag zichtbaar zijn voor andere ingelogde leden.
+                </ConsentRow>
+                <ConsentRow id="law" checked={law} onChange={setLaw}>
+                  Bij ernstige overtredingen of misdrijven (bedreiging, intimidatie, oplichting) mogen relevante
+                  accountgegevens en logs gedeeld worden met officiële meldpunten en de politie.
+                </ConsentRow>
               </div>
+
 
               <Button type="submit" disabled={busy}>
                 Ik waag de sprong!
@@ -226,18 +242,18 @@ function ConsentRow({
   id,
   checked,
   onChange,
-  text,
+  children,
 }: {
   id: string;
   checked: boolean;
   onChange: (v: boolean) => void;
-  text: string;
+  children: React.ReactNode;
 }) {
   return (
     <div className="flex items-start gap-2">
       <Checkbox id={id} checked={checked} onCheckedChange={(v) => onChange(v === true)} className="mt-0.5" />
       <Label htmlFor={id} className="text-xs font-normal leading-snug text-muted-foreground">
-        {text}
+        {children}
       </Label>
     </div>
   );

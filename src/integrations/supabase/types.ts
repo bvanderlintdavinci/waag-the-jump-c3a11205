@@ -30,6 +30,7 @@ export type Database = {
           lat: number | null
           lng: number | null
           location_name: string
+          location_note: string
           max_participants: number | null
           starts_at: string
           title: string
@@ -49,6 +50,7 @@ export type Database = {
           lat?: number | null
           lng?: number | null
           location_name?: string
+          location_note?: string
           max_participants?: number | null
           starts_at: string
           title: string
@@ -68,6 +70,7 @@ export type Database = {
           lat?: number | null
           lng?: number | null
           location_name?: string
+          location_note?: string
           max_participants?: number | null
           starts_at?: string
           title?: string
@@ -334,6 +337,7 @@ export type Database = {
           bio: string
           birth_date: string | null
           city: string
+          consent_at: string | null
           consent_law_enforcement: boolean
           consent_privacy: boolean
           consent_terms: boolean
@@ -360,6 +364,7 @@ export type Database = {
           bio?: string
           birth_date?: string | null
           city?: string
+          consent_at?: string | null
           consent_law_enforcement?: boolean
           consent_privacy?: boolean
           consent_terms?: boolean
@@ -386,6 +391,7 @@ export type Database = {
           bio?: string
           birth_date?: string | null
           city?: string
+          consent_at?: string | null
           consent_law_enforcement?: boolean
           consent_privacy?: boolean
           consent_terms?: boolean

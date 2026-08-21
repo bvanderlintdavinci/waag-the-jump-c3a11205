@@ -159,7 +159,25 @@ function Landing() {
           <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
+        <div className="mx-auto flex max-w-5xl flex-wrap gap-4 border-t border-border px-4 py-4 text-xs text-muted-foreground">
+          <Link to="/privacy" className="underline hover:text-foreground">
+            Privacybeleid
+          </Link>
+          <Link to="/cookies" className="underline hover:text-foreground">
+            Cookies
+          </Link>
+          <Link to="/voorwaarden" className="underline hover:text-foreground">
+            Algemene voorwaarden
+          </Link>
+          <Link to="/disclaimer" className="underline hover:text-foreground">
+            Disclaimer
+          </Link>
+          <Link to="/verhaal" className="underline hover:text-foreground">
+            Ons verhaal
+          </Link>
+        </div>
       </footer>
+
     </div>
   );
 }
