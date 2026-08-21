@@ -1,23 +1,29 @@
+import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CalendarDays, MapPin, MessageCircle } from "lucide-react";
+import { CalendarDays, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
 import { openDirectChat } from "@/lib/direct-chat";
+import { ensureActivityConversation } from "@/lib/activity-chat";
+import { downloadIcs } from "@/lib/ics";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/waagje/$id")({
   head: () => ({
     meta: [
       { title: "Waagje | Dare2Meet" },
-      { name: "description", content: "Bekijk dit waagje en waag de sprong om mee te doen." },
+      { name: "description", content: "Bekijk dit waagje, overleg over tijd en plek en waag de sprong." },
       { property: "og:title", content: "Waagje | Dare2Meet" },
-      { property: "og:description", content: "Bekijk de details en meld je aan voor deze activiteit." },
+      { property: "og:description", content: "Bekijk de details, stem af met de anderen en meld je aan." },
     ],
   }),
   component: ActivityDetail,
@@ -28,6 +34,8 @@ function ActivityDetail() {
   const { user } = useSession();
   const qc = useQueryClient();
   const navigate = useNavigate();
+  const [proposal, setProposal] = useState("");
+  const [busy, setBusy] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["activity", id],
@@ -78,6 +86,7 @@ function ActivityDetail() {
   const { activity, participants, profiles, conversationId } = data;
   const creator = profiles.find((p) => p.id === activity.creator_id);
   const joined = !!user && participants.includes(user.id);
+  const isOrganiser = !!user && activity.creator_id === user.id;
 
   async function join() {
     if (!user) return;
@@ -88,13 +97,85 @@ function ActivityDetail() {
       toast.error("Aanmelden mislukt", { description: error.message });
       return;
     }
-    if (conversationId) {
-      await supabase
-        .from("conversation_participants")
-        .insert({ conversation_id: conversationId, user_id: user.id });
-    }
+    await ensureActivityConversation(id, activity.title, user.id);
+    downloadIcs({
+      id: activity.id,
+      title: activity.title,
+      description: activity.description,
+      location: activity.location_name,
+      startsAt: activity.starts_at,
+    });
     await qc.invalidateQueries();
-    toast.success("Je hebt de sprong gewaagd!", { description: "De groepschat staat voor je klaar." });
+    toast.success("Je hebt de sprong gewaagd!", {
+      description: "Overleg in de groepschat over tijd, plek en wie er meegaan.",
+    });
+  }
+
+  async function openGroupChat() {
+    if (!user) return;
+    const convId = conversationId ?? (await ensureActivityConversation(id, activity.title, user.id));
+    if (!convId) {
+      toast.error("De groepschat kon niet geopend worden.");
+      return;
+    }
+    navigate({ to: "/chats/$id", params: { id: convId } });
+  }
+
+  async function sendProposal() {
+    if (!user || !proposal.trim()) return;
+    setBusy(true);
+    const convId = conversationId ?? (await ensureActivityConversation(id, activity.title, user.id));
+    if (!convId) {
+      setBusy(false);
+      toast.error("De groepschat kon niet geopend worden.");
+      return;
+    }
+    const { error } = await supabase
+      .from("messages")
+      .insert({ conversation_id: convId, sender_id: user.id, body: `Voorstel: ${proposal.trim()}` });
+    setBusy(false);
+    if (error) {
+      toast.error("Voorstel plaatsen mislukt", { description: error.message });
+      return;
+    }
+    setProposal("");
+    toast.success("Je voorstel staat in de groepschat.");
+    await qc.invalidateQueries({ queryKey: ["activity", id] });
+  }
+
+  async function saveDetails(form: FormData) {
+    if (!user) return;
+    setBusy(true);
+    const startsAt = String(form.get("startsAt") ?? "");
+    const locationName = String(form.get("locationName") ?? "");
+    const note = String(form.get("note") ?? "");
+    const { error } = await supabase
+      .from("activities")
+      .update({
+        starts_at: new Date(startsAt).toISOString(),
+        location_name: locationName,
+        location_note: note,
+      })
+      .eq("id", id);
+    if (error) {
+      setBusy(false);
+      toast.error("Bijwerken mislukt", { description: error.message });
+      return;
+    }
+    const convId = conversationId ?? (await ensureActivityConversation(id, activity.title, user.id));
+    if (convId) {
+      await supabase.from("messages").insert({
+        conversation_id: convId,
+        sender_id: user.id,
+        body: `De afspraak is bijgewerkt: ${new Date(startsAt).toLocaleString("nl-NL", {
+          dateStyle: "full",
+          timeStyle: "short",
+        })} bij ${locationName}.${note ? ` ${note}` : ""}`,
+      });
+    }
+    setBusy(false);
+    await qc.invalidateQueries({ queryKey: ["activity", id] });
+    toast.success("Afspraak bijgewerkt", { description: "Iedereen ziet het in de groepschat." });
   }
 
   async function messageMember(otherId: string, name: string) {
@@ -106,6 +187,8 @@ function ActivityDetail() {
       toast.error("Bericht starten mislukt", { description: e instanceof Error ? e.message : undefined });
     }
   }
+
+  const localStart = toLocalInput(activity.starts_at);
 
   return (
     <AppShell>
@@ -128,6 +211,9 @@ function ActivityDetail() {
             <MapPin className="size-4" /> {activity.location_name || "Locatie n.t.b."}
           </span>
         </div>
+        {activity.location_note ? (
+          <p className="mt-3 rounded-lg bg-muted p-3 text-sm text-foreground">{activity.location_note}</p>
+        ) : null}
 
         {creator ? (
           <Link
@@ -145,19 +231,95 @@ function ActivityDetail() {
 
         <div className="mt-6 flex flex-wrap gap-3">
           {joined ? (
-            <Button
-              onClick={() => conversationId && navigate({ to: "/chats/$id", params: { id: conversationId } })}
-              disabled={!conversationId}
-            >
+            <Button onClick={() => void openGroupChat()}>
               <MessageCircle /> Naar de groepschat
             </Button>
           ) : (
-            <Button size="lg" onClick={join}>
+            <Button size="lg" onClick={() => void join()}>
               Ik waag de sprong!
             </Button>
           )}
+          <Button
+            variant="outline"
+            onClick={() =>
+              downloadIcs({
+                id: activity.id,
+                title: activity.title,
+                description: activity.description,
+                location: activity.location_name,
+                startsAt: activity.starts_at,
+              })
+            }
+          >
+            <CalendarDays /> Zet in mijn agenda
+          </Button>
         </div>
       </div>
+
+      {joined ? (
+        <section className="surface mt-6 p-6">
+          <h2 className="text-base font-bold text-foreground">Afspraken maken</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Nog niet alles staat vast? Stel een tijd, plek of vervoer voor. Je voorstel komt in de groepschat te
+            staan, zodat iedereen kan reageren.
+          </p>
+          <Textarea
+            className="mt-3"
+            rows={3}
+            maxLength={500}
+            placeholder="Bijvoorbeeld: zullen we een half uur later afspreken bij de ingang? Ik kan twee mensen meenemen met de auto."
+            value={proposal}
+            onChange={(e) => setProposal(e.target.value)}
+          />
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button disabled={busy || !proposal.trim()} onClick={() => void sendProposal()}>
+              Voorstel plaatsen
+            </Button>
+            <Button variant="outline" onClick={() => void openGroupChat()}>
+              <MessageCircle /> Open de groepschat
+            </Button>
+          </div>
+
+          {isOrganiser ? (
+            <form
+              className="mt-6 grid gap-3 border-t border-border pt-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                void saveDetails(new FormData(e.currentTarget));
+              }}
+            >
+              <p className="text-sm font-semibold text-foreground">Definitief maken (organisator)</p>
+              <div className="grid gap-1.5">
+                <Label htmlFor="startsAt">Datum en tijd</Label>
+                <Input id="startsAt" name="startsAt" type="datetime-local" defaultValue={localStart} required />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="locationName">Ontmoetingsplek</Label>
+                <Input
+                  id="locationName"
+                  name="locationName"
+                  maxLength={120}
+                  defaultValue={activity.location_name}
+                  required
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="note">Toelichting (wie neemt wat mee, waar precies)</Label>
+                <Textarea id="note" name="note" rows={2} maxLength={300} defaultValue={activity.location_note} />
+              </div>
+              <Button type="submit" disabled={busy} className="justify-self-start">
+                Afspraak bijwerken
+              </Button>
+            </form>
+          ) : null}
+
+          <p className="mt-5 inline-flex items-start gap-2 rounded-lg bg-muted p-3 text-xs text-muted-foreground">
+            <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" />
+            Spreek de eerste keer af op een openbare plek, regel je eigen vervoer en laat iemand weten waar je
+            bent. Voelt iets niet goed? Gebruik de meld- of blokkeerknop.
+          </p>
+        </section>
+      ) : null}
 
       <h2 className="mb-3 mt-8 text-base font-bold text-foreground">
         Waaggenoten ({participants.length})
@@ -182,4 +344,10 @@ function ActivityDetail() {
       </div>
     </AppShell>
   );
+}
+
+function toLocalInput(iso: string) {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
