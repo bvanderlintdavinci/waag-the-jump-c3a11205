@@ -10,13 +10,9 @@ export default defineConfig({
   vite: {
     base: "/",
   },
-  tanstackStart: {
-    server: { entry: "server" },
-  },
   nitro: {
-    preset: "static",
+    ssr: false,
     prerender: {
-      crawlLinks: false,
       routes: ["/"],
     },
   },
