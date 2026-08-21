@@ -37,13 +37,13 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: Check build directory structure
-        run: ls -la
+      - name: Copy CNAME to output
+        run: cp CNAME .output/public/ 2>/dev/null || true
 
-      - name: Locate output directory and Upload
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ hashFiles('dist/index.html') != '' && './dist' || (hashFiles('build/index.html') != '' && './build' || '.') }}
+          path: .output/public
 
       - name: Deploy to GitHub Pages
         id: deployment
