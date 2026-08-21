@@ -81,6 +81,16 @@ function AuthPage() {
       return;
     }
     if (data.session) {
+      await supabase
+        .from("profiles")
+        .update({
+          consent_terms: true,
+          consent_privacy: true,
+          consent_visibility: true,
+          consent_law_enforcement: true,
+          consent_at: new Date().toISOString(),
+        })
+        .eq("id", data.session.user.id);
       navigate({ to: "/onboarding" });
       return;
     }
