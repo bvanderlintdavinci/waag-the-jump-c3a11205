@@ -10,8 +10,7 @@ export default defineConfig({
   vite: {
     base: "/",
   },
-  tanstackStart: {
-    // Schakel SSR/Nitro uit voor statische hosting zoals GitHub Pages
-    spa: true,
+  nitro: {
+    preset: "static",
   },
 });
