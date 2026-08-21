@@ -24,6 +24,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { distanceKm } from "@/lib/geo";
 import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
+import { ensureActivityConversation } from "@/lib/activity-chat";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -165,6 +166,7 @@ export function EventAgenda() {
     }
     const event = (data?.events ?? []).find((e) => e.id === activityId);
     if (event) {
+      await ensureActivityConversation(event.id, event.title, user.id);
       downloadIcs({
         id: event.id,
         title: event.title,
@@ -172,8 +174,8 @@ export function EventAgenda() {
         location: event.location_name,
         startsAt: event.starts_at,
       });
-      toast.success("Je bent aangemeld! Waag de sprong.", {
-        description: "De agenda-uitnodiging is gedownload.",
+      toast.success("Je bent aangemeld! Overleg samen over tijd en plek.", {
+        description: "De agenda-uitnodiging is gedownload en de groepschat staat klaar.",
         action: {
           label: "Google Agenda",
           onClick: () =>
@@ -195,6 +197,7 @@ export function EventAgenda() {
     }
     await qc.invalidateQueries({ queryKey: ["public-agenda"] });
   }
+
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-12" id="agenda">
