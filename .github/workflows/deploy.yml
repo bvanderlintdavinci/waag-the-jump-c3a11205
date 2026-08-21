@@ -37,6 +37,14 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
+      - name: Setup SPA fallback
+        run: |
+          if [ -d ".output/public" ]; then
+            cp .output/public/index.html .output/public/404.html
+          elif [ -d "dist" ]; then
+            cp dist/index.html dist/404.html
+          fi
+
       - name: Locate output directory and Upload
         uses: actions/upload-pages-artifact@v3
         with:
