@@ -40,7 +40,7 @@ jobs:
       - name: Locate output directory and Upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ hashFiles('dist/index.html') != '' && './dist' || (hashFiles('build/index.html') != '' && './build' || '.') }}
+          path: ${{ hashFiles('.output/public/index.html') != '' && './.output/public' || (hashFiles('dist/index.html') != '' && './dist' || '.') }}
 
       - name: Deploy to GitHub Pages
         id: deployment
