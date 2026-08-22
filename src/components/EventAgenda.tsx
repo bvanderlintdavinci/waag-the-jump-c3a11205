@@ -287,6 +287,17 @@ export function EventAgenda() {
                           </div>
                         </dl>
 
+                        {event.source_url ? (
+                          <a
+                            href={event.source_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 text-xs font-medium text-primary underline underline-offset-2"
+                          >
+                            Meer info over dit uitje
+                          </a>
+                        ) : null}
+
                         <div className="mt-4 flex items-center gap-2">
                           <div className="flex -space-x-2">
                             {event.members.slice(0, 4).map((m) => (
