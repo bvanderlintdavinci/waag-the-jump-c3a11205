@@ -218,6 +218,57 @@ export type Database = {
         }
         Relationships: []
       }
+      external_events: {
+        Row: {
+          category: string | null
+          city: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          imported_at: string
+          lat: number | null
+          lng: number | null
+          location_name: string | null
+          source: string
+          source_url: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          imported_at?: string
+          lat?: number | null
+          lng?: number | null
+          location_name?: string | null
+          source: string
+          source_url: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          category?: string | null
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          imported_at?: string
+          lat?: number | null
+          lng?: number | null
+          location_name?: string | null
+          source?: string
+          source_url?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
       feedback_messages: {
         Row: {
           created_at: string
