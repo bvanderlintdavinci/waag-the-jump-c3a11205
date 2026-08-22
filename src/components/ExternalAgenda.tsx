@@ -31,6 +31,21 @@ export function ExternalAgenda() {
     },
   });
 
+  const qc = useQueryClient();
+  const refresh = useServerFn(refreshUitagendaIfStale);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    void refresh({})
+      .then((r) => {
+        if (r?.refreshed) void qc.invalidateQueries({ queryKey: ["external-events"] });
+      })
+      .catch(() => undefined);
+  }, [refresh, qc]);
+
+
   const items = (data ?? [])
     .map((e) => ({
       ...e,
