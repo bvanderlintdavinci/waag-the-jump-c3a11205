@@ -7,13 +7,15 @@ const REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 export const refreshUitagendaIfStale = createServerFn({ method: "POST" }).handler(async () => {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin
-    .from("external_events")
-    .select("imported_at")
-    .order("imported_at", { ascending: false })
+    .from("activities")
+    .select("created_at")
+    .not("source_url", "is", null)
+    .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
 
-  const last = data?.imported_at ? new Date(data.imported_at).getTime() : 0;
+  const last = data?.created_at ? new Date(data.created_at).getTime() : 0;
+
   if (Date.now() - last < REFRESH_INTERVAL_MS) return { refreshed: false as const, saved: 0 };
 
   const { importUitagenda, DEFAULT_IMPORT_CITIES } = await import("@/lib/external-events.server");
