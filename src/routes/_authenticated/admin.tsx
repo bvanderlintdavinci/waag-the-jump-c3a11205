@@ -6,6 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin } from "@/hooks/use-auth";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
+import { UitagendaImport } from "@/components/UitagendaImport";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -73,7 +75,11 @@ function AdminPage() {
         <TabsContent value="deletions" className="mt-5">
           <Deletions />
         </TabsContent>
+        <TabsContent value="uitagenda" className="mt-5">
+          <UitagendaImport />
+        </TabsContent>
       </Tabs>
+
     </AppShell>
   );
 }
