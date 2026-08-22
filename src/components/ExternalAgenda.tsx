@@ -1,10 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { CalendarDays, ExternalLink, MapPin } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile } from "@/hooks/use-auth";
 import { distanceKm } from "@/lib/geo";
+import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
 import { Badge } from "@/components/ui/badge";
+
 
 const RADIUS_KM = 30;
 
