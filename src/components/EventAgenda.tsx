@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { CalendarDays, Check, Clock, MapPin, Users } from "lucide-react";
 
@@ -25,6 +26,7 @@ import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { distanceKm } from "@/lib/geo";
 import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { ensureActivityConversation } from "@/lib/activity-chat";
+import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -69,6 +71,8 @@ export function EventAgenda() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [week, setWeek] = useState<number | "all">("all");
+  const refreshAgenda = useServerFn(refreshUitagendaIfStale);
+  const refreshStarted = useRef(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["public-agenda", user?.id ?? "anon"],
@@ -95,6 +99,16 @@ export function EventAgenda() {
       return { events: events ?? [], parts: parts ?? [], profiles: profiles ?? [] };
     },
   });
+
+  useEffect(() => {
+    if (refreshStarted.current) return;
+    refreshStarted.current = true;
+    void refreshAgenda({})
+      .then((r) => {
+        if (r?.refreshed) void qc.invalidateQueries({ queryKey: ["public-agenda"] });
+      })
+      .catch(() => undefined);
+  }, [refreshAgenda, qc]);
 
   const hasHome = profile?.lat != null && profile?.lng != null;
 
@@ -243,7 +257,7 @@ export function EventAgenda() {
                   return (
                     <article key={event.id} className="surface flex flex-col overflow-hidden">
                       <img
-                        src={IMAGES[event.image_key] ?? socialImg}
+                        src={event.image_url ?? IMAGES[event.image_key] ?? socialImg}
                         alt={event.title}
                         loading="lazy"
                         width={1024}
@@ -254,6 +268,7 @@ export function EventAgenda() {
                         <div className="flex flex-wrap items-center gap-2">
                           <Badge className="gradient-primary border-transparent">{event.category}</Badge>
                           {event.kind === "date" ? <Badge variant="outline">Date-oproep</Badge> : null}
+                          {event.source ? <Badge variant="secondary">via {event.source}</Badge> : null}
                         </div>
                         <h4 className="mt-2 text-base font-bold text-foreground">{event.title}</h4>
                         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{event.description}</p>
@@ -271,6 +286,17 @@ export function EventAgenda() {
                             {event.distance != null ? ` · ${event.distance} km` : ""}
                           </div>
                         </dl>
+
+                        {event.source_url ? (
+                          <a
+                            href={event.source_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 text-xs font-medium text-primary underline underline-offset-2"
+                          >
+                            Meer info over dit uitje
+                          </a>
+                        ) : null}
 
                         <div className="mt-4 flex items-center gap-2">
                           <div className="flex -space-x-2">

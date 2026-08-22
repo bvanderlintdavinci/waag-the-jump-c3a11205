@@ -164,17 +164,35 @@ export async function importUitagenda(cities: string[]) {
 
   if (rows.length) {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
-      .from("external_events")
-      .upsert(rows.map((r) => ({ ...r, imported_at: new Date().toISOString() })), {
-        onConflict: "source_url",
-      });
+    // Alles komt in dezelfde agenda (activities), zodat mensen zich direct kunnen aanmelden.
+    const { error } = await supabaseAdmin.from("activities").upsert(
+      rows.map((r) => ({
+        title: r.title,
+        description: r.description ?? "Regionaal uitje uit de uitagenda. Sluit aan en spreek samen af.",
+        category: r.category ?? "Uitje",
+        kind: "friendship" as const,
+        is_public: true,
+        cancelled: false,
+        creator_id: null,
+        host_name: r.source,
+        location_name: [r.location_name, r.city].filter(Boolean).join(", ") || (r.city ?? "Onbekend"),
+        location_note: "",
+        starts_at: r.starts_at,
+        lat: r.lat,
+        lng: r.lng,
+        source: r.source,
+        source_url: r.source_url,
+        image_url: r.image_url,
+      })),
+      { onConflict: "source_url" },
+    );
     if (error) throw new Error(`Opslaan mislukt: ${error.message}`);
     saved = rows.length;
 
     await supabaseAdmin
-      .from("external_events")
+      .from("activities")
       .delete()
+      .not("source_url", "is", null)
       .lt("starts_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
   }
 

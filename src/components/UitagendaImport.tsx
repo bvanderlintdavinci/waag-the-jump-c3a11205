@@ -20,8 +20,9 @@ export function UitagendaImport() {
     queryKey: ["external-events-admin"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("external_events")
-        .select("id, title, city, source, starts_at, imported_at")
+        .from("activities")
+        .select("id, title, location_name, source, starts_at")
+        .not("source_url", "is", null)
         .order("starts_at", { ascending: true })
         .limit(30);
       if (error) throw error;
@@ -45,7 +46,7 @@ export function UitagendaImport() {
         toast.error("Ophalen mislukt", { description: result.errors.join(" · ") });
       }
       await qc.invalidateQueries({ queryKey: ["external-events-admin"] });
-      await qc.invalidateQueries({ queryKey: ["external-events"] });
+      await qc.invalidateQueries({ queryKey: ["public-agenda"] });
     } catch {
       toast.error("Ophalen mislukt.");
     } finally {
@@ -90,7 +91,7 @@ export function UitagendaImport() {
               <span className="font-medium text-foreground">{e.title}</span>
               <Badge variant="outline">{e.source}</Badge>
               <span className="text-xs text-muted-foreground">
-                {e.city} · {new Date(e.starts_at).toLocaleDateString("nl-NL", { dateStyle: "medium" })}
+                {e.location_name} · {new Date(e.starts_at).toLocaleDateString("nl-NL", { dateStyle: "medium" })}
               </span>
             </li>
           ))}

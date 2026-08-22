@@ -25,6 +25,7 @@ export type Database = {
           host_name: string | null
           id: string
           image_key: string
+          image_url: string | null
           is_public: boolean
           kind: Database["public"]["Enums"]["activity_kind"]
           lat: number | null
@@ -32,6 +33,8 @@ export type Database = {
           location_name: string
           location_note: string
           max_participants: number | null
+          source: string | null
+          source_url: string | null
           starts_at: string
           title: string
         }
@@ -45,6 +48,7 @@ export type Database = {
           host_name?: string | null
           id?: string
           image_key?: string
+          image_url?: string | null
           is_public?: boolean
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
@@ -52,6 +56,8 @@ export type Database = {
           location_name?: string
           location_note?: string
           max_participants?: number | null
+          source?: string | null
+          source_url?: string | null
           starts_at: string
           title: string
         }
@@ -65,6 +71,7 @@ export type Database = {
           host_name?: string | null
           id?: string
           image_key?: string
+          image_url?: string | null
           is_public?: boolean
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
@@ -72,6 +79,8 @@ export type Database = {
           location_name?: string
           location_note?: string
           max_participants?: number | null
+          source?: string | null
+          source_url?: string | null
           starts_at?: string
           title?: string
         }
@@ -215,57 +224,6 @@ export type Database = {
           reason?: string | null
           requested_at?: string
           user_id?: string
-        }
-        Relationships: []
-      }
-      external_events: {
-        Row: {
-          category: string | null
-          city: string | null
-          created_at: string
-          description: string | null
-          id: string
-          image_url: string | null
-          imported_at: string
-          lat: number | null
-          lng: number | null
-          location_name: string | null
-          source: string
-          source_url: string
-          starts_at: string
-          title: string
-        }
-        Insert: {
-          category?: string | null
-          city?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          imported_at?: string
-          lat?: number | null
-          lng?: number | null
-          location_name?: string | null
-          source: string
-          source_url: string
-          starts_at: string
-          title: string
-        }
-        Update: {
-          category?: string | null
-          city?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          imported_at?: string
-          lat?: number | null
-          lng?: number | null
-          location_name?: string | null
-          source?: string
-          source_url?: string
-          starts_at?: string
-          title?: string
         }
         Relationships: []
       }
