@@ -52,7 +52,9 @@ function AdminPage() {
           <TabsTrigger value="words">Woordfilter</TabsTrigger>
           <TabsTrigger value="users">Leden</TabsTrigger>
           <TabsTrigger value="deletions">Verwijderwachtrij</TabsTrigger>
+          <TabsTrigger value="uitagenda">Uitagenda</TabsTrigger>
         </TabsList>
+
         <TabsContent value="reports" className="mt-5">
           <Reports />
         </TabsContent>
