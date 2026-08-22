@@ -3,6 +3,8 @@ import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lu
 
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { EventAgenda } from "@/components/EventAgenda";
+import { ExternalAgenda } from "@/components/ExternalAgenda";
+
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { FeedbackButtons } from "@/components/FeedbackButtons";
 import { Button } from "@/components/ui/button";
@@ -100,6 +102,8 @@ function Landing() {
       </section>
 
       <EventAgenda />
+      <ExternalAgenda />
+
 
       <section className="mx-auto max-w-5xl px-4 py-14">
         <div className="grid gap-4 sm:grid-cols-3">
