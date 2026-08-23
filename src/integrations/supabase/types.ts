@@ -27,16 +27,20 @@ export type Database = {
           image_key: string
           image_url: string | null
           is_public: boolean
+          kids_ages: string
+          kids_count: number | null
           kind: Database["public"]["Enums"]["activity_kind"]
           lat: number | null
           lng: number | null
           location_name: string
           location_note: string
           max_participants: number | null
+          notes: string
           source: string | null
           source_url: string | null
           starts_at: string
           title: string
+          with_kids: boolean
         }
         Insert: {
           cancelled?: boolean
@@ -50,16 +54,20 @@ export type Database = {
           image_key?: string
           image_url?: string | null
           is_public?: boolean
+          kids_ages?: string
+          kids_count?: number | null
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
           lng?: number | null
           location_name?: string
           location_note?: string
           max_participants?: number | null
+          notes?: string
           source?: string | null
           source_url?: string | null
           starts_at: string
           title: string
+          with_kids?: boolean
         }
         Update: {
           cancelled?: boolean
@@ -73,16 +81,20 @@ export type Database = {
           image_key?: string
           image_url?: string | null
           is_public?: boolean
+          kids_ages?: string
+          kids_count?: number | null
           kind?: Database["public"]["Enums"]["activity_kind"]
           lat?: number | null
           lng?: number | null
           location_name?: string
           location_note?: string
           max_participants?: number | null
+          notes?: string
           source?: string | null
           source_url?: string | null
           starts_at?: string
           title?: string
+          with_kids?: boolean
         }
         Relationships: []
       }
