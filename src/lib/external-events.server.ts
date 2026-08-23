@@ -143,7 +143,6 @@ export async function importUitagenda(cities: string[]) {
   for (const city of targets) {
     const slug = city.toLowerCase().replace(/\s+/g, "-");
     const sources = [
-      { source: "dagjeweg.nl", url: `https://www.dagjeweg.nl/kalender/${slug}` },
       { source: "wattedoenin.nl", url: `https://www.wattedoenin.nl/${slug}` },
     ];
     for (const { source, url } of sources) {

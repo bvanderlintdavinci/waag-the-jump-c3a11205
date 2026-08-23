@@ -3,23 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { CalendarDays, Check, Clock, MapPin, Users } from "lucide-react";
-
-import festivalImg from "@/assets/event-festival.jpg";
-import coffeeImg from "@/assets/event-coffee.jpg";
-import musicImg from "@/assets/event-music.jpg";
-import motorImg from "@/assets/event-motor.jpg";
-import natureImg from "@/assets/event-nature.jpg";
-import socialImg from "@/assets/event-social.jpg";
-import beachImg from "@/assets/event-beach.jpg";
-import foodImg from "@/assets/event-food.jpg";
-import sportImg from "@/assets/event-sport.jpg";
-import familyImg from "@/assets/event-family.jpg";
-import marketImg from "@/assets/event-market.jpg";
-import craftImg from "@/assets/event-craft.jpg";
-import tastingImg from "@/assets/event-tasting.jpg";
-import shoppingImg from "@/assets/event-shopping.jpg";
-import pancakeImg from "@/assets/event-pancake.jpg";
+import { Baby, CalendarDays, Check, Clock, MapPin, Users } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
@@ -27,28 +11,12 @@ import { distanceKm } from "@/lib/geo";
 import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
+import { ACTIVITY_IMAGES } from "@/lib/activity-templates";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 
-const IMAGES: Record<string, string> = {
-  festival: festivalImg,
-  coffee: coffeeImg,
-  music: musicImg,
-  motor: motorImg,
-  nature: natureImg,
-  social: socialImg,
-  beach: beachImg,
-  food: foodImg,
-  sport: sportImg,
-  family: familyImg,
-  market: marketImg,
-  craft: craftImg,
-  tasting: tastingImg,
-  shopping: shoppingImg,
-  pancake: pancakeImg,
-};
 
 type DemoAttendee = { name: string };
 
@@ -216,7 +184,8 @@ export function EventAgenda() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-12" id="agenda">
       <div className="mb-6">
-        <h2 className="text-2xl font-extrabold text-foreground sm:text-3xl">De komende vier weken</h2>
+        <p className="eyebrow">Agenda</p>
+        <h2 className="mt-2 text-3xl text-foreground sm:text-4xl">De komende vier weken</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Bekijk de actuele 4-weken agenda voor lokale uitjes, festivals en bijeenkomsten bij jou in de buurt.
           {hasHome ? ` We tonen wat er speelt binnen ${REGION_RADIUS_KM} km van ${profile?.city ?? "je woonplaats"}.` : ""}
@@ -255,9 +224,9 @@ export function EventAgenda() {
                 {group.items.map((event) => {
                   const date = new Date(event.starts_at);
                   return (
-                    <article key={event.id} className="surface flex flex-col overflow-hidden">
+                    <article key={event.id} className="surface-lift flex flex-col overflow-hidden">
                       <img
-                        src={event.image_url ?? IMAGES[event.image_key] ?? socialImg}
+                        src={event.image_url ?? ACTIVITY_IMAGES[event.image_key] ?? ACTIVITY_IMAGES["social"]}
                         alt={event.title}
                         loading="lazy"
                         width={1024}
@@ -272,6 +241,17 @@ export function EventAgenda() {
                         </div>
                         <h4 className="mt-2 text-base font-bold text-foreground">{event.title}</h4>
                         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{event.description}</p>
+                        {event.with_kids ? (
+                          <p className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-mint px-2.5 py-1 text-xs font-semibold text-mint-foreground">
+                            <Baby className="size-3.5" />
+                            Met kinderen
+                            {event.kids_count ? ` · ${event.kids_count}` : ""}
+                            {event.kids_ages ? ` · ${event.kids_ages}` : ""}
+                          </p>
+                        ) : null}
+                        {event.notes ? (
+                          <p className="mt-2 line-clamp-2 text-xs italic text-muted-foreground">{event.notes}</p>
+                        ) : null}
 
                         <dl className="mt-3 space-y-1 text-xs text-muted-foreground">
                           <div className="flex items-center gap-1.5">
