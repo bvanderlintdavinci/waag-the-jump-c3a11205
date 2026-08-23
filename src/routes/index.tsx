@@ -52,7 +52,9 @@ function Landing() {
         <div className="flex items-center gap-3">
           <Dare2MeetLogo className="size-10" />
           <span className="flex flex-col leading-tight">
-            <span className="text-xl font-extrabold tracking-tight text-foreground">Dare2Meet</span>
+            <span className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-foreground">
+              Dare2Meet
+            </span>
             <span className="text-[11px] font-medium text-muted-foreground">
               Basisaccount 100% gratis · Premium functies eenmalig
             </span>
@@ -73,10 +75,10 @@ function Landing() {
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
             <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
           </span>
-          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-foreground sm:text-5xl">
+          <h1 className="text-balance-title mt-5 text-[2.6rem] leading-[1.03] text-foreground sm:text-[3.4rem]">
             Dare2Meet: waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
           </h1>
-          <p className="mt-4 max-w-xl text-base text-muted-foreground">
+          <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-muted-foreground">
             Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een Waagje, haak
             aan bij uitjes in de 4-weken agenda en ontmoet nieuwe mensen, buddy's of een date.
           </p>
@@ -91,13 +93,16 @@ function Landing() {
             </Link>
           </div>
         </div>
-        <img
+        <div className="relative">
+          <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-mint/70 blur-[2px]" aria-hidden="true" />
+          <img
           src={heroImage}
           alt="Pinguïns op een ijsberg terwijl de eerste de sprong waagt"
           width={1536}
           height={1024}
-          className="w-full rounded-xl border border-border shadow-[var(--shadow-lift)]"
-        />
+          className="w-full rounded-[1.75rem] border border-border object-cover shadow-[var(--shadow-lift)]"
+          />
+        </div>
       </section>
 
       <EventAgenda />
@@ -106,9 +111,11 @@ function Landing() {
       <section className="mx-auto max-w-5xl px-4 py-14">
         <div className="grid gap-4 sm:grid-cols-3">
           {PILLARS.map((p) => (
-            <div key={p.title} className="surface p-5">
-              <p.icon className="size-6 text-primary" />
-              <h2 className="mt-3 text-lg font-bold text-foreground">{p.title}</h2>
+            <div key={p.title} className="surface-lift p-6">
+              <span className="gradient-primary inline-flex size-11 items-center justify-center rounded-2xl">
+                <p.icon className="size-5" />
+              </span>
+              <h2 className="mt-4 text-xl text-foreground">{p.title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{p.text}</p>
             </div>
           ))}
@@ -116,9 +123,10 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-16">
-        <div className="surface grid gap-6 p-6 sm:grid-cols-2 sm:p-9">
+        <div className="surface grid gap-8 rounded-[1.75rem] p-6 sm:grid-cols-2 sm:p-10">
           <div>
-            <h2 className="text-2xl font-extrabold text-foreground">Hoe werkt een Waagje?</h2>
+            <p className="eyebrow">Zo werkt het</p>
+            <h2 className="mt-2 text-3xl text-foreground">Hoe werkt een Waagje?</h2>
             <ol className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>
                 <strong className="text-foreground">1. Plaats een Waagje.</strong> Een oproepje voor koffie, een
@@ -134,7 +142,7 @@ function Landing() {
               </li>
             </ol>
           </div>
-          <div className="rounded-xl bg-mint p-5">
+          <div className="rounded-[1.5rem] bg-mint p-6">
             <ShieldCheck className="size-6 text-mint-foreground" />
             <h3 className="mt-3 text-lg font-bold text-mint-foreground">Veilig en eerlijk</h3>
             <p className="mt-1 text-sm text-mint-foreground/80">
