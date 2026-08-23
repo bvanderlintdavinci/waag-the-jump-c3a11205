@@ -8,11 +8,13 @@ import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { guardText } from "@/lib/moderation-guard";
 import { resolveLocation } from "@/lib/geo";
 import { CATEGORIES } from "@/lib/pinguingo";
+import { ACTIVITY_TEMPLATES, type ActivityTemplate } from "@/lib/activity-templates";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -40,7 +42,22 @@ function NewActivity() {
   const [kind, setKind] = useState<"friendship" | "date">("friendship");
   const [startsAt, setStartsAt] = useState("");
   const [locationName, setLocationName] = useState(profile?.city ?? "");
+  const [imageKey, setImageKey] = useState<string>("social");
+  const [locationHint, setLocationHint] = useState("Waar spreken we af?");
+  const [withKids, setWithKids] = useState(false);
+  const [kidsCount, setKidsCount] = useState("1");
+  const [kidsAges, setKidsAges] = useState("");
+  const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
+
+  function pickTemplate(t: ActivityTemplate) {
+    setImageKey(t.key);
+    setCategory(t.category);
+    setLocationHint(t.locationHint);
+    if (t.title) setTitle(t.title);
+    if (t.description) setDescription(t.description);
+    if (!t.kidsFriendly) setWithKids(false);
+  }
 
   const { data: postedThisMonth = 0 } = useQuery({
     queryKey: ["my-monthly-activities", user?.id],
@@ -80,6 +97,11 @@ function NewActivity() {
         kind,
         starts_at: new Date(startsAt).toISOString(),
         location_name: locationName.trim(),
+        image_key: imageKey,
+        with_kids: withKids,
+        kids_count: withKids && kidsCount ? Number(kidsCount) : null,
+        kids_ages: withKids ? kidsAges.trim() : "",
+        notes: notes.trim(),
         lat: place?.lat ?? profile?.lat ?? null,
         lng: place?.lng ?? profile?.lng ?? null,
       })
@@ -122,6 +144,38 @@ function NewActivity() {
       </p>
 
       <form onSubmit={submit} className="surface mt-5 grid gap-4 p-5">
+        <div className="grid gap-2">
+          <Label>Kies een sfeerbeeld en startpunt</Label>
+          <p className="text-xs text-muted-foreground">
+            Je vult daarna alles zelf aan: eigen locatie, tijd, met of zonder kinderen en opmerkingen.
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {ACTIVITY_TEMPLATES.map((t) => (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => pickTemplate(t)}
+                aria-pressed={imageKey === t.key}
+                className={`overflow-hidden rounded-xl border text-left transition-shadow ${
+                  imageKey === t.key
+                    ? "border-primary shadow-[var(--shadow-lift)]"
+                    : "border-border hover:shadow-[var(--shadow-soft)]"
+                }`}
+              >
+                <img
+                  src={t.image}
+                  alt={t.label}
+                  loading="lazy"
+                  width={1024}
+                  height={640}
+                  className="h-20 w-full object-cover"
+                />
+                <span className="block px-2 py-1.5 text-xs font-semibold text-foreground">{t.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="grid gap-1.5">
           <Label htmlFor="title">Titel</Label>
           <Input
@@ -171,8 +225,64 @@ function NewActivity() {
           </div>
         </div>
         <div className="grid gap-1.5">
-          <Label htmlFor="loc">Locatie (plaatsnaam)</Label>
-          <Input id="loc" maxLength={120} value={locationName} onChange={(e) => setLocationName(e.target.value)} />
+          <Label htmlFor="loc">Locatie (zelf invullen)</Label>
+          <Input
+            id="loc"
+            maxLength={120}
+            placeholder={locationHint}
+            value={locationName}
+            onChange={(e) => setLocationName(e.target.value)}
+          />
+          <p className="text-xs text-muted-foreground">
+            Geef gerust een exacte plek op, bijvoorbeeld een markt, zwembad of verzamelpunt.
+          </p>
+        </div>
+
+        <div className="grid gap-3 rounded-xl border border-border bg-muted/40 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <Label htmlFor="kids">Met kinderen erbij</Label>
+              <p className="text-xs text-muted-foreground">Handig voor andere ouders om te weten.</p>
+            </div>
+            <Switch id="kids" checked={withKids} onCheckedChange={setWithKids} />
+          </div>
+          {withKids ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-1.5">
+                <Label htmlFor="kids-count">Aantal kinderen</Label>
+                <Input
+                  id="kids-count"
+                  type="number"
+                  min={1}
+                  max={10}
+                  value={kidsCount}
+                  onChange={(e) => setKidsCount(e.target.value)}
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="kids-ages">Leeftijden</Label>
+                <Input
+                  id="kids-ages"
+                  maxLength={60}
+                  placeholder="Bijvoorbeeld 4, 6 en 9 jaar"
+                  value={kidsAges}
+                  onChange={(e) => setKidsAges(e.target.value)}
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="grid gap-1.5">
+          <Label htmlFor="notes">Opmerkingen (optioneel)</Label>
+          <Textarea
+            id="notes"
+            rows={3}
+            maxLength={400}
+            placeholder="Bijvoorbeeld: kosten deelt iedereen zelf, honden welkom, neem sportkleding mee."
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
         </div>
         <div className="grid gap-1.5">
           <Label>Type oproep</Label>
