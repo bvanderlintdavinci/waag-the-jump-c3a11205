@@ -31,6 +31,7 @@ import { Route as AuthenticatedWaagjeIdRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedWaagjeNieuwRouteImport } from './routes/_authenticated/waagje.nieuw'
 import { Route as ApiPublicDoneerRouteImport } from './routes/api/public/doneer'
 import { Route as ApiPublicImportUitagendaRouteImport } from './routes/api/public/import-uitagenda'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -144,6 +145,12 @@ const ApiPublicImportUitagendaRoute =
     path: '/api/public/import-uitagenda',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -190,6 +198,7 @@ export interface FileRoutesByTo {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -215,6 +224,7 @@ export interface FileRoutesById {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/chats/'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -263,6 +274,7 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/chats'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -287,6 +299,7 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/_authenticated/chats/'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -300,6 +313,7 @@ export interface RootRouteChildren {
   VoorwaardenRoute: typeof VoorwaardenRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -458,6 +472,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicImportUitagendaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -505,6 +526,7 @@ const rootRouteChildren: RootRouteChildren = {
   VoorwaardenRoute: VoorwaardenRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
