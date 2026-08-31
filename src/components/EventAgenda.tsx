@@ -226,7 +226,7 @@ export function EventAgenda() {
                   return (
                     <article key={event.id} className="surface-lift flex flex-col overflow-hidden">
                       <img
-                        src={event.image_url ?? ACTIVITY_IMAGES[event.image_key] ?? ACTIVITY_IMAGES["social"]}
+                        src={ACTIVITY_IMAGES[event.image_key] ?? ACTIVITY_IMAGES["social"]}
                         alt={event.title}
                         loading="lazy"
                         width={1024}
