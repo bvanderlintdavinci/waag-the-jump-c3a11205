@@ -41,6 +41,19 @@ function AuthPage() {
   const [visibility, setVisibility] = useState(false);
   const [law, setLaw] = useState(false);
 
+  function dutchError(message: string) {
+    const m = message.toLowerCase();
+    if (m.includes("already registered") || m.includes("already been registered"))
+      return "Dit e-mailadres heeft al een account. Log in of herstel je wachtwoord.";
+    if (m.includes("invalid login credentials")) return "E-mailadres of wachtwoord klopt niet.";
+    if (m.includes("email not confirmed")) return "Bevestig eerst je e-mailadres via de link in je mail.";
+    if (m.includes("rate limit") || m.includes("too many")) return "Te veel pogingen. Probeer het over een paar minuten opnieuw.";
+    if (m.includes("password")) return "Kies een sterker wachtwoord van minimaal 8 tekens.";
+    if (m.includes("signups not allowed") || m.includes("signup is disabled"))
+      return "Registreren staat tijdelijk uit. Probeer het later opnieuw.";
+    return message;
+  }
+
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -50,7 +63,7 @@ function AuthPage() {
     });
     setBusy(false);
     if (error) {
-      toast.error("Inloggen mislukt", { description: error.message });
+      toast.error("Inloggen mislukt", { description: dutchError(error.message) });
       return;
     }
     navigate({ to: "/feed" });
@@ -77,7 +90,7 @@ function AuthPage() {
     });
     setBusy(false);
     if (error) {
-      toast.error("Registreren mislukt", { description: error.message });
+      toast.error("Registreren mislukt", { description: dutchError(error.message) });
       return;
     }
     if (data.session) {
