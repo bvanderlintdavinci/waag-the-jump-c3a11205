@@ -62,8 +62,9 @@ function Landing() {
         </div>
         <div className="flex items-center gap-2">
           <Link to="/verhaal" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
-            Ons verhaal
+            Het verhaal
           </Link>
+
           <Link to="/auth">
             <Button size="sm">Inloggen</Button>
           </Link>
