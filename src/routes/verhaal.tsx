@@ -53,44 +53,42 @@ function Story() {
 
         <div className="mt-8 space-y-5 text-base leading-relaxed text-foreground">
           <p>
-            Met een druk gezin vol school, sportclubjes, uitstapjes en alles wat daarbij komt kijken, vliegen
-            mijn weken voorbij. Het vaderschap is de absoluut grootste en mooiste tijdsopslokker in mijn leven,
-            en gecombineerd met een baan in het onderwijs, een eigen bedrijf en een woning waar altijd wel aan
-            geklust moet worden, blijft er simpelweg weinig vrije tijd over. Juist door die drukte zie ik hoe
-            waardevol, maar ook hoe lastig het kan zijn om op een laagdrempelige manier nieuwe contacten te
-            leggen.
+            Dare2Meet begon aan een keukentafel in een druk gezin. School, sportclubjes, uitstapjes, een baan in
+            het onderwijs, een eigen bedrijf en een huis waar altijd wel iets te klussen valt: de weken vliegen
+            voorbij. Juist in die drukte wordt zichtbaar hoe waardevol echt contact is, en hoe lastig het is om
+            daar zonder gedoe ruimte voor te maken.
           </p>
           <p>
-            Veel platforms beloven verbinding, maar vragen na registratie direct om een duur abonnement. De
-            transparantie ontbreekt vaak, terwijl het verbinden van mensen volgens mij helemaal geen
-            verdienmodel hoeft mee te brengen. Toegankelijk contact moet voor iedereen mogelijk zijn.
+            Veel platforms beloven verbinding en vragen na registratie meteen om een duur abonnement. Dat kan
+            anders. Mensen bij elkaar brengen hoeft geen verdienmodel te zijn, en toegankelijk contact hoort voor
+            iedereen mogelijk te zijn.
           </p>
           <p>
-            Als enthousiaste maker bouw en sleutel ik graag aan technische projecten, en ik sta net zo graag in
-            de keuken om wat goeds op tafel te zetten. Maar het mooiste is wanneer je energie inzet om iets
-            waardevols te maken voor een ander. Dare2Meet is ontstaan vanuit die gedachte. Het is een eerlijk
-            platform dat puur bedoeld is om een veilige en open plek te bieden waar mensen elkaar ongedwongen
-            kunnen vinden, zonder abonnementen en zonder verborgen kosten.
+            Dare2Meet is daarom ontstaan als eenmansproject, gebouwd naast alle drukte door, met de overtuiging
+            dat de site niet over de maker gaat maar over de mensen die elkaar hier vinden. Het is een eerlijke,
+            veilige en open plek waar je ongedwongen kunt afspreken, zonder abonnementen en zonder verborgen
+            kosten.
           </p>
           <p>
-            Of het nu gaat om een gezinsuitstapje naar de speeltuin, samen sporten, koken, een specifieke hobby
-            delen of gewoon een goede kop koffie, het draait om de echte klik.
+            Of het nu gaat om een uitstapje met de kinderen, samen sporten, koken, een specifieke hobby delen of
+            gewoon een goede kop koffie: het draait om de echte klik.
           </p>
 
           <h2 className="pt-2 text-2xl font-extrabold">De missie</h2>
           <p>
-            Dare2Meet is een transparant initiatief om mensen uit hun dagelijkse bubbel te halen en bij elkaar
-            te brengen. Niet via eindeloos swipen of verstopte kosten, maar door gewoon samen dingen te
-            ondernemen. Iemand moet de eerste stap durven zetten, de rest volgt vanzelf.
+            Dare2Meet haalt mensen uit hun dagelijkse bubbel en brengt ze bij elkaar. Niet via eindeloos swipen
+            of verstopte kosten, maar door gewoon samen dingen te ondernemen. Iemand moet de eerste stap durven
+            zetten, de rest volgt vanzelf.
           </p>
           <p>
-            Wil je ons steunen? Dat mag vrijwillig met{" "}
+            Wil je Dare2Meet steunen? Dat mag vrijwillig met{" "}
             <a href="/api/public/doneer" className="font-semibold text-primary underline">
               een kop koffie
             </a>
             . Dat is alles.
           </p>
         </div>
+
 
         <div className="surface mt-10 flex flex-wrap items-center justify-between gap-4 p-6">
           <p className="text-base font-semibold text-foreground">Klaar om de sprong te wagen?</p>
