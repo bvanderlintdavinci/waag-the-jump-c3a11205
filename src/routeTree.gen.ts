@@ -24,6 +24,7 @@ import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/f
 import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
@@ -111,6 +112,11 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AdminDeployStatusRoute = AdminDeployStatusRouteImport.update({
+  id: '/admin/deploy-status',
+  path: '/admin/deploy-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -212,6 +219,7 @@ export interface FileRoutesByTo {
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -241,6 +249,7 @@ export interface FileRoutesById {
   '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
   '/_authenticated/leden': typeof AuthenticatedLedenRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -270,6 +279,7 @@ export interface FileRouteTypes {
     | '/instellingen'
     | '/leden'
     | '/onboarding'
+    | '/admin/deploy-status'
     | '/auth/callback'
     | '/chats/$id'
     | '/profiel/$id'
@@ -297,6 +307,7 @@ export interface FileRouteTypes {
     | '/instellingen'
     | '/leden'
     | '/onboarding'
+    | '/admin/deploy-status'
     | '/auth/callback'
     | '/chats/$id'
     | '/profiel/$id'
@@ -325,6 +336,7 @@ export interface FileRouteTypes {
     | '/_authenticated/instellingen'
     | '/_authenticated/leden'
     | '/_authenticated/onboarding'
+    | '/admin/deploy-status'
     | '/auth/callback'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
@@ -347,6 +359,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
+  AdminDeployStatusRoute: typeof AdminDeployStatusRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -460,6 +473,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/onboarding'
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/admin/deploy-status': {
+      id: '/admin/deploy-status'
+      path: '/admin/deploy-status'
+      fullPath: '/admin/deploy-status'
+      preLoaderRoute: typeof AdminDeployStatusRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
       id: '/auth/callback'
@@ -593,6 +613,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
+  AdminDeployStatusRoute: AdminDeployStatusRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,

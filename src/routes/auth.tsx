@@ -113,14 +113,17 @@ function AuthPage() {
   }
 
   async function google() {
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: `${window.location.origin}/auth/callback`,
+    });
     if (result.error) {
-      toast.error("Google inloggen mislukt");
+      toast.error("Google inloggen mislukt", { description: dutchError(result.error.message) });
       return;
     }
     if (result.redirected) return;
     navigate({ to: "/feed" });
   }
+
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-10">
