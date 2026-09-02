@@ -62,8 +62,9 @@ function Landing() {
         </div>
         <div className="flex items-center gap-2">
           <Link to="/verhaal" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
-            Ons verhaal
+            Het verhaal
           </Link>
+
           <Link to="/auth">
             <Button size="sm">Inloggen</Button>
           </Link>
@@ -163,9 +164,10 @@ function Landing() {
           <span className="inline-flex items-center gap-2">
             <Coffee className="size-4" />{" "}
             <a href="/api/public/doneer" className="underline hover:text-foreground">
-              Steun ons met een kop koffie
+              Steun Dare2Meet met een kop koffie
             </a>
           </span>
+
           <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
@@ -183,8 +185,9 @@ function Landing() {
             Disclaimer
           </Link>
           <Link to="/verhaal" className="underline hover:text-foreground">
-            Ons verhaal
+            Het verhaal
           </Link>
+
         </div>
       </footer>
 
