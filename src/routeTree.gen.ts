@@ -24,6 +24,7 @@ import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/f
 import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authenticated/instellingen'
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
@@ -110,6 +111,11 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -166,7 +172,7 @@ const LovableEmailTransactionalPreviewRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -192,7 +199,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/instellingen': typeof AuthenticatedInstellingenRoute
   '/leden': typeof AuthenticatedLedenRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -220,7 +228,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/_authenticated/instellingen': typeof AuthenticatedInstellingenRoute
   '/_authenticated/leden': typeof AuthenticatedLedenRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/instellingen'
     | '/leden'
     | '/onboarding'
+    | '/auth/callback'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/instellingen'
     | '/leden'
     | '/onboarding'
+    | '/auth/callback'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
     | '/_authenticated/instellingen'
     | '/_authenticated/leden'
     | '/_authenticated/onboarding'
+    | '/auth/callback'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
     | '/_authenticated/waagje/$id'
@@ -329,7 +341,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   CookiesRoute: typeof CookiesRoute
   DisclaimerRoute: typeof DisclaimerRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -449,6 +461,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -555,10 +574,20 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AuthRouteChildren {
+  AuthCallbackRoute: typeof AuthCallbackRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCallbackRoute: AuthCallbackRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   CookiesRoute: CookiesRoute,
   DisclaimerRoute: DisclaimerRoute,
   PrivacyRoute: PrivacyRoute,
