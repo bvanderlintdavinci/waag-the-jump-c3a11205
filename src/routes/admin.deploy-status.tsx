@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const STORAGE_KEY = "d2m-deploy-status-pin";
-const PIN = "dare2meet";
+const PIN = "CsaDeploy2026!Bergschenhoek";
 
 export const Route = createFileRoute("/admin/deploy-status")({
   ssr: false,

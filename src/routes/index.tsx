@@ -47,8 +47,9 @@ const PILLARS = [
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-background">
-      <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
+    <div className="feather-texture min-h-screen bg-background">
+      <header className="glass-nav sticky top-0 z-40 mb-1 w-full">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-3">
           <Dare2MeetLogo className="size-10" />
           <span className="flex flex-col leading-tight">
