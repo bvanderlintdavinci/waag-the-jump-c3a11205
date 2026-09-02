@@ -164,9 +164,10 @@ function Landing() {
           <span className="inline-flex items-center gap-2">
             <Coffee className="size-4" />{" "}
             <a href="/api/public/doneer" className="underline hover:text-foreground">
-              Steun ons met een kop koffie
+              Steun Dare2Meet met een kop koffie
             </a>
           </span>
+
           <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
