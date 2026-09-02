@@ -185,8 +185,9 @@ function Landing() {
             Disclaimer
           </Link>
           <Link to="/verhaal" className="underline hover:text-foreground">
-            Ons verhaal
+            Het verhaal
           </Link>
+
         </div>
       </footer>
 
