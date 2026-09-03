@@ -186,7 +186,7 @@ export const getEmailOverview = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("feedback_messages")
-      .select("id, kind, message, created_at, status")
+      .select("id, kind, message, created_at, handled")
       .order("created_at", { ascending: false })
       .limit(10);
 
@@ -194,7 +194,7 @@ export const getEmailOverview = createServerFn({ method: "POST" })
       id: r.id as string,
       subject: `${r.kind as string}: ${String(r.message ?? "").slice(0, 60)}`,
       createdAt: r.created_at as string,
-      status: (r.status as string) ?? "open",
+      status: r.handled ? "afgehandeld" : "open",
     }));
 
     return {
