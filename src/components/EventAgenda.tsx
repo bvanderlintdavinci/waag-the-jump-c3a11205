@@ -11,7 +11,7 @@ import { distanceKm } from "@/lib/geo";
 import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
-import { ACTIVITY_IMAGES } from "@/lib/activity-templates";
+import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -226,7 +226,16 @@ export function EventAgenda() {
                   return (
                     <article key={event.id} className="surface-lift flex flex-col overflow-hidden">
                       <img
-                        src={ACTIVITY_IMAGES[event.image_key] ?? ACTIVITY_IMAGES["social"]}
+                        src={
+                          ACTIVITY_IMAGES[
+                            pickImageKey({
+                              imageKey: event.image_key,
+                              category: event.category,
+                              title: event.title,
+                              id: event.id,
+                            })
+                          ] ?? ACTIVITY_IMAGES["social"]
+                        }
                         alt={event.title}
                         loading="lazy"
                         width={1024}
