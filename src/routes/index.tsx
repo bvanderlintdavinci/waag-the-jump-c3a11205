@@ -70,6 +70,7 @@ function Landing() {
             <Button size="sm">Inloggen</Button>
           </Link>
         </div>
+        </div>
       </header>
 
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
@@ -77,16 +78,19 @@ function Landing() {
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
             <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
           </span>
-          <h1 className="text-balance-title mt-5 text-[2.6rem] leading-[1.03] text-foreground sm:text-[3.4rem]">
+          <h1 className="text-balance-title mt-5 text-[2.6rem] leading-[1.03] text-ink sm:text-[3.4rem]">
             Dare2Meet: waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
           </h1>
           <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-muted-foreground">
-            Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een Waagje, haak
-            aan bij uitjes in de 4-weken agenda en ontmoet nieuwe mensen, buddy's of een date.
+            Net als pinguïns op de rand van het ijs: iemand moet als eerste springen. Plaats een{" "}
+            <strong className="font-semibold text-terracotta">Waagje</strong>, haak aan bij uitjes in de{" "}
+            <strong className="font-semibold text-terracotta">4-weken agenda</strong> en ontmoet nieuwe mensen,{" "}
+            <strong className="font-semibold text-terracotta">buddy's</strong> of een{" "}
+            <strong className="font-semibold text-terracotta">date</strong>.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link to="/auth">
-              <Button size="lg">Ik waag de sprong!</Button>
+              <Button size="lg" className="cta-glow">Ik waag de sprong!</Button>
             </Link>
             <Link to="/verhaal">
               <Button size="lg" variant="outline">
@@ -102,7 +106,7 @@ function Landing() {
           alt="Pinguïns op een ijsberg terwijl de eerste de sprong waagt"
           width={1536}
           height={1024}
-          className="w-full rounded-[1.75rem] border border-border object-cover shadow-[var(--shadow-lift)]"
+          className="hero-float w-full rounded-[1.75rem] border border-border object-cover"
           />
         </div>
       </section>
