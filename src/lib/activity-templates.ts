@@ -225,3 +225,66 @@ export const ACTIVITY_TEMPLATES: ActivityTemplate[] = [
     kidsFriendly: true,
   },
 ];
+
+/** Trefwoorden per sfeerbeeld, gebruikt om events zonder eigen beeld te verdelen. */
+const IMAGE_KEYWORDS: Array<[string, string[]]> = [
+  ["festival", ["festival", "kermis", "feest", "carnaval", "dance"]],
+  ["music", ["muziek", "concert", "band", "koor", "orkest", "dj", "theater", "podium"]],
+  ["market", ["markt", "braderie", "fair", "beurs", "rommel", "vlooien", "kraam"]],
+  ["food", ["eten", "food", "diner", "restaurant", "kook", "bbq", "barbecue", "lunch"]],
+  ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
+  ["coffee", ["koffie", "café", "cafe", "thee", "high tea", "ontbijt"]],
+  ["craft", ["kunst", "creatief", "workshop", "klus", "expositie", "museum", "atelier", "cultuur"]],
+  ["nature", ["natuur", "wandel", "bos", "park", "fiets", "tuin", "wandeltocht"]],
+  ["beach", ["strand", "zee", "duin", "kust"]],
+  ["sport", ["sport", "hardlopen", "voetbal", "fitness", "yoga", "tennis", "run"]],
+  ["swim", ["zwem", "zwembad", "sauna", "water"]],
+  ["squash", ["squash", "padel", "badminton"]],
+  ["motor", ["motor", "auto", "oldtimer", "rit", "toer"]],
+  ["family", ["gezin", "kinderen", "familie", "kids", "jeugd"]],
+  ["playground", ["speeltuin", "speel", "kinderboerderij"]],
+  ["pancake", ["pannenkoek", "poffertjes"]],
+  ["shopping", ["shop", "winkel", "koopavond", "mode"]],
+  ["citytrip", ["stad", "citytrip", "rondleiding", "tour", "historisch", "wetenschap"]],
+];
+
+const FALLBACK_ORDER = [
+  "social",
+  "market",
+  "festival",
+  "craft",
+  "nature",
+  "citytrip",
+  "music",
+  "food",
+  "coffee",
+  "tasting",
+];
+
+function hashString(value: string): number {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+  return hash;
+}
+
+/**
+ * Kiest een passend sfeerbeeld op basis van categorie en titel. Zonder match
+ * wordt er stabiel gevarieerd zodat de agenda niet steeds hetzelfde beeld toont.
+ */
+export function pickImageKey(input: {
+  imageKey?: string | null;
+  category?: string | null;
+  title?: string | null;
+  id?: string | null;
+}): string {
+  const key = input.imageKey ?? "";
+  if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
+
+  const haystack = `${input.category ?? ""} ${input.title ?? ""}`.toLowerCase();
+  for (const [image, words] of IMAGE_KEYWORDS) {
+    if (words.some((w) => haystack.includes(w))) return image;
+  }
+
+  const seed = hashString(`${input.id ?? ""}${input.title ?? ""}${input.category ?? ""}`);
+  return FALLBACK_ORDER[seed % FALLBACK_ORDER.length]!;
+}
