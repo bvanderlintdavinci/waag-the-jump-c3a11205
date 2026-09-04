@@ -256,6 +256,24 @@
   }
 }
 
+@utility penguin-texture {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("/dare2meet-logo.svg");
+    background-repeat: no-repeat;
+    background-position: center 60%;
+    background-size: min(70vw, 620px) auto;
+    filter: grayscale(1);
+  }
+}
+
 @utility hero-float {
   box-shadow:
     0 2px 6px oklch(0.22 0.03 258 / 0.08),

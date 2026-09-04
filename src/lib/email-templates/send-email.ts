@@ -65,6 +65,19 @@ export async function sendTemplateEmail(
       ? template.subject(templateData)
       : template.subject
 
+  const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
+  const { data: logRow } = await supabaseAdmin
+    .from('email_log')
+    .insert({ template: templateName, status: 'queued' })
+    .select('id')
+    .maybeSingle()
+  const logId = (logRow as { id: string } | null)?.id ?? null
+
+  async function markLog(status: string, message: string | null) {
+    if (!logId) return
+    await supabaseAdmin.from('email_log').update({ status, error: message }).eq('id', logId)
+  }
+
   try {
     await sendLovableEmail(
       {
@@ -83,10 +96,13 @@ export async function sendTemplateEmail(
     )
   } catch (error) {
     if (error instanceof EmailAPIError && error.code === 'recipient_suppressed') {
+      await markLog('suppressed', 'Ontvanger is geblokkeerd')
       return { sent: false, reason: 'recipient_suppressed' }
     }
+    await markLog('failed', error instanceof Error ? error.message : 'Onbekende fout')
     throw error
   }
 
+  await markLog('sent', null)
   return { sent: true }
 }
