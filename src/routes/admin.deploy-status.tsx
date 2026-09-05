@@ -180,6 +180,52 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
               </>
             )}
           </Card>
+
+          <Card icon={GitBranch} title="Versiecontrole">
+            {version.isLoading ? (
+              <p className="text-sm text-muted-foreground">Controleren...</p>
+            ) : (
+              <>
+                <Badge variant={v?.updateAvailable ? "destructive" : "default"}>
+                  {v?.latest === null
+                    ? "Niet te bepalen"
+                    : v?.updateAvailable
+                      ? "Nieuwe versie beschikbaar"
+                      : "Up-to-date"}
+                </Badge>
+                <div className="mt-3 space-y-1 text-xs text-muted-foreground">
+                  <p>
+                    Nu geladen: <span className="font-mono text-ink">{v?.running ?? "-"}</span>
+                  </p>
+                  <p>
+                    Live beschikbaar: <span className="font-mono text-ink">{v?.latest ?? "onbekend"}</span>
+                  </p>
+                  {v?.note ? <p className="text-copper">{v.note}</p> : null}
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => void version.refetch()}
+                    disabled={version.isFetching}
+                  >
+                    <RefreshCw className="mr-2 size-4" />
+                    {version.isFetching ? "Bezig..." : "Opnieuw controleren"}
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="cta-glow"
+                    onClick={() => void applyLatestVersion()}
+                    disabled={!v?.updateAvailable}
+                  >
+                    <ArrowUpCircle className="mr-2 size-4" />
+                    Bijwerken naar nieuwste versie
+                  </Button>
+                </div>
+              </>
+            )}
+          </Card>
+
         </section>
 
         <div className="surface p-5">
