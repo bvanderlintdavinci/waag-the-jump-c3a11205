@@ -134,6 +134,7 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                 void build.refetch();
                 void email.refetch();
                 void health.refetch();
+                void version.refetch();
               }}
             >
               <RefreshCw className="mr-2 size-4" />
