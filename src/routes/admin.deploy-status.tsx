@@ -96,6 +96,12 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
     queryFn: () => fetchEmail({ data: { pin } }),
   });
 
+  const version = useQuery({
+    queryKey: ["version-check"],
+    queryFn: checkVersion,
+    refetchInterval: 120000,
+  });
+
   const health = useQuery({
     queryKey: ["db-health"],
     refetchInterval: 60000,
@@ -108,6 +114,8 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
 
   const b = build.data;
   const e = email.data;
+  const v = version.data;
+
 
   return (
     <div className="penguin-texture min-h-screen bg-background px-4 py-10">
