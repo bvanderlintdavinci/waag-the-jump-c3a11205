@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Activity, Database, Lock, LogOut, Mail, RefreshCw, Server } from "lucide-react";
+import { Activity, ArrowUpCircle, Database, GitBranch, Lock, LogOut, Mail, RefreshCw, Server } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getBuildOverview, getEmailOverview } from "@/lib/deploy-status.functions";
+import { applyLatestVersion, checkVersion } from "@/lib/version-check";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
