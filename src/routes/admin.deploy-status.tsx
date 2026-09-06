@@ -113,6 +113,26 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
     },
   });
 
+  const [deploying, setDeploying] = useState(false);
+
+  async function runUpdate() {
+    setDeploying(true);
+    toast.success("Deployment gestart! De nieuwste versie wordt nu live gezet.");
+
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      const result = await checkVersion();
+      if (result.updateAvailable) {
+        toast.success("Nieuwe versie gevonden. De pagina wordt nu vernieuwd.");
+        await applyLatestVersion();
+        return;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+
+    toast.info("Geen nieuwere versie gevonden. De app wordt opnieuw geladen met een lege cache.");
+    await applyLatestVersion();
+  }
+
   const b = build.data;
   const e = email.data;
   const v = version.data;
