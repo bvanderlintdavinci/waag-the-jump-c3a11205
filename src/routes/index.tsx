@@ -76,7 +76,7 @@ function Landing() {
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
-            <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
+            <Sparkles className="size-3.5" /> Gratis basisaccount · premiumfuncties eenmalig
           </span>
           <h1 className="text-balance-title mt-5 text-[2.6rem] leading-[1.03] text-ink sm:text-[3.4rem]">
             Dare2Meet: waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
