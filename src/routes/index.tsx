@@ -128,7 +128,32 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-16">
+      <section id="basisaccount" className="mx-auto max-w-5xl px-4 pb-4">
+        <div className="surface rounded-[1.75rem] p-6 sm:p-10">
+          <p className="eyebrow">Veelgestelde vragen</p>
+          <h2 className="mt-2 text-3xl text-foreground">Wat kost een basisaccount?</h2>
+          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+            <li>
+              <strong className="text-foreground">Kosteloos gebruiken.</strong> Een basisaccount kun je kosteloos
+              gebruiken, zonder abonnement.
+            </li>
+            <li>
+              <strong className="text-foreground">Maximaal 2 Waagjes per maand.</strong> Met een basisaccount plaats
+              je tot twee oproepen of berichten per kalendermaand.
+            </li>
+            <li>
+              <strong className="text-foreground">Onbeperkt reageren en chatten.</strong> Reageren op anderen en
+              chatten blijft altijd kosteloos.
+            </li>
+            <li>
+              <strong className="text-foreground">Premiumfuncties op aanvraag.</strong> Bepaalde extra opties zijn
+              tegen een eenmalige vergoeding beschikbaar, om de server- en onderhoudskosten van de site te dekken.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-16 pt-10">
         <div className="surface grid gap-8 rounded-[1.75rem] p-6 sm:grid-cols-2 sm:p-10">
           <div>
             <p className="eyebrow">Zo werkt het</p>
