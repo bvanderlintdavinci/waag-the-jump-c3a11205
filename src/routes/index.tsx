@@ -57,7 +57,7 @@ function Landing() {
               Dare2Meet
             </span>
             <span className="text-[11px] font-medium text-muted-foreground">
-              Basisaccount 100% gratis · Premium functies eenmalig
+              Gratis basisaccount • Premiumfuncties tegen eenmalige aanvraag
             </span>
           </span>
         </div>
