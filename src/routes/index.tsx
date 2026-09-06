@@ -201,6 +201,35 @@ function Landing() {
           <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
         </div>
+        <div className="mx-auto max-w-5xl border-t border-border px-4 py-6 text-xs leading-relaxed text-muted-foreground">
+          <h2 className="text-sm font-bold text-foreground">Disclaimer en gebruiksvoorwaarden</h2>
+          <p className="mt-2">
+            <strong className="text-foreground">Dienstverlening.</strong> Dare2Meet is uitsluitend een faciliterend
+            platform dat mensen bij elkaar brengt. Dare2Meet organiseert zelf geen bijeenkomsten en is op geen enkele
+            wijze partij bij onderlinge afspraken.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Uitsluiting aansprakelijkheid.</strong> De beheerder of eigenaar van
+            Dare2Meet kan op geen enkele wijze aansprakelijk worden gesteld voor directe of indirecte schade, letsel,
+            geschillen, verlies of ongemak voortvloeiend uit onderling contact, afspraken of ontmoetingen tussen
+            gebruikers, zowel online als offline.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Eigen verantwoordelijkheid.</strong> Deelnemers nemen volledig op eigen
+            risico deel aan uitjes, dates en ontmoetingen.
+          </p>
+          <p className="mt-2">
+            Lees de volledige{" "}
+            <Link to="/disclaimer" className="underline hover:text-foreground">
+              disclaimer
+            </Link>{" "}
+            en{" "}
+            <Link to="/voorwaarden" className="underline hover:text-foreground">
+              algemene voorwaarden
+            </Link>
+            .
+          </p>
+        </div>
         <div className="mx-auto flex max-w-5xl flex-wrap gap-4 border-t border-border px-4 py-4 text-xs text-muted-foreground">
           <Link to="/privacy" className="underline hover:text-foreground">
             Privacybeleid
