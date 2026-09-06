@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 const STORAGE_KEY = "d2m-deploy-status-pin";
 const PIN = "CsaDeploy2026!Bergschenhoek";
@@ -113,6 +114,26 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
     },
   });
 
+  const [deploying, setDeploying] = useState(false);
+
+  async function runUpdate() {
+    setDeploying(true);
+    toast.success("Deployment gestart! De nieuwste versie wordt nu live gezet.");
+
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      const result = await checkVersion();
+      if (result.updateAvailable) {
+        toast.success("Nieuwe versie gevonden. De pagina wordt nu vernieuwd.");
+        await applyLatestVersion();
+        return;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+
+    toast.info("Geen nieuwere versie gevonden. De app wordt opnieuw geladen met een lege cache.");
+    await applyLatestVersion();
+  }
+
   const b = build.data;
   const e = email.data;
   const v = version.data;
@@ -204,24 +225,31 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                   </p>
                   {v?.note ? <p className="text-copper">{v.note}</p> : null}
                 </div>
+                {deploying ? (
+                  <p className="mt-3 text-xs text-copper">
+                    Status wordt elke 5 seconden gecontroleerd...
+                  </p>
+                ) : null}
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => void version.refetch()}
-                    disabled={version.isFetching}
+                    onClick={() => {
+                      toast.info("Versiecontrole gestart...");
+                      void version.refetch();
+                    }}
+                    disabled={version.isFetching || deploying}
                   >
-                    <RefreshCw className="mr-2 size-4" />
+                    <RefreshCw className={`mr-2 size-4 ${version.isFetching ? "animate-spin" : ""}`} />
                     {version.isFetching ? "Bezig..." : "Opnieuw controleren"}
                   </Button>
-                  <Button
-                    size="sm"
-                    className="cta-glow"
-                    onClick={() => void applyLatestVersion()}
-                    disabled={!v?.updateAvailable}
-                  >
-                    <ArrowUpCircle className="mr-2 size-4" />
-                    Bijwerken naar nieuwste versie
+                  <Button size="sm" className="cta-glow" onClick={() => void runUpdate()} disabled={deploying}>
+                    {deploying ? (
+                      <RefreshCw className="mr-2 size-4 animate-spin" />
+                    ) : (
+                      <ArrowUpCircle className="mr-2 size-4" />
+                    )}
+                    {deploying ? "Bezig met uitrollen..." : "Bijwerken naar nieuwste versie"}
                   </Button>
                 </div>
               </>
