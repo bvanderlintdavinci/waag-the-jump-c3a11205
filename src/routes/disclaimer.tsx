@@ -26,6 +26,22 @@ function Disclaimer() {
       title="Disclaimer"
       intro="Dare2Meet is een ontmoetingsplek, geen organisator. Wat je met elkaar afspreekt, doe je op eigen initiatief."
     >
+      <h2>Dienstverlening</h2>
+      <p>
+        Dare2Meet is uitsluitend een faciliterend platform dat mensen bij elkaar brengt. Dare2Meet organiseert zelf
+        geen bijeenkomsten en is op geen enkele wijze partij bij onderlinge afspraken tussen gebruikers.
+      </p>
+
+      <h2>Uitsluiting van aansprakelijkheid</h2>
+      <p>
+        De beheerder of eigenaar van Dare2Meet kan op geen enkele wijze aansprakelijk worden gesteld voor directe of
+        indirecte schade, letsel, geschillen, verlies of ongemak voortvloeiend uit onderling contact, afspraken of
+        ontmoetingen tussen gebruikers, zowel online als offline.
+      </p>
+
+      <h2>Eigen verantwoordelijkheid</h2>
+      <p>Deelnemers nemen volledig op eigen risico deel aan uitjes, dates en ontmoetingen.</p>
+
       <h2>Ontmoetingen</h2>
       <p>
         Uitjes en afspraken worden door leden zelf geplaatst en georganiseerd. Dare2Meet controleert leden niet

@@ -57,7 +57,7 @@ function Landing() {
               Dare2Meet
             </span>
             <span className="text-[11px] font-medium text-muted-foreground">
-              Basisaccount 100% gratis · Premium functies eenmalig
+              Gratis basisaccount • Premiumfuncties tegen eenmalige aanvraag
             </span>
           </span>
         </div>
@@ -76,7 +76,7 @@ function Landing() {
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
-            <Sparkles className="size-3.5" /> Gratis basisaccount · geen abonnementen
+            <Sparkles className="size-3.5" /> Gratis basisaccount · premiumfuncties eenmalig
           </span>
           <h1 className="text-balance-title mt-5 text-[2.6rem] leading-[1.03] text-ink sm:text-[3.4rem]">
             Dare2Meet: waag de sprong, breek het ijs en ontmoet mensen bij jou in de buurt!
@@ -128,7 +128,32 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-16">
+      <section id="basisaccount" className="mx-auto max-w-5xl px-4 pb-4">
+        <div className="surface rounded-[1.75rem] p-6 sm:p-10">
+          <p className="eyebrow">Veelgestelde vragen</p>
+          <h2 className="mt-2 text-3xl text-foreground">Wat kost een basisaccount?</h2>
+          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+            <li>
+              <strong className="text-foreground">Kosteloos gebruiken.</strong> Een basisaccount kun je kosteloos
+              gebruiken, zonder abonnement.
+            </li>
+            <li>
+              <strong className="text-foreground">Maximaal 2 Waagjes per maand.</strong> Met een basisaccount plaats
+              je tot twee oproepen of berichten per kalendermaand.
+            </li>
+            <li>
+              <strong className="text-foreground">Onbeperkt reageren en chatten.</strong> Reageren op anderen en
+              chatten blijft altijd kosteloos.
+            </li>
+            <li>
+              <strong className="text-foreground">Premiumfuncties op aanvraag.</strong> Bepaalde extra opties zijn
+              tegen een eenmalige vergoeding beschikbaar, om de server- en onderhoudskosten van de site te dekken.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-16 pt-10">
         <div className="surface grid gap-8 rounded-[1.75rem] p-6 sm:grid-cols-2 sm:p-10">
           <div>
             <p className="eyebrow">Zo werkt het</p>
@@ -175,6 +200,35 @@ function Landing() {
 
           <FeedbackButtons floating={false} />
           <span>© {new Date().getFullYear()} Dare2Meet.nl</span>
+        </div>
+        <div className="mx-auto max-w-5xl border-t border-border px-4 py-6 text-xs leading-relaxed text-muted-foreground">
+          <h2 className="text-sm font-bold text-foreground">Disclaimer en gebruiksvoorwaarden</h2>
+          <p className="mt-2">
+            <strong className="text-foreground">Dienstverlening.</strong> Dare2Meet is uitsluitend een faciliterend
+            platform dat mensen bij elkaar brengt. Dare2Meet organiseert zelf geen bijeenkomsten en is op geen enkele
+            wijze partij bij onderlinge afspraken.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Uitsluiting aansprakelijkheid.</strong> De beheerder of eigenaar van
+            Dare2Meet kan op geen enkele wijze aansprakelijk worden gesteld voor directe of indirecte schade, letsel,
+            geschillen, verlies of ongemak voortvloeiend uit onderling contact, afspraken of ontmoetingen tussen
+            gebruikers, zowel online als offline.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Eigen verantwoordelijkheid.</strong> Deelnemers nemen volledig op eigen
+            risico deel aan uitjes, dates en ontmoetingen.
+          </p>
+          <p className="mt-2">
+            Lees de volledige{" "}
+            <Link to="/disclaimer" className="underline hover:text-foreground">
+              disclaimer
+            </Link>{" "}
+            en{" "}
+            <Link to="/voorwaarden" className="underline hover:text-foreground">
+              algemene voorwaarden
+            </Link>
+            .
+          </p>
         </div>
         <div className="mx-auto flex max-w-5xl flex-wrap gap-4 border-t border-border px-4 py-4 text-xs text-muted-foreground">
           <Link to="/privacy" className="underline hover:text-foreground">

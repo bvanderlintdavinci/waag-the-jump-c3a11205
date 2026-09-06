@@ -49,8 +49,10 @@ function Terms() {
 
       <h2>4. Kosten</h2>
       <p>
-        Een basisaccount is gratis en er zijn geen abonnementen of verborgen kosten. Sommige extra functies
-        kunnen eenmalig te ontgrendelen zijn; dat staat altijd vooraf duidelijk vermeld. Doneren mag vrijwillig
+        Een basisaccount is kosteloos te gebruiken en er zijn geen abonnementen of verborgen kosten. Met een
+        basisaccount plaats je maximaal twee Waagjes per kalendermaand; reageren op anderen en chatten is
+        onbeperkt en kosteloos. Bepaalde premiumfuncties zijn tegen een eenmalige vergoeding beschikbaar om de
+        server- en onderhoudskosten te dekken; dat staat altijd vooraf duidelijk vermeld. Doneren mag vrijwillig
         en geeft geen extra rechten.
       </p>
 
