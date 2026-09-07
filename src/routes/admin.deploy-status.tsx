@@ -246,7 +246,7 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                     ) : (
                       <ArrowUpCircle className="mr-2 size-4" />
                     )}
-                    {deploying ? "Bezig met uitrollen..." : "Bijwerken naar nieuwste versie"}
+                    {deploying ? "Bezig met ophalen..." : "Nieuwste live versie laden"}
                   </Button>
                 </div>
               </>

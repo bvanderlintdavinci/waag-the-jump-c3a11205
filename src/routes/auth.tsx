@@ -46,7 +46,14 @@ function AuthPage() {
     if (m.includes("already registered") || m.includes("already been registered"))
       return "Dit e-mailadres heeft al een account. Log in of herstel je wachtwoord.";
     if (m.includes("invalid login credentials")) return "E-mailadres of wachtwoord klopt niet.";
-    if (m.includes("email not confirmed")) return "Bevestig eerst je e-mailadres via de link in je mail.";
+    if (m.includes("email not confirmed"))
+      return "Je account bestaat al, maar je e-mailadres is nog niet bevestigd. Klik op de link in de mail die we je stuurden.";
+    if (m.includes("pwned") || m.includes("compromised"))
+      return "Dit wachtwoord komt voor in bekende datalekken. Kies een ander wachtwoord.";
+    if (m.includes("provider is not enabled") || m.includes("unsupported provider"))
+      return "Inloggen met Google is nu niet beschikbaar. Gebruik je e-mailadres of probeer het later opnieuw.";
+    if (m.includes("404") || m.includes("not found"))
+      return "De terugkeerpagina van Google was nog niet live. Probeer het opnieuw.";
     if (m.includes("rate limit") || m.includes("too many")) return "Te veel pogingen. Probeer het over een paar minuten opnieuw.";
     if (m.includes("password")) return "Kies een sterker wachtwoord van minimaal 8 tekens.";
     if (m.includes("signups not allowed") || m.includes("signup is disabled"))
