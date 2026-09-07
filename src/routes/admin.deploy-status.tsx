@@ -118,20 +118,18 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
 
   async function runUpdate() {
     setDeploying(true);
-    toast.success("Deployment gestart! De nieuwste versie wordt nu live gezet.");
-
-    for (let attempt = 0; attempt < 12; attempt += 1) {
+    toast.info("Nieuwste live versie wordt opgehaald...");
+    try {
       const result = await checkVersion();
       if (result.updateAvailable) {
         toast.success("Nieuwe versie gevonden. De pagina wordt nu vernieuwd.");
-        await applyLatestVersion();
-        return;
+      } else {
+        toast.info("Deze pagina draaide al op de live versie. Cache wordt geleegd.");
       }
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await applyLatestVersion();
+    } finally {
+      setDeploying(false);
     }
-
-    toast.info("Geen nieuwere versie gevonden. De app wordt opnieuw geladen met een lege cache.");
-    await applyLatestVersion();
   }
 
   const b = build.data;
@@ -225,11 +223,10 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                   </p>
                   {v?.note ? <p className="text-copper">{v.note}</p> : null}
                 </div>
-                {deploying ? (
-                  <p className="mt-3 text-xs text-copper">
-                    Status wordt elke 5 seconden gecontroleerd...
-                  </p>
-                ) : null}
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Een nieuwe versie komt online zodra je in Lovable op Publiceren klikt. Deze knop haalt die
+                  live versie daarna binnen in je browser.
+                </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Button
                     variant="outline"
