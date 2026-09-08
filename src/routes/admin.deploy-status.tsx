@@ -253,6 +253,21 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
             )}
           </Card>
 
+          <Card icon={Server} title="Nieuwe versie online zetten">
+            <ol className="space-y-2 text-sm text-muted-foreground">
+              <li>1. Klik in Lovable rechtsboven op Publiceren en bevestig.</li>
+              <li>2. Wacht ongeveer een minuut tot het uitrollen klaar is.</li>
+              <li>3. Klik hieronder op Nieuwste live versie laden om te controleren.</li>
+            </ol>
+            <a
+              className="mt-4 inline-flex text-sm font-medium text-copper underline underline-offset-4"
+              href="https://waag-the-jump.lovable.app"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open de live website
+            </a>
+          </Card>
         </section>
 
         <div className="surface p-5">
