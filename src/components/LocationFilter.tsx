@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Crosshair, LocateFixed, MapPin, X } from "lucide-react";
+
 import { CATEGORIES } from "@/lib/pinguingo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,19 +37,14 @@ export function LocationFilter({
 }) {
   const geo = useGeolocation();
 
-  function apply(lat: number, lng: number) {
+  useEffect(() => {
+    if (!geo.coords) return;
+    const { lat, lng } = geo.coords;
+    if (value.coords && value.coords.lat === lat && value.coords.lng === lng) return;
     onChange({ ...value, place: "", coords: { lat, lng, name: nearestPlaceName(lat, lng) } });
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geo.coords]);
 
-  function useOnce() {
-    geo.request();
-    // resultaat wordt hieronder via de knopstatus toegepast
-  }
-
-  // Zodra er nieuwe coördinaten binnenkomen, meteen als middelpunt gebruiken.
-  if (geo.coords && (!value.coords || value.coords.lat !== geo.coords.lat || value.coords.lng !== geo.coords.lng)) {
-    queueMicrotask(() => apply(geo.coords!.lat, geo.coords!.lng));
-  }
 
   return (
     <div className="surface grid gap-4 p-4 sm:grid-cols-2">
