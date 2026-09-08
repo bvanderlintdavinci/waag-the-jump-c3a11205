@@ -1,15 +1,19 @@
-import { MapPin } from "lucide-react";
+import { Crosshair, LocateFixed, MapPin, X } from "lucide-react";
 import { CATEGORIES } from "@/lib/pinguingo";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useGeolocation } from "@/hooks/use-geolocation";
+import { nearestPlaceName } from "@/lib/geo";
 
 export type Filters = {
   place: string;
   radius: number;
   connection: "all" | "friendship" | "dating";
   category: string;
+  coords: { lat: number; lng: number; name: string } | null;
 };
 
 export const DEFAULT_FILTERS: Filters = {
@@ -17,6 +21,7 @@ export const DEFAULT_FILTERS: Filters = {
   radius: 25,
   connection: "all",
   category: "all",
+  coords: null,
 };
 
 export function LocationFilter({
@@ -28,6 +33,22 @@ export function LocationFilter({
   onChange: (f: Filters) => void;
   resolvedName?: string | null | undefined;
 }) {
+  const geo = useGeolocation();
+
+  function apply(lat: number, lng: number) {
+    onChange({ ...value, place: "", coords: { lat, lng, name: nearestPlaceName(lat, lng) } });
+  }
+
+  function useOnce() {
+    geo.request();
+    // resultaat wordt hieronder via de knopstatus toegepast
+  }
+
+  // Zodra er nieuwe coördinaten binnenkomen, meteen als middelpunt gebruiken.
+  if (geo.coords && (!value.coords || value.coords.lat !== geo.coords.lat || value.coords.lng !== geo.coords.lng)) {
+    queueMicrotask(() => apply(geo.coords!.lat, geo.coords!.lng));
+  }
+
   return (
     <div className="surface grid gap-4 p-4 sm:grid-cols-2">
       <div className="grid gap-1.5">
@@ -40,10 +61,45 @@ export function LocationFilter({
             placeholder="Bijv. Utrecht of 3511"
             value={value.place}
             maxLength={60}
-            onChange={(e) => onChange({ ...value, place: e.target.value })}
+            onChange={(e) => onChange({ ...value, place: e.target.value, coords: null })}
           />
         </div>
-        {resolvedName ? (
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <Button type="button" size="sm" variant="secondary" onClick={useOnce} disabled={geo.loading}>
+            <Crosshair className="size-4" />
+            {geo.loading ? "Locatie bepalen..." : "Gebruik mijn locatie"}
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant={geo.tracking ? "default" : "outline"}
+            onClick={() => (geo.tracking ? geo.stopTracking() : geo.startTracking())}
+          >
+            <LocateFixed className="size-4" />
+            {geo.tracking ? "Live volgen aan" : "Live volgen"}
+          </Button>
+          {value.coords ? (
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                geo.clear();
+                onChange({ ...value, coords: null });
+              }}
+            >
+              <X className="size-4" /> Wissen
+            </Button>
+          ) : null}
+        </div>
+        {geo.error ? (
+          <p className="text-xs text-destructive">{geo.error}</p>
+        ) : value.coords ? (
+          <p className="text-xs text-muted-foreground">
+            Middelpunt: jouw locatie ({value.coords.name})
+            {geo.tracking ? " · wordt live bijgewerkt" : ""}
+          </p>
+        ) : resolvedName ? (
           <p className="text-xs text-muted-foreground">Middelpunt: {resolvedName}</p>
         ) : (
           <p className="text-xs text-muted-foreground">Leeg = jouw eigen woonplaats</p>
