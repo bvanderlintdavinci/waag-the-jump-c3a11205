@@ -66,6 +66,21 @@ export function resolveLocation(input: string): Place | null {
   return null;
 }
 
+// Dichtstbijzijnde bekende plaatsnaam bij coördinaten, voor een leesbaar middelpunt.
+export function nearestPlaceName(lat: number, lng: number): string {
+  let best = PLACES[0]!;
+  let bestD = Number.POSITIVE_INFINITY;
+  for (const p of PLACES) {
+    const d = distanceKm({ lat, lng }, p);
+    if (d != null && d < bestD) {
+      bestD = d;
+      best = p;
+    }
+  }
+  return bestD <= 25 ? best.name : `bij ${best.name}`;
+}
+
+
 export function distanceKm(
   a: { lat?: number | null; lng?: number | null },
   b: { lat?: number | null; lng?: number | null },
