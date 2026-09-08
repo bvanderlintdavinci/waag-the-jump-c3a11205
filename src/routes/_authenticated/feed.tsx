@@ -62,12 +62,14 @@ function Feed() {
   const { data: activities, isLoading } = useActivitiesFeed();
 
   const center = useMemo(() => {
+    if (filters.coords) return filters.coords;
     const resolved = resolveLocation(filters.place);
     if (resolved) return resolved;
     if (profile?.lat != null && profile?.lng != null)
       return { name: profile.city, lat: profile.lat, lng: profile.lng };
     return null;
-  }, [filters.place, profile]);
+  }, [filters.place, filters.coords, profile]);
+
 
   const visible = useMemo(() => {
     return (activities ?? [])
