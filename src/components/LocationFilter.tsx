@@ -62,7 +62,7 @@ export function LocationFilter({
           />
         </div>
         <div className="flex flex-wrap items-center gap-2 pt-1">
-          <Button type="button" size="sm" variant="secondary" onClick={useOnce} disabled={geo.loading}>
+          <Button type="button" size="sm" variant="secondary" onClick={geo.request} disabled={geo.loading}>
             <Crosshair className="size-4" />
             {geo.loading ? "Locatie bepalen..." : "Gebruik mijn locatie"}
           </Button>
