@@ -45,11 +45,13 @@ function Members() {
   });
 
   const center = useMemo(() => {
+    if (filters.coords) return filters.coords;
     const resolved = resolveLocation(filters.place);
     if (resolved) return resolved;
     if (me?.lat != null && me?.lng != null) return { name: me.city, lat: me.lat, lng: me.lng };
     return null;
-  }, [filters.place, me]);
+  }, [filters.place, filters.coords, me]);
+
 
   const visible = useMemo(() => {
     return (members ?? [])
@@ -94,12 +96,27 @@ function Members() {
                   <MapPin className="size-3.5" /> {m.city}
                   {m.distance != null ? ` · ${m.distance} km` : ""}
                 </p>
-                <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{m.bio}</p>
-                <Badge variant="secondary" className="mt-2">
-                  {intentLabel(m.intent)}
-                </Badge>
+                <p className={`mt-1 text-sm text-muted-foreground ${showDetails ? "line-clamp-4" : "line-clamp-2"}`}>
+                  {m.bio}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  <Badge variant="secondary">{intentLabel(m.intent)}</Badge>
+                  {showDetails
+                    ? (m.interests ?? []).slice(0, 6).map((i) => (
+                        <Badge key={i} variant="outline">
+                          {i}
+                        </Badge>
+                      ))
+                    : null}
+                </div>
+                {showDetails ? (
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Hobby's en interesses: {(m.interests ?? []).length ? (m.interests ?? []).join(", ") : "nog niet ingevuld"}
+                  </p>
+                ) : null}
               </div>
             </Link>
+
           ))
         )}
       </div>
