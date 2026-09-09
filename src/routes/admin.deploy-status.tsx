@@ -121,7 +121,9 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
     toast.info("Nieuwste live versie wordt opgehaald...");
     try {
       const result = await checkVersion();
-      if (result.updateAvailable) {
+      if (!result.isLiveSite) {
+        toast.info("Je gaat nu naar de live website met een schone cache.");
+      } else if (result.updateAvailable) {
         toast.success("Nieuwe versie gevonden. De pagina wordt nu vernieuwd.");
       } else {
         toast.info("Deze pagina draaide al op de live versie. Cache wordt geleegd.");
@@ -207,12 +209,22 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
               <p className="text-sm text-muted-foreground">Controleren...</p>
             ) : (
               <>
-                <Badge variant={v?.updateAvailable ? "destructive" : "default"}>
+                <Badge
+                  variant={
+                    v?.latest === null || v?.isLiveSite === false
+                      ? "secondary"
+                      : v?.updateAvailable
+                        ? "destructive"
+                        : "default"
+                  }
+                >
                   {v?.latest === null
                     ? "Niet te bepalen"
-                    : v?.updateAvailable
-                      ? "Nieuwe versie beschikbaar"
-                      : "Up-to-date"}
+                    : v?.isLiveSite === false
+                      ? "Voorbeeldmodus"
+                      : v?.updateAvailable
+                        ? "Nieuwe versie beschikbaar"
+                        : "Up-to-date"}
                 </Badge>
                 <div className="mt-3 space-y-1 text-xs text-muted-foreground">
                   <p>
@@ -225,7 +237,8 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                 </div>
                 <p className="mt-3 text-xs text-muted-foreground">
                   Een nieuwe versie komt online zodra je in Lovable op Publiceren klikt. Deze knop haalt die
-                  live versie daarna binnen in je browser.
+                  live versie daarna met een schone cache binnen. Bekijk je deze pagina in de
+                  voorbeeldomgeving, dan opent hij de live website.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Button
