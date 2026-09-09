@@ -207,12 +207,22 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
               <p className="text-sm text-muted-foreground">Controleren...</p>
             ) : (
               <>
-                <Badge variant={v?.updateAvailable ? "destructive" : "default"}>
+                <Badge
+                  variant={
+                    v?.latest === null || v?.isLiveSite === false
+                      ? "secondary"
+                      : v?.updateAvailable
+                        ? "destructive"
+                        : "default"
+                  }
+                >
                   {v?.latest === null
                     ? "Niet te bepalen"
-                    : v?.updateAvailable
-                      ? "Nieuwe versie beschikbaar"
-                      : "Up-to-date"}
+                    : v?.isLiveSite === false
+                      ? "Voorbeeldmodus"
+                      : v?.updateAvailable
+                        ? "Nieuwe versie beschikbaar"
+                        : "Up-to-date"}
                 </Badge>
                 <div className="mt-3 space-y-1 text-xs text-muted-foreground">
                   <p>
