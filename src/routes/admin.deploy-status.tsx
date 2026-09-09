@@ -121,7 +121,9 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
     toast.info("Nieuwste live versie wordt opgehaald...");
     try {
       const result = await checkVersion();
-      if (result.updateAvailable) {
+      if (!result.isLiveSite) {
+        toast.info("Je gaat nu naar de live website met een schone cache.");
+      } else if (result.updateAvailable) {
         toast.success("Nieuwe versie gevonden. De pagina wordt nu vernieuwd.");
       } else {
         toast.info("Deze pagina draaide al op de live versie. Cache wordt geleegd.");
