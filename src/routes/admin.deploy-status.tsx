@@ -237,7 +237,8 @@ function StatusDashboard({ pin, onLock }: { pin: string; onLock: () => void }) {
                 </div>
                 <p className="mt-3 text-xs text-muted-foreground">
                   Een nieuwe versie komt online zodra je in Lovable op Publiceren klikt. Deze knop haalt die
-                  live versie daarna binnen in je browser.
+                  live versie daarna met een schone cache binnen. Bekijk je deze pagina in de
+                  voorbeeldomgeving, dan opent hij de live website.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Button
