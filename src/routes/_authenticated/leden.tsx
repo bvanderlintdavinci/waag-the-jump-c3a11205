@@ -66,6 +66,9 @@ function Members() {
       });
   }, [members, center, filters, user]);
 
+  // In het datinggedeelte tonen we bewust meer info: biografie, hobby's en voorkeuren.
+  const showDetails = filters.connection === "dating";
+
   return (
     <AppShell>
       <h1 className="text-2xl font-extrabold text-foreground">Leden zoeken</h1>
