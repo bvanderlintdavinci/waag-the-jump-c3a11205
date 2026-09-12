@@ -63,13 +63,13 @@ function NewActivity() {
     queryKey: ["my-monthly-activities", user?.id],
     enabled: !!user,
     queryFn: async () => {
-      const monthStart = new Date();
-      monthStart.setDate(1);
-      monthStart.setHours(0, 0, 0, 0);
+      const now = new Date();
+      const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+      if (!user) return 0;
       const { count } = await supabase
         .from("activities")
         .select("id", { count: "exact", head: true })
-        .eq("creator_id", user!.id)
+        .eq("creator_id", user.id)
         .gte("created_at", monthStart.toISOString());
       return count ?? 0;
     },

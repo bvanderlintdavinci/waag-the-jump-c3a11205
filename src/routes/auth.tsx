@@ -32,6 +32,7 @@ function AuthPage() {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [resetMode, setResetMode] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -76,6 +77,25 @@ function AuthPage() {
     navigate({ to: "/feed" });
   }
 
+  async function requestPasswordReset(e: React.FormEvent) {
+    e.preventDefault();
+    if (!loginEmail.trim()) {
+      toast.error("Vul eerst je e-mailadres in.");
+      return;
+    }
+    setBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(loginEmail.trim(), {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setBusy(false);
+    if (error) {
+      toast.error("Herstelmail versturen mislukt", { description: dutchError(error.message) });
+      return;
+    }
+    toast.success("Controleer je e-mail", { description: "We hebben een link gestuurd waarmee je een nieuw wachtwoord kiest." });
+    setResetMode(false);
+  }
+
   async function signUp(e: React.FormEvent) {
     e.preventDefault();
     if (!terms || !privacy || !visibility || !law) {
@@ -91,7 +111,7 @@ function AuthPage() {
       email: email.trim(),
       password,
       options: {
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: { first_name: firstName.trim() },
       },
     });
@@ -147,7 +167,7 @@ function AuthPage() {
           </TabsList>
 
           <TabsContent value="login" className="mt-5">
-            <form onSubmit={signIn} className="grid gap-4">
+            <form onSubmit={resetMode ? requestPasswordReset : signIn} className="grid gap-4">
               <div className="grid gap-1.5">
                 <Label htmlFor="login-email">E-mailadres</Label>
                 <Input
@@ -159,7 +179,7 @@ function AuthPage() {
                   onChange={(e) => setLoginEmail(e.target.value)}
                 />
               </div>
-              <div className="grid gap-1.5">
+              {!resetMode ? <div className="grid gap-1.5">
                 <Label htmlFor="login-password">Wachtwoord</Label>
                 <Input
                   id="login-password"
@@ -168,9 +188,12 @@ function AuthPage() {
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
-              </div>
+              </div> : null}
               <Button type="submit" disabled={busy}>
-                Inloggen
+                {resetMode ? "Stuur herstelmail" : "Inloggen"}
+              </Button>
+              <Button type="button" variant="ghost" onClick={() => setResetMode((value) => !value)} disabled={busy}>
+                {resetMode ? "Terug naar inloggen" : "Wachtwoord vergeten?"}
               </Button>
             </form>
           </TabsContent>
