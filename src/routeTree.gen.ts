@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
 import { Route as VoorwaardenRouteImport } from './routes/voorwaarden'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -32,6 +33,7 @@ import { Route as AuthenticatedWaagjeIdRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedWaagjeNieuwRouteImport } from './routes/_authenticated/waagje.nieuw'
 import { Route as ApiPublicDoneerRouteImport } from './routes/api/public/doneer'
 import { Route as ApiPublicImportUitagendaRouteImport } from './routes/api/public/import-uitagenda'
+import { Route as ApiPublicLiveVersionRouteImport } from './routes/api/public/live-version'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -63,6 +65,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerhaalRoute = VerhaalRouteImport.update({
@@ -153,6 +160,11 @@ const ApiPublicImportUitagendaRoute =
     path: '/api/public/import-uitagenda',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicLiveVersionRoute = ApiPublicLiveVersionRouteImport.update({
+  id: '/api/public/live-version',
+  path: '/api/public/live-version',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
@@ -176,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -192,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
+  '/api/public/live-version': typeof ApiPublicLiveVersionRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -203,6 +217,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -219,6 +234,7 @@ export interface FileRoutesByTo {
   '/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
+  '/api/public/live-version': typeof ApiPublicLiveVersionRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -232,6 +248,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -248,6 +265,7 @@ export interface FileRoutesById {
   '/_authenticated/waagje/nieuw': typeof AuthenticatedWaagjeNieuwRoute
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
+  '/api/public/live-version': typeof ApiPublicLiveVersionRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -261,6 +279,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -277,6 +296,7 @@ export interface FileRouteTypes {
     | '/waagje/nieuw'
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
+    | '/api/public/live-version'
     | '/chats/'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -288,6 +308,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -304,6 +325,7 @@ export interface FileRouteTypes {
     | '/waagje/nieuw'
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
+    | '/api/public/live-version'
     | '/chats'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -316,6 +338,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/disclaimer'
     | '/privacy'
+    | '/reset-password'
     | '/verhaal'
     | '/voorwaarden'
     | '/_authenticated/admin'
@@ -332,6 +355,7 @@ export interface FileRouteTypes {
     | '/_authenticated/waagje/nieuw'
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
+    | '/api/public/live-version'
     | '/_authenticated/chats/'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -345,11 +369,13 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   DisclaimerRoute: typeof DisclaimerRoute
   PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
+  ApiPublicLiveVersionRoute: typeof ApiPublicLiveVersionRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -397,6 +423,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verhaal': {
@@ -518,6 +551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicImportUitagendaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/live-version': {
+      id: '/api/public/live-version'
+      path: '/api/public/live-version'
+      fullPath: '/api/public/live-version'
+      preLoaderRoute: typeof ApiPublicLiveVersionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
       path: '/lovable/email/auth/preview'
@@ -590,11 +630,13 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   DisclaimerRoute: DisclaimerRoute,
   PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
+  ApiPublicLiveVersionRoute: ApiPublicLiveVersionRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,

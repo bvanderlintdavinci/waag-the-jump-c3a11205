@@ -2,8 +2,8 @@
  * Versiecontrole zonder GitHub-token.
  *
  * De draaiende pagina kent haar eigen script-bestanden (met build-hash).
- * We halen de live pagina opnieuw op (zonder cache) en vergelijken de
- * script-hashes. Verschillen ze, dan staat er een nieuwere versie klaar.
+ * Een serverroute haalt de live pagina buiten de browser op. Daardoor blokkeert
+ * de browser de controle niet wanneer preview en live verschillende hosts zijn.
  *
  * Belangrijk: in de Lovable-voorbeeldomgeving (preview) draait de app zonder
  * build-hashes. Vergelijken heeft daar geen zin en levert anders altijd
@@ -20,6 +20,12 @@ export type VersionCheck = {
   checkedAt: string;
   isLiveSite: boolean;
   note: string | null;
+};
+
+type LiveVersionResponse = {
+  version: string | null;
+  checkedAt: string;
+  error: string | null;
 };
 
 function scriptFingerprint(doc: Document | string): string {
@@ -52,33 +58,22 @@ export async function checkVersion(): Promise<VersionCheck> {
   const checkedAt = new Date().toISOString();
 
   try {
-    const res = await fetch(`${LIVE_SITE_URL}/?versiecheck=${Date.now()}`, {
+    const res = await fetch(`/api/public/live-version?versiecheck=${Date.now()}`, {
       cache: "no-store",
       headers: { "Cache-Control": "no-cache" },
     });
-    if (!res.ok) {
+    const payload = (await res.json()) as LiveVersionResponse;
+    if (!res.ok || !payload.version) {
       return {
         running,
         latest: null,
         updateAvailable: false,
         checkedAt,
         isLiveSite,
-        note: `De live website gaf status ${res.status}.`,
+        note: payload.error ?? `De live website gaf status ${res.status}.`,
       };
     }
-    const html = await res.text();
-    const livePrint = scriptFingerprint(html);
-    if (!livePrint) {
-      return {
-        running,
-        latest: null,
-        updateAvailable: false,
-        checkedAt,
-        isLiveSite,
-        note: "Kon de live versie niet uitlezen.",
-      };
-    }
-    const latest = shortHash(livePrint);
+    const latest = payload.version;
 
     if (!isLiveSite) {
       return {
