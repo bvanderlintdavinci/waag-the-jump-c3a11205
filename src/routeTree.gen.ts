@@ -25,6 +25,7 @@ import { Route as AuthenticatedInstellingenRouteImport } from './routes/_authent
 import { Route as AuthenticatedLedenRouteImport } from './routes/_authenticated/leden'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
@@ -118,6 +119,11 @@ const AdminDeployStatusRoute = AdminDeployStatusRouteImport.update({
   path: '/admin/deploy-status',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -199,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/': typeof AuthIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -213,7 +220,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
@@ -228,6 +234,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth': typeof AuthIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -259,6 +266,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/': typeof AuthIndexRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -290,6 +298,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/auth/'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -304,7 +313,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth'
     | '/cookies'
     | '/disclaimer'
     | '/privacy'
@@ -319,6 +327,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/auth'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -349,6 +358,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/auth/'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
     | '/_authenticated/waagje/$id'
@@ -495,6 +505,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDeployStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/': {
+      id: '/auth/'
+      path: '/'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/auth/callback': {
       id: '/auth/callback'
       path: '/callback'
@@ -615,10 +632,12 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface AuthRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthIndexRoute: typeof AuthIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthCallbackRoute: AuthCallbackRoute,
+  AuthIndexRoute: AuthIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
