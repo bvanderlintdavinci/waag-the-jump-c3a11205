@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const Route = createFileRoute("/auth")({
+export const Route = createFileRoute("/auth/")({
   head: () => ({
     meta: [
       { title: "Inloggen of registreren | Dare2Meet" },
