@@ -27,6 +27,7 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as Char126oauthInitiateRouteImport } from './routes/~oauth.initiate'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
@@ -129,6 +130,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/callback',
   getParentRoute: () => AuthRoute,
 } as any)
+const Char126oauthInitiateRoute = Char126oauthInitiateRouteImport.update({
+  id: '/~oauth/initiate',
+  path: '/~oauth/initiate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/~oauth/initiate': typeof Char126oauthInitiateRoute
   '/auth/': typeof AuthIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -234,6 +241,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/~oauth/initiate': typeof Char126oauthInitiateRoute
   '/auth': typeof AuthIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -266,6 +274,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/~oauth/initiate': typeof Char126oauthInitiateRoute
   '/auth/': typeof AuthIndexRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
@@ -298,6 +307,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/~oauth/initiate'
     | '/auth/'
     | '/chats/$id'
     | '/profiel/$id'
@@ -327,6 +337,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/~oauth/initiate'
     | '/auth'
     | '/chats/$id'
     | '/profiel/$id'
@@ -358,6 +369,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/~oauth/initiate'
     | '/auth/'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
@@ -383,6 +395,7 @@ export interface RootRouteChildren {
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
+  Char126oauthInitiateRoute: typeof Char126oauthInitiateRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
   ApiPublicLiveVersionRoute: typeof ApiPublicLiveVersionRoute
@@ -519,6 +532,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/~oauth/initiate': {
+      id: '/~oauth/initiate'
+      path: '/~oauth/initiate'
+      fullPath: '/~oauth/initiate'
+      preLoaderRoute: typeof Char126oauthInitiateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -653,6 +673,7 @@ const rootRouteChildren: RootRouteChildren = {
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,
+  Char126oauthInitiateRoute: Char126oauthInitiateRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
   ApiPublicLiveVersionRoute: ApiPublicLiveVersionRoute,
