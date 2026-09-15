@@ -1,0 +1,4 @@
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS appearance_style text NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS tattoos text NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS piercings text NOT NULL DEFAULT '';

@@ -188,6 +188,9 @@ function ProfilePage() {
         canShow("sports") && profile.sports?.length ? { icon: Sparkles, label: "Sport", value: profile.sports.join(", ") } : null,
         canShow("lifestyle") && profile.lifestyle ? { icon: Sparkles, label: "Levensstijl", value: profile.lifestyle } : null,
         canShow("favorite_activities") && profile.favorite_activities ? { icon: Sparkles, label: "Favoriete bezigheden", value: profile.favorite_activities } : null,
+        canShow("appearance_style") && profile.appearance_style ? { icon: Sparkles, label: "Stijl", value: profile.appearance_style } : null,
+        canShow("tattoos") && profile.tattoos ? { icon: Sparkles, label: "Tatoeages", value: profile.tattoos } : null,
+        canShow("piercings") && profile.piercings ? { icon: Sparkles, label: "Piercings", value: profile.piercings } : null,
       ].filter(Boolean),
     },
     {
