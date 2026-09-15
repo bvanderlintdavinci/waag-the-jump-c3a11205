@@ -41,6 +41,7 @@ function NewActivity() {
   const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [kind, setKind] = useState<"friendship" | "date">("friendship");
   const [startsAt, setStartsAt] = useState("");
+  const [durationHours, setDurationHours] = useState("2");
   const [locationName, setLocationName] = useState(profile?.city ?? "");
   const [imageKey, setImageKey] = useState<string>("social");
   const [locationHint, setLocationHint] = useState("Waar spreken we af?");
@@ -96,6 +97,10 @@ function NewActivity() {
         category,
         kind,
         starts_at: new Date(startsAt).toISOString(),
+        ends_at:
+          kind === "friendship"
+            ? new Date(new Date(startsAt).getTime() + Number(durationHours) * 3600 * 1000).toISOString()
+            : null,
         location_name: locationName.trim(),
         image_key: imageKey,
         with_kids: withKids,
