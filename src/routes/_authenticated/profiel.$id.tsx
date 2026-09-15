@@ -276,9 +276,7 @@ function ProfilePage() {
         ) : null}
 
         {profile.phone &&
-        (isMe ||
-          (profile.phone_visibility === "connections" && relation === "accepted") ||
-          profile.phone_visibility === "matches") ? (
+        (isMe || (profile.phone_visibility !== "none" && relation === "accepted")) ? (
           <p className="mt-4 inline-flex items-center gap-2 text-sm text-foreground">
             <Phone className="size-4 text-primary" /> {profile.phone}
           </p>
