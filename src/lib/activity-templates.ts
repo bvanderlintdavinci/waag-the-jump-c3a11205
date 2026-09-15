@@ -263,7 +263,7 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["running", ["hardlopen", "hardloop", "rondje rennen", "rennen", "run", "jogging", "trimloop"]],
   ["picnic", ["picknick", "picknicken", "kleedje"]],
   ["books", ["boek", "lezen", "leesclub", "bibliotheek", "schrijf", "poëzie"]],
-  ["winter": []] as unknown as [string, string[]],
+  ["winter", ["schaats", "ijsbaan", "winter", "sneeuw", "kerst", "glühwein"]],
   ["volunteer", ["vrijwillig", "opruim", "buurt", "helpen", "goede doel", "zwerfafval"]],
   ["nature", ["natuur", "wandel", "bos", "park", "fiets", "tuin", "wandeltocht"]],
   ["beach", ["strand", "zee", "duin", "kust"]],
