@@ -514,6 +514,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          appearance_style: string
           avatar_url: string | null
           bio: string
           birth_date: string | null
@@ -548,15 +549,18 @@ export type Database = {
           onboarded: boolean
           phone: string | null
           phone_visibility: string
+          piercings: string
           postcode: string | null
           profile_visibility: Json
           purge_after: string | null
           relationship_status: string | null
           shadowbanned: boolean
           sports: string[]
+          tattoos: string
           updated_at: string
         }
         Insert: {
+          appearance_style?: string
           avatar_url?: string | null
           bio?: string
           birth_date?: string | null
@@ -591,15 +595,18 @@ export type Database = {
           onboarded?: boolean
           phone?: string | null
           phone_visibility?: string
+          piercings?: string
           postcode?: string | null
           profile_visibility?: Json
           purge_after?: string | null
           relationship_status?: string | null
           shadowbanned?: boolean
           sports?: string[]
+          tattoos?: string
           updated_at?: string
         }
         Update: {
+          appearance_style?: string
           avatar_url?: string | null
           bio?: string
           birth_date?: string | null
@@ -634,12 +641,14 @@ export type Database = {
           onboarded?: boolean
           phone?: string | null
           phone_visibility?: string
+          piercings?: string
           postcode?: string | null
           profile_visibility?: Json
           purge_after?: string | null
           relationship_status?: string | null
           shadowbanned?: boolean
           sports?: string[]
+          tattoos?: string
           updated_at?: string
         }
         Relationships: []
