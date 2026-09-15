@@ -17,6 +17,16 @@ import squashImg from "@/assets/event-squash.jpg";
 import swimImg from "@/assets/event-swim.jpg";
 import citytripImg from "@/assets/event-citytrip.jpg";
 import playgroundImg from "@/assets/event-playground.jpg";
+import cinemaImg from "@/assets/event-cinema.jpg";
+import gamesImg from "@/assets/event-games.jpg";
+import danceImg from "@/assets/event-dance.jpg";
+import dogwalkImg from "@/assets/event-dogwalk.jpg";
+import bowlingImg from "@/assets/event-bowling.jpg";
+import runningImg from "@/assets/event-running.jpg";
+import picnicImg from "@/assets/event-picnic.jpg";
+import booksImg from "@/assets/event-books.jpg";
+import winterImg from "@/assets/event-winter.jpg";
+import volunteerImg from "@/assets/event-volunteer.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -39,6 +49,16 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   swim: swimImg,
   citytrip: citytripImg,
   playground: playgroundImg,
+  cinema: cinemaImg,
+  games: gamesImg,
+  dance: danceImg,
+  dogwalk: dogwalkImg,
+  bowling: bowlingImg,
+  running: runningImg,
+  picnic: picnicImg,
+  books: booksImg,
+  winter: winterImg,
+  volunteer: volunteerImg,
 };
 
 export type ActivityTemplate = {
@@ -235,9 +255,19 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
   ["coffee", ["koffie", "café", "cafe", "thee", "high tea", "ontbijt"]],
   ["craft", ["kunst", "creatief", "workshop", "klus", "expositie", "museum", "atelier", "cultuur"]],
+  ["cinema", ["film", "bioscoop", "cinema", "movie", "première"]],
+  ["games", ["spel", "spelletjes", "bordspel", "quiz", "kaarten", "darten", "game"]],
+  ["dance", ["dans", "salsa", "stijldans", "disco", "bal"]],
+  ["dogwalk", ["hond", "baas", "uitlaten", "hondenveld"]],
+  ["bowling", ["bowl", "kegel", "biljart", "poolen"]],
+  ["running", ["hardlopen", "hardloop", "rondje rennen", "rennen", "run", "jogging", "trimloop"]],
+  ["picnic", ["picknick", "picknicken", "kleedje"]],
+  ["books", ["boek", "lezen", "leesclub", "bibliotheek", "schrijf", "poëzie"]],
+  ["winter", ["schaats", "ijsbaan", "winter", "sneeuw", "kerst", "glühwein"]],
+  ["volunteer", ["vrijwillig", "opruim", "buurt", "helpen", "goede doel", "zwerfafval"]],
   ["nature", ["natuur", "wandel", "bos", "park", "fiets", "tuin", "wandeltocht"]],
   ["beach", ["strand", "zee", "duin", "kust"]],
-  ["sport", ["sport", "hardlopen", "voetbal", "fitness", "yoga", "tennis", "run"]],
+  ["sport", ["sport", "voetbal", "fitness", "yoga", "tennis"]],
   ["swim", ["zwem", "zwembad", "sauna", "water"]],
   ["squash", ["squash", "padel", "badminton"]],
   ["motor", ["motor", "auto", "oldtimer", "rit", "toer"]],
@@ -259,6 +289,16 @@ const FALLBACK_ORDER = [
   "food",
   "coffee",
   "tasting",
+  "games",
+  "cinema",
+  "picnic",
+  "books",
+  "dance",
+  "bowling",
+  "running",
+  "dogwalk",
+  "volunteer",
+  "winter",
 ];
 
 function hashString(value: string): number {
