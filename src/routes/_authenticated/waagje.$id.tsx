@@ -120,7 +120,7 @@ function ActivityDetail() {
     const { error } = await supabase.from("activity_participants").insert({
       activity_id: id,
       user_id: user.id,
-      slot_note: slot || null,
+      slot_note: slot,
       max_group_preference: maxGroup ? Number(maxGroup) : null,
     });
     setBusy(false);
