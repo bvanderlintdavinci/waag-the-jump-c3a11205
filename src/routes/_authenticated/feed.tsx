@@ -5,7 +5,8 @@ import { CalendarDays, MapPin, Plus, Users } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile } from "@/hooks/use-auth";
-import { formatEventDateTime } from "@/lib/date-time";
+import { formatEventRange } from "@/lib/date-time";
+import { activityStatusLabel, capacityLabel } from "@/lib/activity-status";
 import { distanceKm, resolveLocation } from "@/lib/geo";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
@@ -135,16 +136,18 @@ function Feed() {
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
                     <CalendarDays className="size-3.5" />
-                    {formatEventDateTime(a.starts_at)}
+                    {formatEventRange(a.starts_at, a.ends_at)}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <MapPin className="size-3.5" />
                     {a.location_name || "Locatie n.t.b."}
                     {a.distance != null ? ` · ${a.distance} km` : ""}
                   </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Users className="size-3.5" /> {a.participants}
-                  </span>
+                  {a.kind === "date" ? null : (
+                    <span className="inline-flex items-center gap-1">
+                      <Users className="size-3.5" /> {capacityLabel(a.participants, a.max_participants)}
+                    </span>
+                  )}
                 </div>
               </div>
             </Link>
