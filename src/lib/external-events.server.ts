@@ -27,7 +27,8 @@ type RawEvent = {
 
 const EXTRACT_PROMPT =
   "Extract the upcoming events listed on this Dutch outings page as an array 'events'. " +
-  "Each event has: title, starts_at (ISO 8601 date-time; use the event date shown on the page, " +
+  "Each event has: title, starts_at (ISO 8601 date-time in Europe/Amsterdam; copy the exact start time when shown. " +
+  "When the source only provides a date, use 00:00:00Z so the app labels the time as unknown. Use the event date shown on the page, " +
   "assume the current or next year, never a past year), city, location_name, url (absolute link to the event page), " +
   "category (one Dutch word), description (max 200 characters), image_url (absolute). " +
   "Skip advertisements and navigation items. Maximum 20 events.";

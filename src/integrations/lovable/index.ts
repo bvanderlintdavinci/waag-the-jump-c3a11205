@@ -3,7 +3,12 @@
 import { createLovableAuth } from "@lovable.dev/cloud-auth-js";
 import type { OAuthProvider } from "@lovable.dev/cloud-auth-js";
 import { supabase } from "../supabase/client";
-const lovableAuth = createLovableAuth();
+// Custom domains hosted outside Lovable do not proxy /~oauth automatically.
+// Use the project's managed OAuth broker explicitly so Google sign-in also
+// works on dare2meet.nl and Vercel deployments.
+const lovableAuth = createLovableAuth({
+  oauthBrokerUrl: "https://waag-the-jump.lovable.app/~oauth/initiate",
+});
 
 type SignInOptions = {
   redirect_uri?: string;

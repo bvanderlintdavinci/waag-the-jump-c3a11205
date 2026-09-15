@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
 import { openDirectChat } from "@/lib/direct-chat";
 import { ensureActivityConversation } from "@/lib/activity-chat";
+import { formatEventDateTime } from "@/lib/date-time";
 import { downloadIcs } from "@/lib/ics";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
@@ -205,7 +206,7 @@ function ActivityDetail() {
         <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="size-4" />
-            {new Date(activity.starts_at).toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" })}
+            {formatEventDateTime(activity.starts_at)}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-4" /> {activity.location_name || "Locatie n.t.b."}
