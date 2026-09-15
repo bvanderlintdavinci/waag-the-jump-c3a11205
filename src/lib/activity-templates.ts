@@ -17,6 +17,16 @@ import squashImg from "@/assets/event-squash.jpg";
 import swimImg from "@/assets/event-swim.jpg";
 import citytripImg from "@/assets/event-citytrip.jpg";
 import playgroundImg from "@/assets/event-playground.jpg";
+import cinemaImg from "@/assets/event-cinema.jpg";
+import gamesImg from "@/assets/event-games.jpg";
+import danceImg from "@/assets/event-dance.jpg";
+import dogwalkImg from "@/assets/event-dogwalk.jpg";
+import bowlingImg from "@/assets/event-bowling.jpg";
+import runningImg from "@/assets/event-running.jpg";
+import picnicImg from "@/assets/event-picnic.jpg";
+import booksImg from "@/assets/event-books.jpg";
+import winterImg from "@/assets/event-winter.jpg";
+import volunteerImg from "@/assets/event-volunteer.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -39,6 +49,16 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   swim: swimImg,
   citytrip: citytripImg,
   playground: playgroundImg,
+  cinema: cinemaImg,
+  games: gamesImg,
+  dance: danceImg,
+  dogwalk: dogwalkImg,
+  bowling: bowlingImg,
+  running: runningImg,
+  picnic: picnicImg,
+  books: booksImg,
+  winter: winterImg,
+  volunteer: volunteerImg,
 };
 
 export type ActivityTemplate = {
