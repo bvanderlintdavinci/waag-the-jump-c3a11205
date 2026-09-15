@@ -307,8 +307,7 @@ export function EventAgenda() {
                           </div>
                           <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                             <Users className="size-3.5" />
-                            {event.demo.length + event.joinedCount}
-                            {event.max_participants ? ` / ${event.max_participants}` : ""}
+                            {capacityLabel(event.demo.length + event.joinedCount, event.max_participants)}
                           </span>
                         </div>
 
