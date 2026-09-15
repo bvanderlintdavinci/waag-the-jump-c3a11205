@@ -22,6 +22,7 @@ export type Database = {
           creator_id: string | null
           demo_attendees: Json
           description: string
+          ends_at: string | null
           host_name: string | null
           id: string
           image_key: string
@@ -39,6 +40,7 @@ export type Database = {
           source: string | null
           source_url: string | null
           starts_at: string
+          status: string
           title: string
           with_kids: boolean
         }
@@ -49,6 +51,7 @@ export type Database = {
           creator_id?: string | null
           demo_attendees?: Json
           description?: string
+          ends_at?: string | null
           host_name?: string | null
           id?: string
           image_key?: string
@@ -66,6 +69,7 @@ export type Database = {
           source?: string | null
           source_url?: string | null
           starts_at: string
+          status?: string
           title: string
           with_kids?: boolean
         }
@@ -76,6 +80,7 @@ export type Database = {
           creator_id?: string | null
           demo_attendees?: Json
           description?: string
+          ends_at?: string | null
           host_name?: string | null
           id?: string
           image_key?: string
@@ -93,6 +98,7 @@ export type Database = {
           source?: string | null
           source_url?: string | null
           starts_at?: string
+          status?: string
           title?: string
           with_kids?: boolean
         }
@@ -103,23 +109,67 @@ export type Database = {
           activity_id: string
           created_at: string
           id: string
+          max_group_preference: number | null
+          slot_note: string
           user_id: string
         }
         Insert: {
           activity_id: string
           created_at?: string
           id?: string
+          max_group_preference?: number | null
+          slot_note?: string
           user_id: string
         }
         Update: {
           activity_id?: string
           created_at?: string
           id?: string
+          max_group_preference?: number | null
+          slot_note?: string
           user_id?: string
         }
         Relationships: [
           {
             foreignKeyName: "activity_participants_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      activity_requests: {
+        Row: {
+          activity_id: string
+          created_at: string
+          id: string
+          message: string
+          requester_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          activity_id: string
+          created_at?: string
+          id?: string
+          message?: string
+          requester_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          activity_id?: string
+          created_at?: string
+          id?: string
+          message?: string
+          requester_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_requests_activity_id_fkey"
             columns: ["activity_id"]
             isOneToOne: false
             referencedRelation: "activities"
@@ -148,6 +198,33 @@ export type Database = {
           created_at?: string
           id?: string
           reason?: string
+        }
+        Relationships: []
+      }
+      connections: {
+        Row: {
+          addressee_id: string
+          created_at: string
+          id: string
+          requester_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          addressee_id: string
+          created_at?: string
+          id?: string
+          requester_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          addressee_id?: string
+          created_at?: string
+          id?: string
+          requester_id?: string
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -266,6 +343,30 @@ export type Database = {
         }
         Relationships: []
       }
+      favorites: {
+        Row: {
+          created_at: string
+          favorite_id: string
+          id: string
+          note: string
+          owner_id: string
+        }
+        Insert: {
+          created_at?: string
+          favorite_id: string
+          id?: string
+          note?: string
+          owner_id: string
+        }
+        Update: {
+          created_at?: string
+          favorite_id?: string
+          id?: string
+          note?: string
+          owner_id?: string
+        }
+        Relationships: []
+      }
       feedback_messages: {
         Row: {
           created_at: string
@@ -358,6 +459,38 @@ export type Database = {
         }
         Relationships: []
       }
+      profile_children: {
+        Row: {
+          birth_year: number
+          created_at: string
+          gender: string
+          id: string
+          profile_id: string
+        }
+        Insert: {
+          birth_year: number
+          created_at?: string
+          gender?: string
+          id?: string
+          profile_id: string
+        }
+        Update: {
+          birth_year?: number
+          created_at?: string
+          gender?: string
+          id?: string
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_children_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profile_visits: {
         Row: {
           created_at: string
@@ -413,6 +546,8 @@ export type Database = {
           lng: number | null
           occupation: string | null
           onboarded: boolean
+          phone: string | null
+          phone_visibility: string
           postcode: string | null
           profile_visibility: Json
           purge_after: string | null
@@ -454,6 +589,8 @@ export type Database = {
           lng?: number | null
           occupation?: string | null
           onboarded?: boolean
+          phone?: string | null
+          phone_visibility?: string
           postcode?: string | null
           profile_visibility?: Json
           purge_after?: string | null
@@ -495,6 +632,8 @@ export type Database = {
           lng?: number | null
           occupation?: string | null
           onboarded?: boolean
+          phone?: string | null
+          phone_visibility?: string
           postcode?: string | null
           profile_visibility?: Json
           purge_after?: string | null
