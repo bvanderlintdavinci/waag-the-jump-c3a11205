@@ -227,6 +227,28 @@ function ProfilePage() {
               <Button onClick={startChat}>
                 <MessageCircle /> Chatverzoek sturen
               </Button>
+              <Button variant="outline" onClick={() => void connectAction()}>
+                {relation === "accepted" ? (
+                  <>
+                    <UserCheck /> Connectie verwijderen
+                  </>
+                ) : relation === "pending_out" ? (
+                  <>
+                    <UserPlus /> Verzoek intrekken
+                  </>
+                ) : relation === "pending_in" ? (
+                  <>
+                    <UserCheck /> Verzoek accepteren
+                  </>
+                ) : (
+                  <>
+                    <UserPlus /> Connectie maken
+                  </>
+                )}
+              </Button>
+              <Button variant="outline" onClick={() => void favoriteAction()}>
+                <Heart /> {isFavorite ? "Uit favorieten" : "Favoriet"}
+              </Button>
               <BlockDialog userId={profile.id} userName={profile.first_name} />
               <ReportDialog userId={profile.id} />
             </div>
@@ -236,12 +258,31 @@ function ProfilePage() {
         <div className="mt-5 flex flex-wrap gap-2">
           <Badge>{intentLabel(profile.intent)}</Badge>
           {profile.gender ? <Badge variant="outline">{profile.gender}</Badge> : null}
+          {relation === "accepted" ? <Badge variant="outline">Connectie</Badge> : null}
           {(profile.interests ?? []).map((i) => (
             <Badge key={i} variant="secondary">
               {i}
             </Badge>
           ))}
         </div>
+
+        {children.length ? (
+          <div className="mt-5 rounded-xl bg-muted p-4">
+            <h2 className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+              <Baby className="size-4 text-primary" /> Kinderen
+            </h2>
+            <p className="mt-1 text-sm text-foreground">{children.map(childLabel).join(" · ")}</p>
+          </div>
+        ) : null}
+
+        {profile.phone &&
+        (isMe ||
+          (profile.phone_visibility === "connections" && relation === "accepted") ||
+          profile.phone_visibility === "matches") ? (
+          <p className="mt-4 inline-flex items-center gap-2 text-sm text-foreground">
+            <Phone className="size-4 text-primary" /> {profile.phone}
+          </p>
+        ) : null}
 
         {profile.bio ? (
           <div className="mt-6 border-t border-border pt-5">
