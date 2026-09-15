@@ -5,3 +5,9 @@
 - [ ] Maak deploystatus technisch eerlijk en betrouwbaar
 - [ ] Test preview en live publicatie
 - [x] Maak de pinguïn herkenbaar en breid vrijwillige datingprofielen uit
+- [x] Verberg deelnemersaantallen; toon "Er is plek" / "Bijna vol" / "Vol"
+- [x] Date-oproepen één-op-één met aanvragen, accepteren/overslaan en favorieten
+- [x] Tijdvak per uur bij activiteiten met uurblok- en groepsvoorkeur
+- [x] Kinderen (geslacht + geboortejaar) in het profiel
+- [x] Connecties en favorietenoverzicht
+- [x] Telefoonnummer optioneel, alleen zichtbaar voor connecties
