@@ -20,3 +20,14 @@ export function formatEventDateTime(startsAt: string): string {
   });
   return hasKnownEventTime(startsAt) ? `${date} om ${formatEventTime(startsAt)}` : `${date}, tijd nog niet bekend`;
 }
+
+export function formatEventRange(startsAt: string, endsAt: string | null | undefined): string {
+  const base = formatEventDateTime(startsAt);
+  if (!endsAt || !hasKnownEventTime(startsAt)) return base;
+  const end = new Date(endsAt).toLocaleTimeString("nl-NL", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Amsterdam",
+  });
+  return `${base} - ${end}`;
+}
