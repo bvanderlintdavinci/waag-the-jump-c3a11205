@@ -153,6 +153,8 @@ function ProfileForm() {
         lifestyle: currentDetails.lifestyle.trim() || null,
         favorite_activities: currentDetails.favorite_activities.trim() || null,
         dating_preferences: currentDetails.dating_preferences.trim() || null,
+        phone: val("phone").trim() || null,
+        phone_visibility: val("phone_visibility") || "none",
         profile_visibility: currentVisibility,
         lgbtq_badge: currentBadge && currentConsent,
         lgbtq_consent: currentConsent,
