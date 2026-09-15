@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Rainbow, Sparkles } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Baby, BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Phone, Rainbow, Sparkles, UserCheck, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -9,6 +9,15 @@ import { useSession } from "@/hooks/use-auth";
 import { ageFromBirthDate } from "@/lib/geo";
 import { intentLabel } from "@/lib/pinguingo";
 import { readProfileVisibility, type ExtendedProfileKey } from "@/lib/profile-details";
+import {
+  connectionState,
+  fetchConnection,
+  removeConnection,
+  requestConnection,
+  respondConnection,
+  toggleFavorite,
+} from "@/lib/connections";
+import { childLabel, useChildren } from "@/components/ChildrenEditor";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { BlockDialog, ReportDialog } from "@/components/SafetyDialogs";
@@ -41,6 +50,63 @@ function ProfilePage() {
       return data;
     },
   });
+
+  const qc = useQueryClient();
+  const { data: children = [] } = useChildren(id);
+
+  const { data: connection } = useQuery({
+    queryKey: ["connection", user?.id, id],
+    enabled: !!user && !isMe,
+    queryFn: () => fetchConnection(user!.id, id),
+  });
+
+  const { data: isFavorite = false } = useQuery({
+    queryKey: ["favorite", user?.id, id],
+    enabled: !!user && !isMe,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("favorites")
+        .select("id")
+        .eq("owner_id", user!.id)
+        .eq("favorite_id", id)
+        .maybeSingle();
+      return !!data;
+    },
+  });
+
+  const relation = connectionState(connection ?? null, user?.id ?? "");
+
+  async function connectAction() {
+    if (!user) return;
+    try {
+      if (relation === "none" || relation === "declined") {
+        if (connection && relation === "declined") await removeConnection(connection.id);
+        await requestConnection(user.id, id);
+        toast.success("Connectieverzoek verstuurd");
+      } else if (relation === "pending_in" && connection) {
+        await respondConnection(connection.id, true);
+        toast.success("Jullie zijn nu connecties");
+      } else if (connection) {
+        await removeConnection(connection.id);
+        toast.success("Connectie verwijderd");
+      }
+      await qc.invalidateQueries({ queryKey: ["connection"] });
+      await qc.invalidateQueries({ queryKey: ["connections"] });
+    } catch (e) {
+      toast.error("Actie mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
+  }
+
+  async function favoriteAction() {
+    if (!user) return;
+    try {
+      await toggleFavorite(user.id, id, isFavorite);
+      await qc.invalidateQueries({ queryKey: ["favorite"] });
+      await qc.invalidateQueries({ queryKey: ["connections"] });
+    } catch (e) {
+      toast.error("Actie mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
+  }
 
   useEffect(() => {
     if (!user || isMe || !profile) return;
@@ -161,6 +227,28 @@ function ProfilePage() {
               <Button onClick={startChat}>
                 <MessageCircle /> Chatverzoek sturen
               </Button>
+              <Button variant="outline" onClick={() => void connectAction()}>
+                {relation === "accepted" ? (
+                  <>
+                    <UserCheck /> Connectie verwijderen
+                  </>
+                ) : relation === "pending_out" ? (
+                  <>
+                    <UserPlus /> Verzoek intrekken
+                  </>
+                ) : relation === "pending_in" ? (
+                  <>
+                    <UserCheck /> Verzoek accepteren
+                  </>
+                ) : (
+                  <>
+                    <UserPlus /> Connectie maken
+                  </>
+                )}
+              </Button>
+              <Button variant="outline" onClick={() => void favoriteAction()}>
+                <Heart /> {isFavorite ? "Uit favorieten" : "Favoriet"}
+              </Button>
               <BlockDialog userId={profile.id} userName={profile.first_name} />
               <ReportDialog userId={profile.id} />
             </div>
@@ -170,12 +258,29 @@ function ProfilePage() {
         <div className="mt-5 flex flex-wrap gap-2">
           <Badge>{intentLabel(profile.intent)}</Badge>
           {profile.gender ? <Badge variant="outline">{profile.gender}</Badge> : null}
+          {relation === "accepted" ? <Badge variant="outline">Connectie</Badge> : null}
           {(profile.interests ?? []).map((i) => (
             <Badge key={i} variant="secondary">
               {i}
             </Badge>
           ))}
         </div>
+
+        {children.length ? (
+          <div className="mt-5 rounded-xl bg-muted p-4">
+            <h2 className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+              <Baby className="size-4 text-primary" /> Kinderen
+            </h2>
+            <p className="mt-1 text-sm text-foreground">{children.map(childLabel).join(" · ")}</p>
+          </div>
+        ) : null}
+
+        {profile.phone &&
+        (isMe || (profile.phone_visibility !== "none" && relation === "accepted")) ? (
+          <p className="mt-4 inline-flex items-center gap-2 text-sm text-foreground">
+            <Phone className="size-4 text-primary" /> {profile.phone}
+          </p>
+        ) : null}
 
         {profile.bio ? (
           <div className="mt-6 border-t border-border pt-5">

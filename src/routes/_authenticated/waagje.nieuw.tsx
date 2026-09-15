@@ -41,6 +41,7 @@ function NewActivity() {
   const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [kind, setKind] = useState<"friendship" | "date">("friendship");
   const [startsAt, setStartsAt] = useState("");
+  const [durationHours, setDurationHours] = useState("2");
   const [locationName, setLocationName] = useState(profile?.city ?? "");
   const [imageKey, setImageKey] = useState<string>("social");
   const [locationHint, setLocationHint] = useState("Waar spreken we af?");
@@ -96,6 +97,10 @@ function NewActivity() {
         category,
         kind,
         starts_at: new Date(startsAt).toISOString(),
+        ends_at:
+          kind === "friendship"
+            ? new Date(new Date(startsAt).getTime() + Number(durationHours) * 3600 * 1000).toISOString()
+            : null,
         location_name: locationName.trim(),
         image_key: imageKey,
         with_kids: withKids,
@@ -119,15 +124,17 @@ function NewActivity() {
       return;
     }
 
-    const { data: conv } = await supabase
-      .from("conversations")
-      .insert({ activity_id: activity.id, is_group: true, title: title.trim(), created_by: user.id })
-      .select("id")
-      .single();
-    if (conv) {
-      await supabase.from("conversation_participants").insert({ conversation_id: conv.id, user_id: user.id });
+    if (kind === "friendship") {
+      const { data: conv } = await supabase
+        .from("conversations")
+        .insert({ activity_id: activity.id, is_group: true, title: title.trim(), created_by: user.id })
+        .select("id")
+        .single();
+      if (conv) {
+        await supabase.from("conversation_participants").insert({ conversation_id: conv.id, user_id: user.id });
+      }
+      await supabase.from("activity_participants").insert({ activity_id: activity.id, user_id: user.id });
     }
-    await supabase.from("activity_participants").insert({ activity_id: activity.id, user_id: user.id });
 
     setBusy(false);
     await qc.invalidateQueries();
@@ -214,7 +221,7 @@ function NewActivity() {
             </Select>
           </div>
           <div className="grid gap-1.5">
-            <Label htmlFor="when">Datum en tijd</Label>
+            <Label htmlFor="when">Startdatum en begintijd</Label>
             <Input
               id="when"
               type="datetime-local"
@@ -224,6 +231,31 @@ function NewActivity() {
             />
           </div>
         </div>
+        {kind === "friendship" ? (
+          <div className="grid gap-1.5">
+            <Label>Tijdvak</Label>
+            <Select value={durationHours} onValueChange={setDurationHours}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {["1", "2", "3", "4", "5", "6", "8"].map((h) => (
+                  <SelectItem key={h} value={h}>
+                    {h} uur
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Deelnemers kiezen zelf een uurblok binnen dit tijdvak, bijvoorbeeld "zondag 10:00 - 13:00".
+            </p>
+          </div>
+        ) : (
+          <p className="rounded-xl border border-border bg-muted/40 p-4 text-xs text-muted-foreground">
+            Een date-oproep is altijd één-op-één. Leden sturen jou een aanvraag met een bericht; jij kiest wie je
+            accepteert. Zodra je iemand accepteert, sluit de oproep en opent er een privéchat.
+          </p>
+        )}
         <div className="grid gap-1.5">
           <Label htmlFor="loc">Locatie (zelf invullen)</Label>
           <Input

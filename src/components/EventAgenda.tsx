@@ -13,6 +13,7 @@ import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
 import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
 import { formatEventTime } from "@/lib/date-time";
+import { capacityLabel } from "@/lib/activity-status";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -307,8 +308,7 @@ export function EventAgenda() {
                           </div>
                           <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                             <Users className="size-3.5" />
-                            {event.demo.length + event.joinedCount}
-                            {event.max_participants ? ` / ${event.max_participants}` : ""}
+                            {capacityLabel(event.demo.length + event.joinedCount, event.max_participants)}
                           </span>
                         </div>
 
