@@ -35,7 +35,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
           <Link to="/feed" className="flex items-center gap-2">
-            <Dare2MeetLogo className="size-9" />
+            <Dare2MeetLogo className="size-11" />
             <span className="text-lg font-extrabold tracking-tight text-foreground">Dare2Meet</span>
           </Link>
           <nav className="ml-auto hidden items-center gap-1 sm:flex">

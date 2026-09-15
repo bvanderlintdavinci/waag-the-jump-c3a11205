@@ -51,7 +51,7 @@ function Landing() {
       <header className="glass-nav sticky top-0 z-40 mb-1 w-full">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-3">
-          <Dare2MeetLogo className="size-10" />
+          <Dare2MeetLogo className="size-12" />
           <span className="flex flex-col leading-tight">
             <span className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-foreground">
               Dare2Meet
@@ -113,7 +113,6 @@ function Landing() {
 
       <EventAgenda />
 
-
       <section className="mx-auto max-w-5xl px-4 py-14">
         <div className="grid gap-4 sm:grid-cols-3">
           {PILLARS.map((p) => (
@@ -125,6 +124,21 @@ function Landing() {
               <p className="mt-1 text-sm text-muted-foreground">{p.text}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div className="grid items-center gap-6 border-y border-border py-10 sm:grid-cols-[auto_1fr] sm:gap-9">
+          <Dare2MeetLogo className="mx-auto size-28 sm:size-36" />
+          <div>
+            <p className="eyebrow">Ons herkenningsteken</p>
+            <h2 className="mt-2 text-3xl text-foreground">Waarom de pinguïn?</h2>
+            <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+              Pinguïns staan samen aan de rand van het ijs. Eén waagt als eerste de sprong en maakt die stap voor
+              de rest minder spannend. Dat is precies waar Dare2Meet voor staat: uit je vertrouwde kring stappen,
+              het ijs breken en samen nieuwe mensen leren kennen.
+            </p>
+          </div>
         </div>
       </section>
 
