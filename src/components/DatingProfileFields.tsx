@@ -119,6 +119,29 @@ export function DatingProfileFields({ values, visibility, onValueChange, onVisib
       </div>
 
       <div className="border-t border-border pt-6">
+        <h3 className="text-lg text-foreground">Stijl en uiterlijk</h3>
+        <p className="mt-1 text-sm text-muted-foreground">Helemaal vrijwillig. Alleen zichtbaar als je dat zelf aanzet.</p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <FieldFrame field="appearance_style" label="Stijl" visibility={visibility} onVisibilityChange={onVisibilityChange}>
+            <Select value={values.appearance_style} onValueChange={(value) => onValueChange("appearance_style", value)}>
+              <SelectTrigger id="dating-appearance_style"><SelectValue placeholder="Kies indien gewenst" /></SelectTrigger>
+              <SelectContent>
+                {["Casual", "Klassiek", "Sportief", "Alternatief", "Rock / metal", "Zakelijk", "Bohemien", "Anders"].map((option) => (
+                  <SelectItem key={option} value={option}>{option}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FieldFrame>
+          <FieldFrame field="tattoos" label="Tatoeages" visibility={visibility} onVisibilityChange={onVisibilityChange}>
+            <Input id="dating-tattoos" maxLength={120} placeholder="Bijvoorbeeld: een paar, kleine" value={values.tattoos} onChange={(event) => onValueChange("tattoos", event.target.value)} />
+          </FieldFrame>
+          <FieldFrame field="piercings" label="Piercings" visibility={visibility} onVisibilityChange={onVisibilityChange}>
+            <Input id="dating-piercings" maxLength={120} placeholder="Bijvoorbeeld: geen, oren, neus" value={values.piercings} onChange={(event) => onValueChange("piercings", event.target.value)} />
+          </FieldFrame>
+        </div>
+      </div>
+
+      <div className="border-t border-border pt-6">
         <h3 className="text-lg text-foreground">Dating en gezin</h3>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
           {SELECTS.slice(2).map((field) => (

@@ -12,6 +12,9 @@ export const EXTENDED_PROFILE_KEYS = [
   "lifestyle",
   "favorite_activities",
   "dating_preferences",
+  "appearance_style",
+  "tattoos",
+  "piercings",
 ] as const;
 
 export type ExtendedProfileKey = (typeof EXTENDED_PROFILE_KEYS)[number];
