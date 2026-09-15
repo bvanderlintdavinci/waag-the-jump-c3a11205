@@ -131,6 +131,9 @@ function Feed() {
                     {a.kind === "date" ? "Date-oproep" : "Vriendschappelijk"}
                   </Badge>
                   <Badge variant="outline">{a.category}</Badge>
+                  {activityStatusLabel(a.status) ? (
+                    <Badge variant="outline">{activityStatusLabel(a.status)}</Badge>
+                  ) : null}
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{a.description}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
