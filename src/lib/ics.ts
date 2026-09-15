@@ -7,6 +7,8 @@ export type CalendarEvent = {
   durationMinutes?: number;
 };
 
+const DATE_ONLY_UTC = /^\d{4}-\d{2}-\d{2}T00:00:00(?:\.\d+)?(?:Z|\+00:00)$/;
+
 function stamp(date: Date) {
   return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 }
@@ -17,6 +19,7 @@ function escape(value: string) {
 
 export function buildIcs(event: CalendarEvent) {
   const start = new Date(event.startsAt);
+  const dateOnly = typeof event.startsAt === "string" && DATE_ONLY_UTC.test(event.startsAt);
   const end = new Date(start.getTime() + (event.durationMinutes ?? 120) * 60 * 1000);
   return [
     "BEGIN:VCALENDAR",
@@ -27,8 +30,10 @@ export function buildIcs(event: CalendarEvent) {
     "BEGIN:VEVENT",
     `UID:${event.id}@dare2meet.nl`,
     `DTSTAMP:${stamp(new Date())}`,
-    `DTSTART:${stamp(start)}`,
-    `DTEND:${stamp(end)}`,
+    dateOnly ? `DTSTART;VALUE=DATE:${stamp(start).slice(0, 8)}` : `DTSTART:${stamp(start)}`,
+    dateOnly
+      ? `DTEND;VALUE=DATE:${stamp(new Date(start.getTime() + 24 * 60 * 60 * 1000)).slice(0, 8)}`
+      : `DTEND:${stamp(end)}`,
     `SUMMARY:${escape(event.title)}`,
     `DESCRIPTION:${escape(event.description ?? "Aangemeld via Dare2Meet")}`,
     `LOCATION:${escape(event.location ?? "")}`,
@@ -39,11 +44,14 @@ export function buildIcs(event: CalendarEvent) {
 
 export function googleCalendarUrl(event: CalendarEvent) {
   const start = new Date(event.startsAt);
+  const dateOnly = typeof event.startsAt === "string" && DATE_ONLY_UTC.test(event.startsAt);
   const end = new Date(start.getTime() + (event.durationMinutes ?? 120) * 60 * 1000);
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: event.title,
-    dates: `${stamp(start)}/${stamp(end)}`,
+    dates: dateOnly
+      ? `${stamp(start).slice(0, 8)}/${stamp(new Date(start.getTime() + 24 * 60 * 60 * 1000)).slice(0, 8)}`
+      : `${stamp(start)}/${stamp(end)}`,
     details: event.description ?? "Aangemeld via Dare2Meet",
     location: event.location ?? "",
   });

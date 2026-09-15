@@ -12,6 +12,7 @@ import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
 import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
+import { formatEventTime } from "@/lib/date-time";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -267,7 +268,7 @@ export function EventAgenda() {
                             <CalendarDays className="size-3.5" />
                             {date.toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "long" })}
                             <Clock className="ml-2 size-3.5" />
-                            {date.toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit" })}
+                            {formatEventTime(event.starts_at)}
                           </div>
                           <div className="flex items-center gap-1.5">
                             <MapPin className="size-3.5" />
