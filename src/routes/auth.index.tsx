@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
+import { signInWithGoogle } from "@/lib/oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -140,9 +140,7 @@ function AuthPage() {
   }
 
   async function google() {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/auth/callback`,
-    });
+    const result = await signInWithGoogle(`${window.location.origin}/auth/callback`);
     if (result.error) {
       toast.error("Google inloggen mislukt", { description: dutchError(result.error.message) });
       return;
