@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarHeart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
+import { CalendarHeart, Heart, LogOut, Mail, MessageCircle, Settings, ShieldCheck, Users } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 const NAV = [
   { to: "/feed", label: "Waagjes", icon: CalendarHeart },
   { to: "/leden", label: "Leden", icon: Users },
+  { to: "/connecties", label: "Connecties", icon: Heart },
   { to: "/berichten", label: "Berichten", icon: Mail },
   { to: "/chats", label: "Chats", icon: MessageCircle },
   { to: "/instellingen", label: "Account", icon: Settings },
