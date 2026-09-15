@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, MessageCircle, Rainbow } from "lucide-react";
+import { BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Rainbow, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
 import { ageFromBirthDate } from "@/lib/geo";
 import { intentLabel } from "@/lib/pinguingo";
+import { readProfileVisibility, type ExtendedProfileKey } from "@/lib/profile-details";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { BlockDialog, ReportDialog } from "@/components/SafetyDialogs";
@@ -100,6 +101,41 @@ function ProfilePage() {
   }
 
   const age = ageFromBirthDate(profile.birth_date);
+  const visibility = readProfileVisibility(profile.profile_visibility);
+  const canShow = (key: ExtendedProfileKey) => isMe || visibility[key];
+  const detailGroups = [
+    {
+      title: "Werk en achtergrond",
+      icon: BriefcaseBusiness,
+      items: [
+        canShow("education_level") && profile.education_level ? { icon: GraduationCap, label: "Opleiding", value: profile.education_level } : null,
+        canShow("occupation") && profile.occupation ? { icon: BriefcaseBusiness, label: "Beroep", value: profile.occupation } : null,
+        canShow("industry") && profile.industry ? { icon: BriefcaseBusiness, label: "Branche", value: profile.industry } : null,
+        canShow("languages") && profile.languages?.length ? { icon: Languages, label: "Talen", value: profile.languages.join(", ") } : null,
+        canShow("living_situation") && profile.living_situation ? { icon: House, label: "Woonsituatie", value: profile.living_situation } : null,
+      ].filter(Boolean),
+    },
+    {
+      title: "Leven en vrije tijd",
+      icon: Sparkles,
+      items: [
+        canShow("sports") && profile.sports?.length ? { icon: Sparkles, label: "Sport", value: profile.sports.join(", ") } : null,
+        canShow("lifestyle") && profile.lifestyle ? { icon: Sparkles, label: "Levensstijl", value: profile.lifestyle } : null,
+        canShow("favorite_activities") && profile.favorite_activities ? { icon: Sparkles, label: "Favoriete bezigheden", value: profile.favorite_activities } : null,
+      ].filter(Boolean),
+    },
+    {
+      title: "Dating en gezin",
+      icon: Heart,
+      items: [
+        canShow("relationship_status") && profile.relationship_status ? { icon: Heart, label: "Relatiestatus", value: profile.relationship_status } : null,
+        canShow("has_children") && profile.has_children ? { icon: Heart, label: "Kinderen", value: profile.has_children } : null,
+        canShow("children_details") && profile.children_details ? { icon: Heart, label: "Over het gezin", value: profile.children_details } : null,
+        canShow("child_wish") && profile.child_wish ? { icon: Heart, label: "Kinderwens", value: profile.child_wish } : null,
+        canShow("dating_preferences") && profile.dating_preferences ? { icon: Heart, label: "Zoekt", value: profile.dating_preferences } : null,
+      ].filter(Boolean),
+    },
+  ].filter((group) => group.items.length > 0);
 
   return (
     <AppShell>
@@ -111,7 +147,9 @@ function ProfilePage() {
               {profile.first_name}
               {age ? `, ${age}` : ""}
               {profile.lgbtq_badge ? (
-                <Rainbow className="size-5 text-primary" aria-label="LHBTQIA+ community badge" />
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary" title="Vrijwillige LHBTQIA+ communitybadge voor herkenning en inclusiviteit">
+                  <Rainbow className="size-5" aria-hidden="true" /> Community
+                </span>
               ) : null}
             </h1>
             <p className="inline-flex items-center gap-1 text-sm text-muted-foreground">
@@ -140,10 +178,31 @@ function ProfilePage() {
         </div>
 
         {profile.bio ? (
-          <p className="mt-5 whitespace-pre-wrap text-sm text-foreground">{profile.bio}</p>
+          <div className="mt-6 border-t border-border pt-5">
+            <h2 className="text-xl text-foreground">Over {profile.first_name}</h2>
+            <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-foreground">{profile.bio}</p>
+          </div>
         ) : (
           <p className="mt-5 text-sm text-muted-foreground">Dit lid heeft nog niets over zichzelf geschreven.</p>
         )}
+
+        {detailGroups.length ? (
+          <div className="mt-6 grid gap-6 border-t border-border pt-5 sm:grid-cols-2">
+            {detailGroups.map((group) => (
+              <section key={group.title}>
+                <h2 className="flex items-center gap-2 text-lg text-foreground"><group.icon className="size-5 text-primary" /> {group.title}</h2>
+                <dl className="mt-3 grid gap-3">
+                  {group.items.map((item) => item ? (
+                    <div key={item.label}>
+                      <dt className="text-xs font-semibold uppercase text-muted-foreground">{item.label}</dt>
+                      <dd className="mt-0.5 whitespace-pre-wrap text-sm text-foreground">{item.value}</dd>
+                    </div>
+                  ) : null)}
+                </dl>
+              </section>
+            ))}
+          </div>
+        ) : null}
       </div>
     </AppShell>
   );

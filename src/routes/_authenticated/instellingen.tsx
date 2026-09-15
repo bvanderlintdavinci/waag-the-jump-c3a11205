@@ -9,7 +9,16 @@ import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { guardText } from "@/lib/moderation-guard";
 import { resolveLocation } from "@/lib/geo";
 import { CATEGORIES, GENDERS, INTENTS } from "@/lib/pinguingo";
+import {
+  csvToArray,
+  profileToExtendedValues,
+  readProfileVisibility,
+  type ExtendedProfileKey,
+  type ExtendedProfileValues,
+  type ProfileVisibility,
+} from "@/lib/profile-details";
 import { AppShell } from "@/components/AppShell";
+import { DatingProfileFields } from "@/components/DatingProfileFields";
 import { EmptyState } from "@/components/EmptyState";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -79,6 +88,8 @@ function ProfileForm() {
   const [interests, setInterests] = useState<string[] | null>(null);
   const [badge, setBadge] = useState<boolean | null>(null);
   const [consent, setConsent] = useState<boolean | null>(null);
+  const [details, setDetails] = useState<ExtendedProfileValues | null>(null);
+  const [visibility, setVisibility] = useState<ProfileVisibility | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -89,6 +100,9 @@ function ProfileForm() {
   const currentInterests = interests ?? profile.interests ?? [];
   const currentBadge = badge ?? profile.lgbtq_badge;
   const currentConsent = consent ?? profile.lgbtq_consent;
+  const currentDetails = details ?? profileToExtendedValues(profile as unknown as Record<string, unknown>);
+  const currentVisibility = visibility ?? readProfileVisibility(profile.profile_visibility);
+  const selectedIntent = form["intent"] ?? profile.intent;
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -98,7 +112,8 @@ function ProfileForm() {
       return;
     }
     const bio = val("bio");
-    if (!(await guardText("bio", bio, user.id))) return;
+    const extendedText = [currentDetails.occupation, currentDetails.industry, currentDetails.sports, currentDetails.lifestyle, currentDetails.favorite_activities, currentDetails.dating_preferences].join(" ");
+    if (!(await guardText("bio", `${bio} ${extendedText}`, user.id))) return;
     setBusy(true);
     let avatarPath = profile!.avatar_url;
     if (file) {
@@ -125,6 +140,20 @@ function ProfileForm() {
         gender: val("gender") || null,
         intent: (form["intent"] ?? profile!.intent) as "friendship" | "dating" | "both",
         interests: currentInterests,
+        education_level: currentDetails.education_level || null,
+        occupation: currentDetails.occupation.trim() || null,
+        industry: currentDetails.industry.trim() || null,
+        languages: csvToArray(currentDetails.languages),
+        living_situation: currentDetails.living_situation || null,
+        relationship_status: currentDetails.relationship_status || null,
+        has_children: currentDetails.has_children || null,
+        children_details: currentDetails.children_details.trim() || null,
+        child_wish: currentDetails.child_wish || null,
+        sports: csvToArray(currentDetails.sports),
+        lifestyle: currentDetails.lifestyle.trim() || null,
+        favorite_activities: currentDetails.favorite_activities.trim() || null,
+        dating_preferences: currentDetails.dating_preferences.trim() || null,
+        profile_visibility: currentVisibility,
         lgbtq_badge: currentBadge && currentConsent,
         lgbtq_consent: currentConsent,
         lat: place?.lat ?? profile!.lat,
@@ -198,6 +227,22 @@ function ProfileForm() {
         />
       </div>
 
+      {selectedIntent === "dating" || selectedIntent === "both" ? (
+        <div className="border-t border-border pt-6">
+          <p className="eyebrow">Vrijwillig datingprofiel</p>
+          <h2 className="mt-1 text-xl text-foreground">Meer over jou</h2>
+          <p className="mb-5 mt-1 text-sm text-muted-foreground">
+            Kies per onderdeel zelf of andere ingelogde leden het mogen zien. Lege of verborgen velden verschijnen niet.
+          </p>
+          <DatingProfileFields
+            values={currentDetails}
+            visibility={currentVisibility}
+            onValueChange={(key: ExtendedProfileKey, value) => setDetails({ ...currentDetails, [key]: value })}
+            onVisibilityChange={(key: ExtendedProfileKey, visible) => setVisibility({ ...currentVisibility, [key]: visible })}
+          />
+        </div>
+      ) : null}
+
       <div className="grid gap-1.5">
         <Label htmlFor="s-bio">Over jou</Label>
         <Textarea
@@ -254,8 +299,11 @@ function ProfileForm() {
       <div className="flex items-start gap-2">
         <Checkbox id="s-badge" checked={currentBadge} onCheckedChange={(v) => setBadge(v === true)} className="mt-0.5" />
         <Label htmlFor="s-badge" className="text-sm font-normal">
-          Toon de LHBTQIA+ community badge op mijn profiel.
+          Toon de vrijwillige regenboogpinguïn op mijn profiel.
         </Label>
+        <p className="ml-6 text-xs leading-relaxed text-muted-foreground">
+          Deze LHBTQIA+ communitybadge helpt mensen elkaar te herkennen en staat voor ruimte om jezelf te zijn.
+        </p>
       </div>
       <div className="flex items-start gap-2">
         <Checkbox

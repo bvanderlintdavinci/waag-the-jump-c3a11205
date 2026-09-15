@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { ageFromBirthDate, distanceKm, resolveLocation } from "@/lib/geo";
 import { intentLabel } from "@/lib/pinguingo";
+import { readProfileVisibility } from "@/lib/profile-details";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { DEFAULT_FILTERS, LocationFilter, type Filters } from "@/components/LocationFilter";
@@ -35,7 +36,7 @@ function Members() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, first_name, avatar_url, city, birth_date, intent, interests, lgbtq_badge, bio, lat, lng")
+        .select("id, first_name, avatar_url, city, birth_date, intent, interests, lgbtq_badge, bio, lat, lng, education_level, occupation, industry, relationship_status, child_wish, dating_preferences, profile_visibility")
         .eq("onboarded", true)
         .is("deleted_at", null)
         .limit(300);
@@ -86,7 +87,16 @@ function Members() {
             <EmptyState description="Geen leden gevonden binnen deze filters. Vergroot je afstandscirkel eens." />
           </div>
         ) : (
-          visible.map((m) => (
+          visible.map((m) => {
+            const visibility = readProfileVisibility(m.profile_visibility);
+            const details = [
+              visibility.occupation ? m.occupation : null,
+              visibility.industry ? m.industry : null,
+              visibility.education_level ? m.education_level : null,
+              visibility.relationship_status ? m.relationship_status : null,
+              visibility.child_wish && m.child_wish ? `Kinderwens: ${m.child_wish}` : null,
+            ].filter(Boolean);
+            return (
             <Link key={m.id} to="/profiel/$id" params={{ id: m.id }} className="surface flex gap-3 p-4">
               <UserAvatar path={m.avatar_url} name={m.first_name} className="size-14" />
               <div className="min-w-0">
@@ -113,14 +123,15 @@ function Members() {
                     : null}
                 </div>
                 {showDetails ? (
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    Hobby's en interesses: {(m.interests ?? []).length ? (m.interests ?? []).join(", ") : "nog niet ingevuld"}
-                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-muted-foreground">
+                    {(m.interests ?? []).length ? <p>Hobby's en interesses: {(m.interests ?? []).join(", ")}</p> : null}
+                    {details.length ? <p>{details.join(" · ")}</p> : null}
+                    {visibility.dating_preferences && m.dating_preferences ? <p className="line-clamp-2">Zoekt: {m.dating_preferences}</p> : null}
+                  </div>
                 ) : null}
               </div>
             </Link>
-
-          ))
+          );})
         )}
       </div>
     </AppShell>
