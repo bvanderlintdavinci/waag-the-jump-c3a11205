@@ -214,7 +214,7 @@ function NewActivity() {
             </Select>
           </div>
           <div className="grid gap-1.5">
-            <Label htmlFor="when">Datum en tijd</Label>
+            <Label htmlFor="when">Startdatum en begintijd</Label>
             <Input
               id="when"
               type="datetime-local"
@@ -224,6 +224,31 @@ function NewActivity() {
             />
           </div>
         </div>
+        {kind === "friendship" ? (
+          <div className="grid gap-1.5">
+            <Label>Tijdvak</Label>
+            <Select value={durationHours} onValueChange={setDurationHours}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {["1", "2", "3", "4", "5", "6", "8"].map((h) => (
+                  <SelectItem key={h} value={h}>
+                    {h} uur
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Deelnemers kiezen zelf een uurblok binnen dit tijdvak, bijvoorbeeld "zondag 10:00 - 13:00".
+            </p>
+          </div>
+        ) : (
+          <p className="rounded-xl border border-border bg-muted/40 p-4 text-xs text-muted-foreground">
+            Een date-oproep is altijd één-op-één. Leden sturen jou een aanvraag met een bericht; jij kiest wie je
+            accepteert. Zodra je iemand accepteert, sluit de oproep en opent er een privéchat.
+          </p>
+        )}
         <div className="grid gap-1.5">
           <Label htmlFor="loc">Locatie (zelf invullen)</Label>
           <Input
