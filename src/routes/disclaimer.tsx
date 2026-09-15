@@ -77,11 +77,86 @@ function Disclaimer() {
         Deze beperking geldt niet bij opzet of bewuste roekeloosheid van onze kant.
       </p>
 
-      <h2>Rechten</h2>
+      <h2>Auteursrecht en intellectueel eigendom</h2>
       <p>
-        De naam Dare2Meet, het pinguïnlogo, de teksten en de illustraties op deze site zijn eigendom van
-        Dare2Meet.nl. Overnemen mag niet zonder toestemming. Denk je dat materiaal op de site jouw rechten
-        schendt? Meld het en we verwijderen of vervangen het.
+        De naam Dare2Meet, het pinguïnlogo, de vormgeving, de teksten, de illustraties, de foto's en de
+        software van deze site zijn beschermd door auteursrecht, databankrecht en merkrecht en berusten bij
+        Dare2Meet.nl of bij haar licentiegevers. Overnemen, kopiëren, verveelvoudigen, bewerken, publiceren of
+        commercieel hergebruiken mag alleen met voorafgaande schriftelijke toestemming.
+      </p>
+      <p>
+        Toegestaan zonder toestemming: een enkele kopie voor strikt persoonlijk gebruik, en een gewone
+        hyperlink naar een pagina op deze site. Niet toegestaan: geautomatiseerd verzamelen van gegevens
+        (scrapen), het aanleggen van kopieën van onze databank, het hergebruiken van profielgegevens of
+        foto's van leden, en het tonen van onze site in een frame onder een andere naam.
+      </p>
+
+      <h2>Jouw eigen materiaal</h2>
+      <p>
+        Wat je zelf plaatst blijft van jou. Door te plaatsen geef je Dare2Meet een niet-exclusief, kosteloos en
+        intrekbaar recht om jouw tekst en foto's binnen het platform te tonen aan andere leden, zolang je
+        account bestaat. Je verklaart dat je zelf de rechten hebt op wat je plaatst: geen foto's van internet,
+        geen foto's van anderen zonder hun toestemming, en geen muziek, logo's of teksten van derden.
+      </p>
+
+      <h2>Materiaal van derden en bronvermelding</h2>
+      <p>
+        Onze agenda bevat ook activiteiten die afkomstig zijn van openbare uitagenda's en websites van
+        organisatoren. Die informatie blijft eigendom van de oorspronkelijke bron, wordt uitsluitend
+        verwijzend weergegeven en kan afwijken of verouderd zijn. Controleer datum, tijd en prijs altijd bij de
+        organisator zelf. Ben je rechthebbende en wil je niet dat jouw agenda-informatie of afbeelding hier
+        verschijnt? Meld het en we verwijderen het.
+      </p>
+
+      <h2>Melding van inbreuk (notice and takedown)</h2>
+      <p>
+        Zie je materiaal op Dare2Meet dat jouw auteursrecht, portretrecht, merkrecht of privacy schendt? Meld
+        het via de knop "Idee of advies" op de site en vermeld: om welke pagina of welk bericht het gaat,
+        waarom het inbreuk maakt en op grond waarvan jij rechthebbende bent. We beoordelen elke melding en
+        verwijderen of blokkeren onrechtmatig materiaal zo snel als redelijkerwijs mogelijk is, doorgaans
+        binnen enkele werkdagen.
+      </p>
+
+      <h2>Portretrecht</h2>
+      <p>
+        Sta je herkenbaar op een foto die een ander plaatste en wil je dat niet? Dan verwijderen we die foto op
+        jouw verzoek. Maak zelf ook geen foto's van andere leden en deel geen screenshots van profielen of
+        gesprekken buiten het platform.
+      </p>
+
+      <h2>Privacy en gegevensbescherming</h2>
+      <p>
+        Dare2Meet verwerkt persoonsgegevens volgens de AVG. Welke gegevens we verwerken, waarom, hoe lang en
+        welke rechten je hebt (inzage, correctie, verwijdering, overdraagbaarheid, bezwaar en klacht bij de
+        Autoriteit Persoonsgegevens) staat in het privacybeleid. Gegevens van andere leden gebruik je alleen
+        binnen het platform: niet kopiëren, niet bewaren, niet doorsturen en nooit gebruiken voor reclame,
+        werving of onderzoek.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        We gebruiken alleen functionele opslag om je ingelogd te houden. Geen trackers en geen
+        advertentiecookies. Details staan in de cookieverklaring.
+      </p>
+
+      <h2>Links naar andere websites</h2>
+      <p>
+        Deze site bevat links naar websites van derden, bijvoorbeeld van organisatoren of een donatiedienst.
+        Wij hebben geen zeggenschap over die sites en zijn niet verantwoordelijk voor hun inhoud, hun
+        beschikbaarheid of hun privacybeleid.
+      </p>
+
+      <h2>Geen advies</h2>
+      <p>
+        Informatie op deze site is algemeen van aard en is geen juridisch, medisch, financieel of
+        veiligheidsadvies. Aan de inhoud kunnen geen rechten worden ontleend.
+      </p>
+
+      <h2>Wijzigingen en toepasselijk recht</h2>
+      <p>
+        We kunnen deze disclaimer aanpassen; de actuele versie staat altijd op deze pagina. Op het gebruik van
+        Dare2Meet is Nederlands recht van toepassing. Geschillen leggen we voor aan de bevoegde Nederlandse
+        rechter, onverminderd je rechten als consument.
       </p>
     </LegalPage>
   );
