@@ -19,6 +19,7 @@ import {
 } from "@/lib/profile-details";
 import { AppShell } from "@/components/AppShell";
 import { DatingProfileFields } from "@/components/DatingProfileFields";
+import { ChildrenEditor } from "@/components/ChildrenEditor";
 import { EmptyState } from "@/components/EmptyState";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -227,6 +228,42 @@ function ProfileForm() {
           accept="image/jpeg,image/png,image/webp"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
         />
+      </div>
+
+      <div className="grid gap-4 border-t border-border pt-5 sm:grid-cols-2">
+        <div className="grid gap-1.5">
+          <Label htmlFor="s-phone">Telefoonnummer (optioneel)</Label>
+          <Input
+            id="s-phone"
+            maxLength={20}
+            placeholder="06 12345678"
+            value={val("phone")}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          />
+        </div>
+        <div className="grid gap-1.5">
+          <Label>Wie mag je nummer zien?</Label>
+          <Select
+            value={val("phone_visibility") || "none"}
+            onValueChange={(v) => setForm({ ...form, phone_visibility: v })}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">Niemand</SelectItem>
+              <SelectItem value="connections">Alleen mijn connecties</SelectItem>
+              <SelectItem value="matches">Alleen geaccepteerde afspraken</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-muted-foreground">
+            Je nummer staat nooit in zoekresultaten, e-mails of openbare lijsten.
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-border pt-5">
+        {user ? <ChildrenEditor userId={user.id} /> : null}
       </div>
 
       {selectedIntent === "dating" || selectedIntent === "both" ? (
