@@ -124,15 +124,17 @@ function NewActivity() {
       return;
     }
 
-    const { data: conv } = await supabase
-      .from("conversations")
-      .insert({ activity_id: activity.id, is_group: true, title: title.trim(), created_by: user.id })
-      .select("id")
-      .single();
-    if (conv) {
-      await supabase.from("conversation_participants").insert({ conversation_id: conv.id, user_id: user.id });
+    if (kind === "friendship") {
+      const { data: conv } = await supabase
+        .from("conversations")
+        .insert({ activity_id: activity.id, is_group: true, title: title.trim(), created_by: user.id })
+        .select("id")
+        .single();
+      if (conv) {
+        await supabase.from("conversation_participants").insert({ conversation_id: conv.id, user_id: user.id });
+      }
+      await supabase.from("activity_participants").insert({ activity_id: activity.id, user_id: user.id });
     }
-    await supabase.from("activity_participants").insert({ activity_id: activity.id, user_id: user.id });
 
     setBusy(false);
     await qc.invalidateQueries();
