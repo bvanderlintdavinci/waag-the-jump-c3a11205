@@ -13,6 +13,7 @@ import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
 import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
 import { formatEventTime } from "@/lib/date-time";
+import { capacityLabel } from "@/lib/activity-status";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
