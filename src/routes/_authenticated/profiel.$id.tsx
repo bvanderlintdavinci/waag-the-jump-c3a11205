@@ -51,6 +51,63 @@ function ProfilePage() {
     },
   });
 
+  const qc = useQueryClient();
+  const { data: children = [] } = useChildren(id);
+
+  const { data: connection } = useQuery({
+    queryKey: ["connection", user?.id, id],
+    enabled: !!user && !isMe,
+    queryFn: () => fetchConnection(user!.id, id),
+  });
+
+  const { data: isFavorite = false } = useQuery({
+    queryKey: ["favorite", user?.id, id],
+    enabled: !!user && !isMe,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("favorites")
+        .select("id")
+        .eq("owner_id", user!.id)
+        .eq("favorite_id", id)
+        .maybeSingle();
+      return !!data;
+    },
+  });
+
+  const relation = connectionState(connection ?? null, user?.id ?? "");
+
+  async function connectAction() {
+    if (!user) return;
+    try {
+      if (relation === "none" || relation === "declined") {
+        if (connection && relation === "declined") await removeConnection(connection.id);
+        await requestConnection(user.id, id);
+        toast.success("Connectieverzoek verstuurd");
+      } else if (relation === "pending_in" && connection) {
+        await respondConnection(connection.id, true);
+        toast.success("Jullie zijn nu connecties");
+      } else if (connection) {
+        await removeConnection(connection.id);
+        toast.success("Connectie verwijderd");
+      }
+      await qc.invalidateQueries({ queryKey: ["connection"] });
+      await qc.invalidateQueries({ queryKey: ["connections"] });
+    } catch (e) {
+      toast.error("Actie mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
+  }
+
+  async function favoriteAction() {
+    if (!user) return;
+    try {
+      await toggleFavorite(user.id, id, isFavorite);
+      await qc.invalidateQueries({ queryKey: ["favorite"] });
+      await qc.invalidateQueries({ queryKey: ["connections"] });
+    } catch (e) {
+      toast.error("Actie mislukt", { description: e instanceof Error ? e.message : undefined });
+    }
+  }
+
   useEffect(() => {
     if (!user || isMe || !profile) return;
     void supabase.from("profile_visits").insert({ visitor_id: user.id, profile_id: id });
