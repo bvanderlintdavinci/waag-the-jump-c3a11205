@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Rainbow, Sparkles } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Baby, BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Phone, Rainbow, Sparkles, UserCheck, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -9,6 +9,15 @@ import { useSession } from "@/hooks/use-auth";
 import { ageFromBirthDate } from "@/lib/geo";
 import { intentLabel } from "@/lib/pinguingo";
 import { readProfileVisibility, type ExtendedProfileKey } from "@/lib/profile-details";
+import {
+  connectionState,
+  fetchConnection,
+  removeConnection,
+  requestConnection,
+  respondConnection,
+  toggleFavorite,
+} from "@/lib/connections";
+import { childLabel, useChildren } from "@/components/ChildrenEditor";
 import { AppShell } from "@/components/AppShell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { BlockDialog, ReportDialog } from "@/components/SafetyDialogs";
