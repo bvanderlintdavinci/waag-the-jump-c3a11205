@@ -4,4 +4,4 @@
 - [ ] Controleer onboarding, profielen, Waagjes en activiteit-aanmeldingen
 - [ ] Maak deploystatus technisch eerlijk en betrouwbaar
 - [ ] Test preview en live publicatie
-- [ ] Maak de pinguïn herkenbaar en breid vrijwillige datingprofielen uit
+- [x] Maak de pinguïn herkenbaar en breid vrijwillige datingprofielen uit
