@@ -36,7 +36,8 @@ function Privacy() {
       <h2>Welke gegevens verwerken we</h2>
       <ul>
         <li>Accountgegevens: e-mailadres en wachtwoord (versleuteld opgeslagen door onze inlogdienst).</li>
-        <li>Profielgegevens: voornaam, geboortedatum, woonplaats of postcode, globale coördinaten, korte tekst over jezelf, interesses, profielfoto en waar je voor openstaat (vriendschap, dating of beide).</li>
+        <li>Profielgegevens: voornaam, geboortedatum, woonplaats of postcode, globale coördinaten, tekst over jezelf, interesses, profielfoto en waar je voor openstaat (vriendschap, dating of beide).</li>
+        <li>Vrijwillige datinggegevens: opleiding, beroep of branche, talen, woonsituatie, relatiestatus, kinderen, kinderwens, sporten, levensstijl, favoriete bezigheden en datingvoorkeuren. Je kiest per onderdeel zelf of andere ingelogde leden dit zien en kunt het altijd wijzigen of wissen.</li>
         <li>Activiteiten: uitjes die je plaatst of waar je je voor aanmeldt.</li>
         <li>Berichten: de inhoud van je 1 op 1 gesprekken en groepschats.</li>
         <li>Veiligheid en moderatie: blokkades met reden, meldingen, en logregels van de woordenfilter.</li>
@@ -61,7 +62,8 @@ function Privacy() {
 
       <h2>Wie ziet je gegevens</h2>
       <p>
-        Andere ingelogde leden zien je profiel, je uitjes en de berichten die je aan hen stuurt. Verder werken
+        Andere ingelogde leden zien je basisprofiel en alleen de vrijwillige datinggegevens die je zelf zichtbaar
+        hebt gezet. Zij zien ook je uitjes en de berichten die je aan hen stuurt. Verder werken
         we met verwerkers voor hosting, database, opslag van foto's en e-mail. Zij verwerken gegevens alleen in
         onze opdracht en binnen de Europese Unie, tenzij er passende waarborgen gelden. We verkopen nooit
         gegevens en gebruiken geen advertentienetwerken.

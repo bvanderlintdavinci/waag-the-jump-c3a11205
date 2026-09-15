@@ -384,6 +384,8 @@ export type Database = {
           avatar_url: string | null
           bio: string
           birth_date: string | null
+          child_wish: string | null
+          children_details: string | null
           city: string
           consent_at: string | null
           consent_law_enforcement: boolean
@@ -391,26 +393,40 @@ export type Database = {
           consent_terms: boolean
           consent_visibility: boolean
           created_at: string
+          dating_preferences: string | null
           deleted_at: string | null
+          education_level: string | null
+          favorite_activities: string | null
           first_name: string
           gender: string | null
+          has_children: string | null
           id: string
+          industry: string | null
           intent: Database["public"]["Enums"]["intent_type"]
           interests: string[]
+          languages: string[]
           lat: number | null
           lgbtq_badge: boolean
           lgbtq_consent: boolean
+          lifestyle: string | null
+          living_situation: string | null
           lng: number | null
+          occupation: string | null
           onboarded: boolean
           postcode: string | null
+          profile_visibility: Json
           purge_after: string | null
+          relationship_status: string | null
           shadowbanned: boolean
+          sports: string[]
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
           bio?: string
           birth_date?: string | null
+          child_wish?: string | null
+          children_details?: string | null
           city?: string
           consent_at?: string | null
           consent_law_enforcement?: boolean
@@ -418,26 +434,40 @@ export type Database = {
           consent_terms?: boolean
           consent_visibility?: boolean
           created_at?: string
+          dating_preferences?: string | null
           deleted_at?: string | null
+          education_level?: string | null
+          favorite_activities?: string | null
           first_name?: string
           gender?: string | null
+          has_children?: string | null
           id: string
+          industry?: string | null
           intent?: Database["public"]["Enums"]["intent_type"]
           interests?: string[]
+          languages?: string[]
           lat?: number | null
           lgbtq_badge?: boolean
           lgbtq_consent?: boolean
+          lifestyle?: string | null
+          living_situation?: string | null
           lng?: number | null
+          occupation?: string | null
           onboarded?: boolean
           postcode?: string | null
+          profile_visibility?: Json
           purge_after?: string | null
+          relationship_status?: string | null
           shadowbanned?: boolean
+          sports?: string[]
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
           bio?: string
           birth_date?: string | null
+          child_wish?: string | null
+          children_details?: string | null
           city?: string
           consent_at?: string | null
           consent_law_enforcement?: boolean
@@ -445,20 +475,32 @@ export type Database = {
           consent_terms?: boolean
           consent_visibility?: boolean
           created_at?: string
+          dating_preferences?: string | null
           deleted_at?: string | null
+          education_level?: string | null
+          favorite_activities?: string | null
           first_name?: string
           gender?: string | null
+          has_children?: string | null
           id?: string
+          industry?: string | null
           intent?: Database["public"]["Enums"]["intent_type"]
           interests?: string[]
+          languages?: string[]
           lat?: number | null
           lgbtq_badge?: boolean
           lgbtq_consent?: boolean
+          lifestyle?: string | null
+          living_situation?: string | null
           lng?: number | null
+          occupation?: string | null
           onboarded?: boolean
           postcode?: string | null
+          profile_visibility?: Json
           purge_after?: string | null
+          relationship_status?: string | null
           shadowbanned?: boolean
+          sports?: string[]
           updated_at?: string
         }
         Relationships: []

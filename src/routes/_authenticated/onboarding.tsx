@@ -3,12 +3,19 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import waag from "@/assets/waag-penguin.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { guardText } from "@/lib/moderation-guard";
 import { resolveLocation } from "@/lib/geo";
 import { CATEGORIES, GENDERS, INTENTS } from "@/lib/pinguingo";
+import {
+  csvToArray,
+  DEFAULT_PROFILE_VISIBILITY,
+  EMPTY_EXTENDED_PROFILE,
+  type ExtendedProfileKey,
+} from "@/lib/profile-details";
+import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
+import { DatingProfileFields } from "@/components/DatingProfileFields";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,6 +53,8 @@ function Onboarding() {
   const [interests, setInterests] = useState<string[]>(profile?.interests ?? []);
   const [lgbtqBadge, setLgbtqBadge] = useState(false);
   const [lgbtqConsent, setLgbtqConsent] = useState(false);
+  const [details, setDetails] = useState({ ...EMPTY_EXTENDED_PROFILE });
+  const [visibility, setVisibility] = useState({ ...DEFAULT_PROFILE_VISIBILITY });
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -73,7 +82,8 @@ function Onboarding() {
       toast.error("Geef expliciet toestemming om de community-badge te tonen.");
       return;
     }
-    if (!(await guardText("bio", `${firstName} ${bio}`, user.id))) return;
+    const extendedText = [details.occupation, details.industry, details.sports, details.lifestyle, details.favorite_activities, details.dating_preferences].join(" ");
+    if (!(await guardText("bio", `${firstName} ${bio} ${extendedText}`, user.id))) return;
 
     setBusy(true);
     let avatarPath = profile?.avatar_url ?? null;
@@ -103,6 +113,20 @@ function Onboarding() {
         gender: gender || null,
         intent: intent as "friendship" | "dating" | "both",
         interests,
+        education_level: details.education_level || null,
+        occupation: details.occupation.trim() || null,
+        industry: details.industry.trim() || null,
+        languages: csvToArray(details.languages),
+        living_situation: details.living_situation || null,
+        relationship_status: details.relationship_status || null,
+        has_children: details.has_children || null,
+        children_details: details.children_details.trim() || null,
+        child_wish: details.child_wish || null,
+        sports: csvToArray(details.sports),
+        lifestyle: details.lifestyle.trim() || null,
+        favorite_activities: details.favorite_activities.trim() || null,
+        dating_preferences: details.dating_preferences.trim() || null,
+        profile_visibility: visibility,
         lgbtq_badge: lgbtqBadge && lgbtqConsent,
         lgbtq_consent: lgbtqConsent,
         avatar_url: avatarPath,
@@ -123,10 +147,10 @@ function Onboarding() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
       <div className="mb-6 flex items-center gap-3">
-        <img src={waag} alt="Waag de pinguïn" width={1024} height={1024} className="size-12 object-contain" />
+        <Dare2MeetLogo className="size-16 shrink-0" />
         <div>
           <h1 className="text-2xl font-extrabold text-foreground">Bouw je profiel op</h1>
-          <p className="text-sm text-muted-foreground">Nog even, dan sta je op de rand van de ijsberg.</p>
+          <p className="text-sm text-muted-foreground">De pinguïn staat voor samen durven: één waagt de sprong, daarna breekt het ijs.</p>
         </div>
       </div>
 
@@ -172,6 +196,24 @@ function Onboarding() {
             />
           </div>
         </section>
+
+        {intent === "dating" || intent === "both" ? (
+          <section className="surface grid gap-4 p-5">
+            <div>
+              <p className="eyebrow">Vrijwillig datingprofiel</p>
+              <h2 className="mt-1 text-xl text-foreground">Vertel wat meer over jezelf</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Alles hieronder is optioneel. Zet per onderdeel zelf aan of andere ingelogde leden het mogen zien.
+              </p>
+            </div>
+            <DatingProfileFields
+              values={details}
+              visibility={visibility}
+              onValueChange={(key: ExtendedProfileKey, value) => setDetails((current) => ({ ...current, [key]: value }))}
+              onVisibilityChange={(key: ExtendedProfileKey, visible) => setVisibility((current) => ({ ...current, [key]: visible }))}
+            />
+          </section>
+        ) : null}
 
         <section className="surface grid gap-4 p-5">
           <h2 className="text-base font-bold">Waar sta je voor open?</h2>
@@ -230,8 +272,11 @@ function Onboarding() {
               className="mt-0.5"
             />
             <Label htmlFor="badge" className="text-sm font-normal leading-snug">
-              Toon een discrete regenboog-pinguïn (LHBTQIA+ community badge) op mijn profiel.
+              Toon de vrijwillige regenboogpinguïn op mijn profiel.
             </Label>
+            <p className="ml-6 text-xs leading-relaxed text-muted-foreground">
+              Deze LHBTQIA+ communitybadge helpt mensen elkaar te herkennen en laat zien dat er ruimte is om jezelf te zijn.
+            </p>
           </div>
           <div className="flex items-start gap-2">
             <Checkbox

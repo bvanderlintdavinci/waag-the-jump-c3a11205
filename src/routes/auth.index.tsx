@@ -152,9 +152,14 @@ function AuthPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-10">
-      <Link to="/" className="mb-6 flex items-center gap-2">
-        <Dare2MeetLogo className="size-10" />
-        <span className="text-2xl font-extrabold text-primary">Dare2Meet</span>
+      <Link to="/" className="mb-6 flex max-w-md items-center gap-3">
+        <Dare2MeetLogo className="size-16 shrink-0" />
+        <span>
+          <span className="block text-2xl font-extrabold text-primary">Dare2Meet</span>
+          <span className="block text-sm leading-relaxed text-muted-foreground">
+            De pinguïn staat voor samen de eerste sprong wagen en het ijs breken.
+          </span>
+        </span>
       </Link>
 
       <div className="surface w-full max-w-md p-6">
