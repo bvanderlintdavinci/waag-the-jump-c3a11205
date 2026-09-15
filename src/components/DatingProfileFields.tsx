@@ -45,6 +45,11 @@ const TEXT_AREAS: Array<{ key: ExtendedProfileKey; label: string; placeholder: s
   { key: "dating_preferences", label: "Wat zoek je in een kennismaking of date?", placeholder: "Vertel wat bij jou past en waar je voor openstaat" },
 ];
 
+const FAMILY_TEXT_AREAS = [
+  { key: "children_details", label: "Meer over je gezin", placeholder: "Wat wil je hierover delen?" },
+  { key: "dating_preferences", label: "Wat zoek je in een kennismaking of date?", placeholder: "Vertel wat bij jou past en waar je voor openstaat" },
+] satisfies Array<{ key: ExtendedProfileKey; label: string; placeholder: string }>;
+
 function VisibilityControl({ field, visible, onChange }: { field: ExtendedProfileKey; visible: boolean; onChange: (visible: boolean) => void }) {
   return (
     <div className="flex items-center gap-2">
@@ -124,7 +129,7 @@ export function DatingProfileFields({ values, visibility, onValueChange, onVisib
               </Select>
             </FieldFrame>
           ))}
-          {[TEXT_AREAS[0], TEXT_AREAS[3]].map((field) => (
+          {FAMILY_TEXT_AREAS.map((field) => (
             <FieldFrame key={field.key} field={field.key} label={field.label} visibility={visibility} onVisibilityChange={onVisibilityChange}>
               <Textarea id={`dating-${field.key}`} rows={3} maxLength={500} placeholder={field.placeholder} value={values[field.key]} onChange={(event) => onValueChange(field.key, event.target.value)} />
             </FieldFrame>
