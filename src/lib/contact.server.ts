@@ -3,5 +3,5 @@
  * nergens in de website-broncode of het browserbundel zichtbaar is.
  */
 export function contactEmail(): string {
-  return process.env["CONTACT_EMAIL"] ?? "bvanderlint@gmail.com";
+  return process.env["CONTACT_EMAIL"] ?? "dare2meet@proton.me";
 }
