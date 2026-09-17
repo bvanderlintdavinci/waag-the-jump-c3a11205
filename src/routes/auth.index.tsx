@@ -26,6 +26,7 @@ export const Route = createFileRoute("/auth/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://dare2meet.nl/auth" },
       { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex, nofollow" },
     ],
     links: [{ rel: "canonical", href: "https://dare2meet.nl/auth" }],
   }),
