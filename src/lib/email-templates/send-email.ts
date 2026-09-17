@@ -9,10 +9,10 @@ import { TEMPLATES } from './registry'
 const SITE_NAME = "Dare2Meet"
 // SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
 // It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
-const SENDER_DOMAIN = "notify.csatuning.nl"
+const SENDER_DOMAIN = "notify.dare2meet.nl"
 // FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
 // Can be the root domain when display_from_root is enabled — this is cosmetic only.
-const FROM_DOMAIN = "notify.csatuning.nl"
+const FROM_DOMAIN = "notify.dare2meet.nl"
 // Alle antwoorden en overige communicatie komen bij de beheerder binnen.
 const CONTACT_EMAIL = "dare2meet@proton.me"
 

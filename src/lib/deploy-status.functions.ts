@@ -74,7 +74,7 @@ export const getEmailOverview = createServerFn({ method: "POST" })
   .inputValidator((data: { pin: string }) => data)
   .handler(async ({ data }): Promise<EmailOverview> => {
     assertPin(data.pin);
-    const domain = process.env["EMAIL_SENDING_DOMAIN"] ?? "notify.csatuning.nl";
+    const domain = process.env["EMAIL_SENDING_DOMAIN"] ?? "notify.dare2meet.nl";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
