@@ -19,10 +19,10 @@ export const Route = createFileRoute("/verhaal")({
         content: "Een eerlijk en open platform om mensen ongedwongen samen dingen te laten ondernemen.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "https://dare2meet.nl/verhaal" },
+      { property: "og:url", content: "https://www.dare2meet.nl/verhaal" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/verhaal" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/verhaal" }],
   }),
   component: Story,
 });

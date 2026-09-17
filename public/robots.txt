@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://dare2meet.nl/sitemap.xml
+Sitemap: https://www.dare2meet.nl/sitemap.xml

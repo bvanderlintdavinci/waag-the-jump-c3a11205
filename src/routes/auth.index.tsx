@@ -24,11 +24,11 @@ export const Route = createFileRoute("/auth/")({
       { property: "og:title", content: "Inloggen of registreren | Dare2Meet" },
       { property: "og:description", content: "Waag de sprong en ga er samen op uit met Dare2Meet." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dare2meet.nl/auth" },
+      { property: "og:url", content: "https://www.dare2meet.nl/auth" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/auth" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/auth" }],
   }),
   component: AuthPage,
 });
