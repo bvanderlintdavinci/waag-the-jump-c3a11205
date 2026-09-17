@@ -32,6 +32,12 @@ import yogaImg from "@/assets/event-yoga.jpg";
 import gardeningImg from "@/assets/event-gardening.jpg";
 import museumImg from "@/assets/event-museum.jpg";
 import cookingImg from "@/assets/event-cooking.jpg";
+import outdoorMarketImg from "@/assets/event-outdoor-market.jpg";
+import antiqueBooksMarketImg from "@/assets/event-antique-books-market.jpg";
+import vinylMarketImg from "@/assets/event-vinyl-market.jpg";
+import theatreCabaretImg from "@/assets/event-theatre-cabaret.jpg";
+import foodtruckMarketImg from "@/assets/event-foodtruck-market.jpg";
+import cityTourImg from "@/assets/event-city-tour.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -69,6 +75,12 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   gardening: gardeningImg,
   museum: museumImg,
   cooking: cookingImg,
+  "outdoor-market": outdoorMarketImg,
+  "antique-books-market": antiqueBooksMarketImg,
+  "vinyl-market": vinylMarketImg,
+  "theatre-cabaret": theatreCabaretImg,
+  "foodtruck-market": foodtruckMarketImg,
+  "city-tour": cityTourImg,
 };
 
 export type ActivityTemplate = {
@@ -258,15 +270,21 @@ export const ACTIVITY_TEMPLATES: ActivityTemplate[] = [
 
 /** Trefwoorden per sfeerbeeld, gebruikt om events zonder eigen beeld te verdelen. */
 const IMAGE_KEYWORDS: Array<[string, string[]]> = [
+  ["antique-books-market", ["antiek- en boekenmarkt", "antiek en boekenmarkt", "boekenmarkt", "antiekmarkt", "boekenbeurs"]],
+  ["vinyl-market", ["vinylmarkt", "platenmarkt", "platenbeurs", "vinylbeurs"]],
+  ["foodtruck-market", ["foodtruck", "food truck", "culinaire markt", "foodfestival", "food festival"]],
+  ["theatre-cabaret", ["cabaret", "stand-up", "stand up", "comedy", "toneel", "theatervoorstelling"]],
+  ["city-tour", ["stadswandeling", "stadsrondleiding", "city tour", "wandeltour", "architectuurwandeling"]],
+  ["outdoor-market", ["weekmarkt", "buitenmarkt", "braderie", "jaarmarkt", "streekmarkt", "warenmarkt"]],
   ["festival", ["festival", "kermis", "feest", "carnaval", "dance"]],
   ["music", ["muziek", "concert", "band", "koor", "orkest", "dj", "theater", "podium"]],
-  ["market", ["markt", "braderie", "fair", "beurs", "rommel", "vlooien", "kraam"]],
+  ["market", ["markt", "fair", "beurs", "rommelmarkt", "vlooienmarkt", "marktkraam"]],
   ["cooking", ["kookworkshop", "kookles", "samen koken", "keukenworkshop"]],
   ["food", ["eten", "food", "diner", "restaurant", "kook", "bbq", "barbecue", "lunch"]],
   ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
   ["coffee", ["koffie", "café", "cafe", "thee", "high tea", "ontbijt"]],
-  ["museum", ["museum", "galerie", "tentoonstelling", "expositie", "kunst bekijken"]],
-  ["craft", ["kunst", "creatief", "workshop", "klus", "atelier", "cultuur"]],
+  ["museum", ["museum", "kunsthal", "galerie", "tentoonstelling", "expositie", "kunst bekijken"]],
+  ["craft", ["creatief", "knutselen", "handwerk", "klus", "atelier", "maakworkshop"]],
   ["cinema", ["film", "bioscoop", "cinema", "movie", "première"]],
   ["games", ["spel", "spelletjes", "bordspel", "quiz", "kaarten", "darten", "game"]],
   ["dance", ["dans", "salsa", "stijldans", "disco", "bal"]],
@@ -279,7 +297,7 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["volunteer", ["vrijwillig", "opruim", "buurt", "helpen", "goede doel", "zwerfafval"]],
   ["gardening", ["tuinieren", "moestuin", "buurttuin", "planten", "groenonderhoud"]],
   ["cycling", ["fietsen", "fietsrit", "fietstocht", "wielrennen", "e-bike"]],
-  ["nature", ["natuur", "wandel", "bos", "park", "tuin", "wandeltocht"]],
+  ["nature", ["natuur", "wandeling", "wandelen", "bos", "park", "wandeltocht"]],
   ["beach", ["strand", "zee", "duin", "kust"]],
   ["yoga", ["yoga", "pilates", "meditatie", "stretching"]],
   ["sport", ["sport", "voetbal", "fitness", "tennis"]],
@@ -293,43 +311,9 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["citytrip", ["stad", "citytrip", "rondleiding", "tour", "historisch", "wetenschap"]],
 ];
 
-const FALLBACK_ORDER = [
-  "social",
-  "market",
-  "festival",
-  "craft",
-  "nature",
-  "citytrip",
-  "music",
-  "food",
-  "coffee",
-  "tasting",
-  "games",
-  "cinema",
-  "picnic",
-  "books",
-  "dance",
-  "bowling",
-  "running",
-  "dogwalk",
-  "volunteer",
-  "winter",
-  "cycling",
-  "yoga",
-  "gardening",
-  "museum",
-  "cooking",
-];
-
-function hashString(value: string): number {
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
-  return hash;
-}
-
 /**
- * Kiest een passend sfeerbeeld op basis van categorie en titel. Zonder match
- * wordt er stabiel gevarieerd zodat de agenda niet steeds hetzelfde beeld toont.
+ * Kiest eerst op specifieke inhoud en gebruikt daarna pas de handmatige keuze.
+ * Zonder betrouwbare match tonen we bewust een neutraal sociaal beeld.
  */
 export function pickImageKey(input: {
   imageKey?: string | null;
@@ -337,14 +321,12 @@ export function pickImageKey(input: {
   title?: string | null;
   id?: string | null;
 }): string {
-  const key = input.imageKey ?? "";
-  if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
-
   const haystack = `${input.category ?? ""} ${input.title ?? ""}`.toLowerCase();
   for (const [image, words] of IMAGE_KEYWORDS) {
     if (words.some((w) => haystack.includes(w))) return image;
   }
 
-  const seed = hashString(`${input.id ?? ""}${input.title ?? ""}${input.category ?? ""}`);
-  return FALLBACK_ORDER[seed % FALLBACK_ORDER.length]!;
+  const key = input.imageKey ?? "";
+  if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
+  return "social";
 }

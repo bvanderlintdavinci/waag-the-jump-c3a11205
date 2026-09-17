@@ -1,0 +1,15 @@
+# Dare2Meet
+
+> Nederlands lokaal sociaal platform voor vriendschap, gezamenlijke activiteiten en daten.
+
+Dare2Meet helpt volwassenen om veilig mensen in de buurt te ontmoeten via openbare uitjes en persoonlijke Waagjes. Profielen en onderling contact zijn alleen toegankelijk voor ingelogde leden.
+
+## Openbare pagina's
+
+- [Start en agenda](/): Uitleg over Dare2Meet en de openbare agenda voor de komende vier weken.
+- [Het verhaal](/verhaal): Waarom Dare2Meet is opgericht en waar het platform voor staat.
+- [Registreren](/auth): Een kosteloos basisaccount aanmaken of inloggen.
+- [Privacy](/privacy): Welke gegevens Dare2Meet verwerkt en welke rechten leden hebben.
+- [Voorwaarden](/voorwaarden): Spelregels voor veilig gebruik.
+- [Disclaimer](/disclaimer): Verantwoordelijkheden en auteursrecht.
+- [Cookies](/cookies): Uitleg over functionele opslag zonder advertentietracking.

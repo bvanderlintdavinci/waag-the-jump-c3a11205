@@ -88,6 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Dare2Meet | Waag de sprong" },
       { property: "og:description", content: "Ontmoet nieuwe mensen of een date bij jou in de buurt." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Dare2Meet.nl" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -100,6 +101,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/dare2meet-logo.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/dare2meet-logo.svg" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://dare2meet.nl/#organization",
+              name: "Dare2Meet",
+              url: "https://dare2meet.nl/",
+              logo: "https://dare2meet.nl/dare2meet-logo.svg",
+              email: "dare2meet@proton.me",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://dare2meet.nl/#website",
+              url: "https://dare2meet.nl/",
+              name: "Dare2Meet.nl",
+              inLanguage: "nl-NL",
+              publisher: { "@id": "https://dare2meet.nl/#organization" },
+            },
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

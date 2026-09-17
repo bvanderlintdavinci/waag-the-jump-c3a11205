@@ -23,7 +23,11 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Ontmoet nieuwe mensen of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dare2meet.nl/" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://dare2meet.nl/" }],
   }),
   component: Landing,
 });
@@ -69,8 +73,8 @@ function Landing() {
             Het verhaal
           </Link>
 
-          <Link to={user ? "/feed" : "/auth"}>
-            <Button size="sm">{user ? "Naar mijn omgeving" : "Inloggen"}</Button>
+          <Link to={user ? "/feed" : "/auth"} search={user ? undefined : { tab: "signup" }}>
+            <Button size="sm">{user ? "Naar mijn omgeving" : "Inloggen / registreren"}</Button>
           </Link>
         </div>
         </div>
@@ -92,7 +96,7 @@ function Landing() {
             <strong className="font-semibold text-terracotta">date</strong>.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link to={user ? "/feed" : "/auth"}>
+            <Link to={user ? "/feed" : "/auth"} search={user ? undefined : { tab: "signup" }}>
               <Button size="lg" className="cta-glow">{user ? "Bekijk mijn Waagjes" : "Ik waag de sprong!"}</Button>
             </Link>
             <Link to="/verhaal">
