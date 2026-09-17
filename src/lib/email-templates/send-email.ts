@@ -13,6 +13,8 @@ const SENDER_DOMAIN = "notify.csatuning.nl"
 // FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
 // Can be the root domain when display_from_root is enabled — this is cosmetic only.
 const FROM_DOMAIN = "notify.csatuning.nl"
+// Alle antwoorden en overige communicatie komen bij de beheerder binnen.
+const CONTACT_EMAIL = "dare2meet@proton.me"
 
 export type SendTemplateEmailResult =
   | { sent: true }
