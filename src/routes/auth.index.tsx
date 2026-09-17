@@ -245,19 +245,16 @@ function AuthPage() {
               </div>
 
               <div className="grid gap-3 rounded-xl bg-muted p-4">
-                <ConsentRow id="terms" checked={terms} onChange={setTerms}>
-                  Ik ga akkoord met de{" "}
+                <ConsentRow id="legal" checked={terms && privacy} onChange={(value) => { setTerms(value); setPrivacy(value); }}>
+                  Ik ben 18 jaar of ouder en ga akkoord met de{" "}
                   <Link to="/voorwaarden" className="font-semibold text-primary underline">
                     Algemene Voorwaarden
                   </Link>{" "}
-                  en de{" "}
+                  , de{" "}
                   <Link to="/disclaimer" className="font-semibold text-primary underline">
                     disclaimer
                   </Link>
-                  , en ik ben 18 jaar of ouder.
-                </ConsentRow>
-                <ConsentRow id="privacy" checked={privacy} onChange={setPrivacy}>
-                  Ik ga akkoord met het{" "}
+                  {" "}en het{" "}
                   <Link to="/privacy" className="font-semibold text-primary underline">
                     Privacybeleid (AVG)
                   </Link>{" "}
@@ -267,12 +264,9 @@ function AuthPage() {
                   </Link>
                   .
                 </ConsentRow>
-                <ConsentRow id="visibility" checked={visibility} onChange={setVisibility}>
-                  Mijn profiel mag zichtbaar zijn voor andere ingelogde leden.
-                </ConsentRow>
-                <ConsentRow id="law" checked={law} onChange={setLaw}>
-                  Bij ernstige overtredingen of misdrijven (bedreiging, intimidatie, oplichting) mogen relevante
-                  accountgegevens en logs gedeeld worden met officiële meldpunten en de politie.
+                <ConsentRow id="safety" checked={visibility && law} onChange={(value) => { setVisibility(value); setLaw(value); }}>
+                  Mijn profiel mag zichtbaar zijn voor ingelogde leden. Bij ernstige overtredingen mogen relevante
+                  gegevens volgens het privacybeleid met officiële meldpunten of de politie worden gedeeld.
                 </ConsentRow>
               </div>
 

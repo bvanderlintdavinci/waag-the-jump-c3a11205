@@ -73,9 +73,11 @@ function Landing() {
             Het verhaal
           </Link>
 
-          <Link to={user ? "/feed" : "/auth"} search={user ? undefined : { tab: "signup" }}>
-            <Button size="sm">{user ? "Naar mijn omgeving" : "Inloggen / registreren"}</Button>
-          </Link>
+          {user ? (
+            <Link to="/feed"><Button size="sm">Naar mijn omgeving</Button></Link>
+          ) : (
+            <Link to="/auth" search={{ tab: "signup" }}><Button size="sm">Inloggen / registreren</Button></Link>
+          )}
         </div>
         </div>
       </header>
@@ -96,9 +98,11 @@ function Landing() {
             <strong className="font-semibold text-terracotta">date</strong>.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link to={user ? "/feed" : "/auth"} search={user ? undefined : { tab: "signup" }}>
-              <Button size="lg" className="cta-glow">{user ? "Bekijk mijn Waagjes" : "Ik waag de sprong!"}</Button>
-            </Link>
+            {user ? (
+              <Link to="/feed"><Button size="lg" className="cta-glow">Bekijk mijn Waagjes</Button></Link>
+            ) : (
+              <Link to="/auth" search={{ tab: "signup" }}><Button size="lg" className="cta-glow">Ik waag de sprong!</Button></Link>
+            )}
             <Link to="/verhaal">
               <Button size="lg" variant="outline">
                 Lees het verhaal
