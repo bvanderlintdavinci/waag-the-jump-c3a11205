@@ -27,6 +27,11 @@ import picnicImg from "@/assets/event-picnic.jpg";
 import booksImg from "@/assets/event-books.jpg";
 import winterImg from "@/assets/event-winter.jpg";
 import volunteerImg from "@/assets/event-volunteer.jpg";
+import cyclingImg from "@/assets/event-cycling.jpg";
+import yogaImg from "@/assets/event-yoga.jpg";
+import gardeningImg from "@/assets/event-gardening.jpg";
+import museumImg from "@/assets/event-museum.jpg";
+import cookingImg from "@/assets/event-cooking.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -59,6 +64,11 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   books: booksImg,
   winter: winterImg,
   volunteer: volunteerImg,
+  cycling: cyclingImg,
+  yoga: yogaImg,
+  gardening: gardeningImg,
+  museum: museumImg,
+  cooking: cookingImg,
 };
 
 export type ActivityTemplate = {
@@ -251,10 +261,12 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["festival", ["festival", "kermis", "feest", "carnaval", "dance"]],
   ["music", ["muziek", "concert", "band", "koor", "orkest", "dj", "theater", "podium"]],
   ["market", ["markt", "braderie", "fair", "beurs", "rommel", "vlooien", "kraam"]],
+  ["cooking", ["kookworkshop", "kookles", "samen koken", "keukenworkshop"]],
   ["food", ["eten", "food", "diner", "restaurant", "kook", "bbq", "barbecue", "lunch"]],
   ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
   ["coffee", ["koffie", "café", "cafe", "thee", "high tea", "ontbijt"]],
-  ["craft", ["kunst", "creatief", "workshop", "klus", "expositie", "museum", "atelier", "cultuur"]],
+  ["museum", ["museum", "galerie", "tentoonstelling", "expositie", "kunst bekijken"]],
+  ["craft", ["kunst", "creatief", "workshop", "klus", "atelier", "cultuur"]],
   ["cinema", ["film", "bioscoop", "cinema", "movie", "première"]],
   ["games", ["spel", "spelletjes", "bordspel", "quiz", "kaarten", "darten", "game"]],
   ["dance", ["dans", "salsa", "stijldans", "disco", "bal"]],
@@ -265,9 +277,12 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["books", ["boek", "lezen", "leesclub", "bibliotheek", "schrijf", "poëzie"]],
   ["winter", ["schaats", "ijsbaan", "winter", "sneeuw", "kerst", "glühwein"]],
   ["volunteer", ["vrijwillig", "opruim", "buurt", "helpen", "goede doel", "zwerfafval"]],
-  ["nature", ["natuur", "wandel", "bos", "park", "fiets", "tuin", "wandeltocht"]],
+  ["gardening", ["tuinieren", "moestuin", "buurttuin", "planten", "groenonderhoud"]],
+  ["cycling", ["fietsen", "fietsrit", "fietstocht", "wielrennen", "e-bike"]],
+  ["nature", ["natuur", "wandel", "bos", "park", "tuin", "wandeltocht"]],
   ["beach", ["strand", "zee", "duin", "kust"]],
-  ["sport", ["sport", "voetbal", "fitness", "yoga", "tennis"]],
+  ["yoga", ["yoga", "pilates", "meditatie", "stretching"]],
+  ["sport", ["sport", "voetbal", "fitness", "tennis"]],
   ["swim", ["zwem", "zwembad", "sauna", "water"]],
   ["squash", ["squash", "padel", "badminton"]],
   ["motor", ["motor", "auto", "oldtimer", "rit", "toer"]],
@@ -299,6 +314,11 @@ const FALLBACK_ORDER = [
   "dogwalk",
   "volunteer",
   "winter",
+  "cycling",
+  "yoga",
+  "gardening",
+  "museum",
+  "cooking",
 ];
 
 function hashString(value: string): number {
