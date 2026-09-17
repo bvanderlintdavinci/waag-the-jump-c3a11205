@@ -11,7 +11,7 @@ import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 // Configuration
 const SITE_NAME = "Dare2Meet"
 const SENDER_DOMAIN = "notify.csatuning.nl"
-const ROOT_DOMAIN = "csatuning.nl"
+const ROOT_DOMAIN = "dare2meet.nl"
 const FROM_DOMAIN = "notify.csatuning.nl"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 

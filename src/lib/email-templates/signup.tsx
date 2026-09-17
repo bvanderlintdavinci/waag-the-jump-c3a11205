@@ -51,7 +51,11 @@ export const SignupEmail = ({
           Verify Email
         </Button>
         <Text style={footer}>
-          Heb je zelf geen account aangemaakt? Dan kun je deze mail negeren.
+          Heb je zelf geen account aangemaakt? Dan kun je deze mail negeren. Vragen? Mail ons op{' '}
+          <Link href="mailto:dare2meet@proton.me" style={link}>
+            dare2meet@proton.me
+          </Link>
+          .
         </Text>
       </Container>
     </Body>
