@@ -59,7 +59,7 @@ export function EventAgenda() {
         .order("starts_at", { ascending: true });
       if (error) throw error;
       const ids = (events ?? []).map((e) => e.id);
-      const { data: parts } = ids.length
+      const { data: parts } = user && ids.length
         ? await supabase.from("activity_participants").select("activity_id, user_id").in("activity_id", ids)
         : { data: [] };
       const memberIds = [...new Set((parts ?? []).map((p) => p.user_id))];
@@ -289,28 +289,34 @@ export function EventAgenda() {
                           </a>
                         ) : null}
 
-                        <div className="mt-4 flex items-center gap-2">
-                          <div className="flex -space-x-2">
-                            {event.members.slice(0, 4).map((m) => (
-                              <Link key={m.id} to="/profiel/$id" params={{ id: m.id }} title={m.first_name}>
-                                <UserAvatar path={m.avatar_url} name={m.first_name} className="size-8" />
-                              </Link>
-                            ))}
-                            {event.demo.slice(0, 4).map((d) => (
-                              <span
-                                key={d.name}
-                                title={d.name}
-                                className="flex size-8 items-center justify-center rounded-full border border-border bg-mint text-xs font-semibold text-mint-foreground"
-                              >
-                                {d.name.slice(0, 1)}
-                              </span>
-                            ))}
+                        {user ? (
+                          <div className="mt-4 flex items-center gap-2">
+                            <div className="flex -space-x-2">
+                              {event.members.slice(0, 4).map((m) => (
+                                <Link key={m.id} to="/profiel/$id" params={{ id: m.id }} title={m.first_name}>
+                                  <UserAvatar path={m.avatar_url} name={m.first_name} className="size-8" />
+                                </Link>
+                              ))}
+                              {event.demo.slice(0, 4).map((d) => (
+                                <span
+                                  key={d.name}
+                                  title={d.name}
+                                  className="flex size-8 items-center justify-center rounded-full border border-border bg-mint text-xs font-semibold text-mint-foreground"
+                                >
+                                  {d.name.slice(0, 1)}
+                                </span>
+                              ))}
+                            </div>
+                            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                              <Users className="size-3.5" />
+                              {capacityLabel(event.demo.length + event.joinedCount, event.max_participants)}
+                            </span>
                           </div>
-                          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                            <Users className="size-3.5" />
-                            {capacityLabel(event.demo.length + event.joinedCount, event.max_participants)}
-                          </span>
-                        </div>
+                        ) : (
+                          <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                            <Users className="size-3.5" /> Profielen en deelnemers zijn alleen zichtbaar na inloggen
+                          </p>
+                        )}
 
                         <div className="mt-4 grid gap-2">
                           {event.isJoined ? (
@@ -326,7 +332,7 @@ export function EventAgenda() {
                             </>
                           ) : (
                             <Button className="w-full" onClick={() => void join(event.id)}>
-                              Aansluiten / Ik ga ook
+                              {user ? "Aansluiten / Ik ga ook" : "Inloggen om aan te sluiten"}
                             </Button>
                           )}
                         </div>

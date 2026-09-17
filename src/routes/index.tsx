@@ -3,6 +3,7 @@ import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lu
 
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { EventAgenda } from "@/components/EventAgenda";
+import { useSession } from "@/hooks/use-auth";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { FeedbackButtons } from "@/components/FeedbackButtons";
@@ -46,6 +47,8 @@ const PILLARS = [
 ];
 
 function Landing() {
+  const { user } = useSession();
+
   return (
     <div className="penguin-texture min-h-screen bg-background">
       <header className="glass-nav sticky top-0 z-40 mb-1 w-full">
@@ -66,8 +69,8 @@ function Landing() {
             Het verhaal
           </Link>
 
-          <Link to="/auth">
-            <Button size="sm">Inloggen</Button>
+          <Link to={user ? "/feed" : "/auth"}>
+            <Button size="sm">{user ? "Naar mijn omgeving" : "Inloggen"}</Button>
           </Link>
         </div>
         </div>
@@ -89,8 +92,8 @@ function Landing() {
             <strong className="font-semibold text-terracotta">date</strong>.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link to="/auth">
-              <Button size="lg" className="cta-glow">Ik waag de sprong!</Button>
+            <Link to={user ? "/feed" : "/auth"}>
+              <Button size="lg" className="cta-glow">{user ? "Bekijk mijn Waagjes" : "Ik waag de sprong!"}</Button>
             </Link>
             <Link to="/verhaal">
               <Button size="lg" variant="outline">
@@ -112,6 +115,17 @@ function Landing() {
       </section>
 
       <EventAgenda />
+
+      <section className="mx-auto max-w-5xl px-4 pb-4">
+        <div className="border-y border-border py-6 text-center">
+          <ShieldCheck className="mx-auto size-6 text-primary" />
+          <h2 className="mt-2 text-xl text-foreground">Profielen blijven afgeschermd</h2>
+          <p className="mx-auto mt-1 max-w-2xl text-sm text-muted-foreground">
+            Bezoekers kunnen de agenda bekijken. Alleen ingelogde leden kunnen andere profielen openen, contact leggen,
+            connectieverzoeken sturen of chatten.
+          </p>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-5xl px-4 py-14">
         <div className="grid gap-4 sm:grid-cols-3">
