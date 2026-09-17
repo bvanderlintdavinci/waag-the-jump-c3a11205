@@ -8,7 +8,6 @@ Dare2Meet helpt volwassenen om veilig mensen in de buurt te ontmoeten via openba
 
 - [Start en agenda](/): Uitleg over Dare2Meet en de openbare agenda voor de komende vier weken.
 - [Het verhaal](/verhaal): Waarom Dare2Meet is opgericht en waar het platform voor staat.
-- [Registreren](/auth): Een kosteloos basisaccount aanmaken of inloggen.
 - [Privacy](/privacy): Welke gegevens Dare2Meet verwerkt en welke rechten leden hebben.
 - [Voorwaarden](/voorwaarden): Spelregels voor veilig gebruik.
 - [Disclaimer](/disclaimer): Verantwoordelijkheden en auteursrecht.
