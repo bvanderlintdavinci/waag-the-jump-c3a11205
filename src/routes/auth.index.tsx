@@ -10,8 +10,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { z } from "zod";
 
 export const Route = createFileRoute("/auth/")({
+  validateSearch: (search) => z.object({ tab: z.enum(["login", "signup"]).optional() }).parse(search),
   head: () => ({
     meta: [
       { title: "Inloggen of registreren | Dare2Meet" },
@@ -21,14 +23,20 @@ export const Route = createFileRoute("/auth/")({
       },
       { property: "og:title", content: "Inloggen of registreren | Dare2Meet" },
       { property: "og:description", content: "Waag de sprong en ga er samen op uit met Dare2Meet." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dare2meet.nl/auth" },
+      { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://dare2meet.nl/auth" }],
   }),
   component: AuthPage,
 });
 
 function AuthPage() {
+  const search = Route.useSearch();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+  const [activeTab, setActiveTab] = useState<"login" | "signup">(search.tab ?? "login");
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -163,7 +171,7 @@ function AuthPage() {
       </Link>
 
       <div className="surface w-full max-w-md p-6">
-        <Tabs defaultValue="login">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "login" | "signup")}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Inloggen</TabsTrigger>
             <TabsTrigger value="signup">Registreren</TabsTrigger>
@@ -237,19 +245,16 @@ function AuthPage() {
               </div>
 
               <div className="grid gap-3 rounded-xl bg-muted p-4">
-                <ConsentRow id="terms" checked={terms} onChange={setTerms}>
-                  Ik ga akkoord met de{" "}
+                <ConsentRow id="legal" checked={terms && privacy} onChange={(value) => { setTerms(value); setPrivacy(value); }}>
+                  Ik ben 18 jaar of ouder en ga akkoord met de{" "}
                   <Link to="/voorwaarden" className="font-semibold text-primary underline">
                     Algemene Voorwaarden
                   </Link>{" "}
-                  en de{" "}
+                  , de{" "}
                   <Link to="/disclaimer" className="font-semibold text-primary underline">
                     disclaimer
                   </Link>
-                  , en ik ben 18 jaar of ouder.
-                </ConsentRow>
-                <ConsentRow id="privacy" checked={privacy} onChange={setPrivacy}>
-                  Ik ga akkoord met het{" "}
+                  {" "}en het{" "}
                   <Link to="/privacy" className="font-semibold text-primary underline">
                     Privacybeleid (AVG)
                   </Link>{" "}
@@ -259,18 +264,18 @@ function AuthPage() {
                   </Link>
                   .
                 </ConsentRow>
-                <ConsentRow id="visibility" checked={visibility} onChange={setVisibility}>
-                  Mijn profiel mag zichtbaar zijn voor andere ingelogde leden.
-                </ConsentRow>
-                <ConsentRow id="law" checked={law} onChange={setLaw}>
-                  Bij ernstige overtredingen of misdrijven (bedreiging, intimidatie, oplichting) mogen relevante
-                  accountgegevens en logs gedeeld worden met officiële meldpunten en de politie.
+                <ConsentRow id="safety" checked={visibility && law} onChange={(value) => { setVisibility(value); setLaw(value); }}>
+                  Mijn profiel mag zichtbaar zijn voor ingelogde leden. Bij ernstige overtredingen mogen relevante
+                  gegevens volgens het privacybeleid met officiële meldpunten of de politie worden gedeeld.
                 </ConsentRow>
               </div>
 
 
               <Button type="submit" disabled={busy}>
                 Ik waag de sprong!
+              </Button>
+              <Button type="button" variant="ghost" onClick={() => setActiveTab("login")}>
+                Heb je al een account? Log hier in
               </Button>
             </form>
           </TabsContent>

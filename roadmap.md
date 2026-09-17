@@ -1,7 +1,7 @@
 # Roadmap
-- [ ] Maak activiteitbeelden inhoudelijk betrouwbaar en voeg gerichte sfeerfoto's toe
-- [ ] Voeg sitemap, canonieke adressen en zoekmachinegegevens voor dare2meet.nl toe
-- [ ] Verlaag aanmeldfrictie op de landings- en registratiepagina
+- [x] Maak activiteitbeelden inhoudelijk betrouwbaar en voeg gerichte sfeerfoto's toe
+- [x] Voeg sitemap, canonieke adressen en zoekmachinegegevens voor dare2meet.nl toe
+- [x] Verlaag aanmeldfrictie op de landings- en registratiepagina
 - [ ] Herstel e-mailregistratie en Google-inloggen zonder 404
 - [ ] Corrigeer agenda-items die een datum zonder bekende begintijd als 02:00 tonen
 - [ ] Controleer onboarding, profielen, Waagjes en activiteit-aanmeldingen

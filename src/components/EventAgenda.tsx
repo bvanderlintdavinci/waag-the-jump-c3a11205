@@ -210,6 +210,18 @@ export function EventAgenda() {
         ))}
       </div>
 
+      {!user ? (
+        <div className="mb-7 flex flex-col gap-3 border-y border-border py-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-semibold text-foreground">Wil je aansluiten of zelf iets organiseren?</p>
+            <p className="text-sm text-muted-foreground">Maak een basisaccount en reageer kosteloos op activiteiten bij jou in de buurt.</p>
+          </div>
+          <Link to="/auth" search={{ tab: "signup" }}>
+            <Button>Gratis registreren</Button>
+          </Link>
+        </div>
+      ) : null}
+
 
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Agenda laden...</p>
@@ -229,14 +241,14 @@ export function EventAgenda() {
                     <article key={event.id} className="surface-lift flex flex-col overflow-hidden">
                       <img
                         src={
-                          ACTIVITY_IMAGES[
+                          event.image_url || ACTIVITY_IMAGES[
                             pickImageKey({
                               imageKey: event.image_key,
                               category: event.category,
                               title: event.title,
                               id: event.id,
                             })
-                          ] ?? ACTIVITY_IMAGES["social"]
+                          ] || ACTIVITY_IMAGES["social"]
                         }
                         alt={event.title}
                         loading="lazy"

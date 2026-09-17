@@ -14,8 +14,10 @@ export const Route = createFileRoute("/disclaimer")({
       { property: "og:title", content: "Disclaimer | Dare2Meet.nl" },
       { property: "og:description", content: "Waar de verantwoordelijkheid ligt bij ontmoetingen via Dare2Meet." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dare2meet.nl/disclaimer" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://dare2meet.nl/disclaimer" }],
   }),
   component: Disclaimer,
 });
