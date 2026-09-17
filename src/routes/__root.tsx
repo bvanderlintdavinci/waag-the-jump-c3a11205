@@ -78,6 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "TWW-sOYILLl9XjuhTH-u9LgK_4aGMMD7kT8qYzqTlhc" },
       { title: "Dare2Meet | Waag de sprong en ga er samen op uit" },
       {
         name: "description",
@@ -110,19 +111,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "https://dare2meet.nl/#organization",
+              "@id": "https://www.dare2meet.nl/#organization",
               name: "Dare2Meet",
-              url: "https://dare2meet.nl/",
-              logo: "https://dare2meet.nl/dare2meet-logo.svg",
+              url: "https://www.dare2meet.nl/",
+              logo: "https://www.dare2meet.nl/dare2meet-logo.svg",
               email: "dare2meet@proton.me",
             },
             {
               "@type": "WebSite",
-              "@id": "https://dare2meet.nl/#website",
-              url: "https://dare2meet.nl/",
+              "@id": "https://www.dare2meet.nl/#website",
+              url: "https://www.dare2meet.nl/",
               name: "Dare2Meet.nl",
               inLanguage: "nl-NL",
-              publisher: { "@id": "https://dare2meet.nl/#organization" },
+              publisher: { "@id": "https://www.dare2meet.nl/#organization" },
             },
           ],
         }),

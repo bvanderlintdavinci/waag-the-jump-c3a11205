@@ -14,10 +14,10 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacybeleid | Dare2Meet.nl" },
       { property: "og:description", content: "Transparant over welke gegevens we verwerken en waarom." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dare2meet.nl/privacy" },
+      { property: "og:url", content: "https://www.dare2meet.nl/privacy" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/privacy" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/privacy" }],
   }),
   component: Privacy,
 });

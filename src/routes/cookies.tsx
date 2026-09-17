@@ -14,10 +14,10 @@ export const Route = createFileRoute("/cookies")({
       { property: "og:title", content: "Cookies en lokale opslag | Dare2Meet.nl" },
       { property: "og:description", content: "Alleen functionele opslag, geen tracking." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dare2meet.nl/cookies" },
+      { property: "og:url", content: "https://www.dare2meet.nl/cookies" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/cookies" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/cookies" }],
   }),
   component: Cookies,
 });

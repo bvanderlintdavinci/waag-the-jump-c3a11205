@@ -24,10 +24,10 @@ export const Route = createFileRoute("/")({
         content: "Ontmoet nieuwe mensen of een date bij jou in de buurt. Waag de sprong en ga er samen op uit!",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dare2meet.nl/" },
+      { property: "og:url", content: "https://www.dare2meet.nl/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/" }],
   }),
   component: Landing,
 });

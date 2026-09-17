@@ -14,10 +14,10 @@ export const Route = createFileRoute("/voorwaarden")({
       { property: "og:title", content: "Algemene voorwaarden | Dare2Meet.nl" },
       { property: "og:description", content: "Duidelijke spelregels voor een veilig en open platform." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dare2meet.nl/voorwaarden" },
+      { property: "og:url", content: "https://www.dare2meet.nl/voorwaarden" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dare2meet.nl/voorwaarden" }],
+    links: [{ rel: "canonical", href: "https://www.dare2meet.nl/voorwaarden" }],
   }),
   component: Terms,
 });
