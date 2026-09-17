@@ -2,6 +2,9 @@
 - [x] Maak activiteitbeelden inhoudelijk betrouwbaar en voeg gerichte sfeerfoto's toe
 - [x] Voeg sitemap, canonieke adressen en zoekmachinegegevens voor dare2meet.nl toe
 - [x] Verlaag aanmeldfrictie op de landings- en registratiepagina
+- [x] Sluit privacylekken bij besloten activiteiten en profielfoto’s
+- [ ] Koppel Google Search Console en controleer indexering
+- [ ] Voeg sterke regionale vindpagina’s toe zonder dunne of dubbele inhoud
 - [ ] Herstel e-mailregistratie en Google-inloggen zonder 404
 - [ ] Corrigeer agenda-items die een datum zonder bekende begintijd als 02:00 tonen
 - [ ] Controleer onboarding, profielen, Waagjes en activiteit-aanmeldingen
