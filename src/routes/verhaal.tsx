@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import heroImage from "@/assets/iceberg-leap.jpg";
 import { Button } from "@/components/ui/button";
+import { AdSpace } from "@/components/AdSpace";
 
 export const Route = createFileRoute("/verhaal")({
   head: () => ({
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/verhaal")({
 function Story() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
+      <header data-google-query-build="false" className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
         <Link to="/" className="flex items-center gap-2">
           <Dare2MeetLogo className="size-8" />
           <span className="text-lg font-extrabold text-primary">Dare2Meet</span>
@@ -100,6 +101,7 @@ function Story() {
             <Button size="lg">Ik waag de sprong!</Button>
           </Link>
         </div>
+        <AdSpace className="mt-10" />
       </article>
     </div>
   );

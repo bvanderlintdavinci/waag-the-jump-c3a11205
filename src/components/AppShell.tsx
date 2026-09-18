@@ -33,13 +33,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
+      <header data-google-query-build="false" className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
           <Link to="/feed" className="flex items-center gap-2">
             <Dare2MeetLogo className="size-11" />
             <span className="text-lg font-extrabold tracking-tight text-foreground">Dare2Meet</span>
           </Link>
-          <nav className="ml-auto hidden items-center gap-1 sm:flex">
+          <nav data-google-query-build="false" className="ml-auto hidden items-center gap-1 sm:flex">
             {NAV.map((item) => (
               <Link
                 key={item.to}
@@ -71,11 +71,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl px-4 pb-28 pt-6 sm:pb-12">{children}</main>
+      <main data-google-query-build="false" className="mx-auto w-full max-w-5xl px-4 pb-28 pt-6 sm:pb-12">{children}</main>
 
       <FeedbackButtons />
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card px-2 py-1 sm:hidden">
+      <nav data-google-query-build="false" className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card px-2 py-1 sm:hidden">
         <div className="flex items-stretch justify-around">
           {NAV.map((item) => (
             <Link
