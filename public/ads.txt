@@ -1,0 +1,4 @@
+# ads.txt — Dare2Meet
+# https://www.dare2meet.nl/ads.txt
+# Google AdSense: gemachtigde verkoper voor advertentieruimte op deze site.
+google.com, pub-9615076321829327, DIRECT, f08c47fec0942fa0
