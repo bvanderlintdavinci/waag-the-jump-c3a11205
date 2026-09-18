@@ -71,7 +71,7 @@ export function FeedbackButtons({ floating = true }: { floating?: boolean }) {
 
   return (
     <>
-      <div className={wrapper}>
+      <div data-google-query-build="false" className={wrapper}>
         <Button size="sm" variant="secondary" className="shadow-[var(--shadow-lift)]" onClick={() => setKind("idea")}>
           <Lightbulb /> Idee of advies
         </Button>

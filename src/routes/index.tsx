@@ -8,6 +8,7 @@ import { useSession } from "@/hooks/use-auth";
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { FeedbackButtons } from "@/components/FeedbackButtons";
 import { Button } from "@/components/ui/button";
+import { AdSpace } from "@/components/AdSpace";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,7 +56,7 @@ function Landing() {
 
   return (
     <div className="penguin-texture min-h-screen bg-background">
-      <header className="glass-nav sticky top-0 z-40 mb-1 w-full">
+      <header data-google-query-build="false" className="glass-nav sticky top-0 z-40 mb-1 w-full">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-3">
           <Dare2MeetLogo className="size-12" />
@@ -82,7 +83,7 @@ function Landing() {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
+      <section data-google-query-build="false" className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-4 pt-6 lg:grid-cols-2 lg:pt-14">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-mint px-3 py-1 text-xs font-semibold text-mint-foreground">
             <Sparkles className="size-3.5" /> Gratis basisaccount · premiumfuncties eenmalig
@@ -148,6 +149,8 @@ function Landing() {
           ))}
         </div>
       </section>
+
+      <AdSpace className="px-4" />
 
       <section className="mx-auto max-w-5xl px-4 pb-14">
         <div className="grid items-center gap-6 border-y border-border py-10 sm:grid-cols-[auto_1fr] sm:gap-9">

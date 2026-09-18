@@ -28,7 +28,7 @@ export function CookieNotice() {
   }
 
   return (
-    <div className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-lift)] sm:inset-x-auto sm:left-1/2 sm:w-full sm:-translate-x-1/2">
+    <div data-google-query-build="false" className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-lift)] sm:inset-x-auto sm:left-1/2 sm:w-full sm:-translate-x-1/2">
       <p className="text-sm text-foreground">
         Dare2Meet gebruikt alleen functionele opslag om je ingelogd te houden. Geen trackers en geen
         advertentiecookies.{" "}

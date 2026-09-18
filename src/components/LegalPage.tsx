@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { Button } from "@/components/ui/button";
+import { AdSpace } from "@/components/AdSpace";
 
 export function LegalPage({
   title,
@@ -14,7 +15,7 @@ export function LegalPage({
 }) {
   return (
     <div className="min-h-screen bg-background">
-      <header className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
+      <header data-google-query-build="false" className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
         <Link to="/" className="flex items-center gap-2">
           <Dare2MeetLogo className="size-8" />
           <span className="text-lg font-extrabold text-primary">Dare2Meet</span>
@@ -33,7 +34,8 @@ export function LegalPage({
         <p className="mt-10 text-xs text-muted-foreground">
           Laatst bijgewerkt op 21 augustus 2026. Vragen? Gebruik de knop "Idee of advies" onderaan de site.
         </p>
-        <nav className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
+        <AdSpace className="mt-10" />
+        <nav data-google-query-build="false" className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
           <Link to="/privacy" className="underline hover:text-foreground">
             Privacybeleid
           </Link>
