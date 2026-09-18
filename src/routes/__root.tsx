@@ -79,6 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "TWW-sOYILLl9XjuhTH-u9LgK_4aGMMD7kT8qYzqTlhc" },
+      { name: "google-adsense-account", content: "ca-pub-9615076321829327" },
       { title: "Dare2Meet | Waag de sprong en ga er samen op uit" },
       {
         name: "description",
