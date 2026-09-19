@@ -686,6 +686,33 @@ export type Database = {
         }
         Relationships: []
       }
+      site_sessions: {
+        Row: {
+          first_seen_at: string
+          id: string
+          last_seen_at: string
+          page_views: number
+          session_key: string
+          user_id: string | null
+        }
+        Insert: {
+          first_seen_at?: string
+          id?: string
+          last_seen_at?: string
+          page_views?: number
+          session_key: string
+          user_id?: string | null
+        }
+        Update: {
+          first_seen_at?: string
+          id?: string
+          last_seen_at?: string
+          page_views?: number
+          session_key?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
