@@ -14,6 +14,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieNotice } from "@/components/CookieNotice";
+import { VisitTracker } from "@/components/VisitTracker";
+
 
 function NotFoundComponent() {
   return (
@@ -170,6 +172,8 @@ function RootComponent() {
       <Outlet />
       <Toaster richColors position="top-center" />
       <CookieNotice />
+      <VisitTracker />
+
     </QueryClientProvider>
   );
 }

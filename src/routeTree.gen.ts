@@ -36,6 +36,8 @@ import { Route as AuthenticatedWaagjeNieuwRouteImport } from './routes/_authenti
 import { Route as ApiPublicDoneerRouteImport } from './routes/api/public/doneer'
 import { Route as ApiPublicImportUitagendaRouteImport } from './routes/api/public/import-uitagenda'
 import { Route as ApiPublicLiveVersionRouteImport } from './routes/api/public/live-version'
+import { Route as ApiPublicTrackVisitRouteImport } from './routes/api/public/track-visit'
+import { Route as ApiPublicHooksWeeklyReportRouteImport } from './routes/api/public/hooks/weekly-report'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -177,6 +179,17 @@ const ApiPublicLiveVersionRoute = ApiPublicLiveVersionRouteImport.update({
   path: '/api/public/live-version',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTrackVisitRoute = ApiPublicTrackVisitRouteImport.update({
+  id: '/api/public/track-visit',
+  path: '/api/public/track-visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksWeeklyReportRoute =
+  ApiPublicHooksWeeklyReportRouteImport.update({
+    id: '/api/public/hooks/weekly-report',
+    path: '/api/public/hooks/weekly-report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
@@ -220,7 +233,9 @@ export interface FileRoutesByFullPath {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/api/public/live-version': typeof ApiPublicLiveVersionRoute
+  '/api/public/track-visit': typeof ApiPublicTrackVisitRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -250,7 +265,9 @@ export interface FileRoutesByTo {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/api/public/live-version': typeof ApiPublicLiveVersionRoute
+  '/api/public/track-visit': typeof ApiPublicTrackVisitRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -283,7 +300,9 @@ export interface FileRoutesById {
   '/api/public/doneer': typeof ApiPublicDoneerRoute
   '/api/public/import-uitagenda': typeof ApiPublicImportUitagendaRoute
   '/api/public/live-version': typeof ApiPublicLiveVersionRoute
+  '/api/public/track-visit': typeof ApiPublicTrackVisitRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -316,7 +335,9 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/api/public/live-version'
+    | '/api/public/track-visit'
     | '/chats/'
+    | '/api/public/hooks/weekly-report'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -346,7 +367,9 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/api/public/live-version'
+    | '/api/public/track-visit'
     | '/chats'
+    | '/api/public/hooks/weekly-report'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -378,7 +401,9 @@ export interface FileRouteTypes {
     | '/api/public/doneer'
     | '/api/public/import-uitagenda'
     | '/api/public/live-version'
+    | '/api/public/track-visit'
     | '/_authenticated/chats/'
+    | '/api/public/hooks/weekly-report'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/transactional/preview'
@@ -398,6 +423,8 @@ export interface RootRouteChildren {
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
   ApiPublicLiveVersionRoute: typeof ApiPublicLiveVersionRoute
+  ApiPublicTrackVisitRoute: typeof ApiPublicTrackVisitRoute
+  ApiPublicHooksWeeklyReportRoute: typeof ApiPublicHooksWeeklyReportRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -594,6 +621,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLiveVersionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/track-visit': {
+      id: '/api/public/track-visit'
+      path: '/api/public/track-visit'
+      fullPath: '/api/public/track-visit'
+      preLoaderRoute: typeof ApiPublicTrackVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/weekly-report': {
+      id: '/api/public/hooks/weekly-report'
+      path: '/api/public/hooks/weekly-report'
+      fullPath: '/api/public/hooks/weekly-report'
+      preLoaderRoute: typeof ApiPublicHooksWeeklyReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
       path: '/lovable/email/auth/preview'
@@ -677,6 +718,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
   ApiPublicLiveVersionRoute: ApiPublicLiveVersionRoute,
+  ApiPublicTrackVisitRoute: ApiPublicTrackVisitRoute,
+  ApiPublicHooksWeeklyReportRoute: ApiPublicHooksWeeklyReportRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,

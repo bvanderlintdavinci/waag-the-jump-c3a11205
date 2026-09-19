@@ -1,4 +1,6 @@
 import type { ComponentType } from 'react'
+import { template as weeklyReportTemplate } from './weekly-report'
+
 
 export interface TemplateEntry {
   component: ComponentType<any>
