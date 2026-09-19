@@ -4,7 +4,7 @@ export const Route = createFileRoute("/api/public/hooks/weekly-report")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env["LOVABLE_CRON_SECRET"];
+        const secret = process.env["WEEKLY_REPORT_CRON_SECRET"] ?? process.env["LOVABLE_CRON_SECRET"];
         if (!secret) return new Response("Niet geconfigureerd", { status: 503 });
         const provided = request.headers.get("x-cron-secret") ?? "";
         if (provided.length !== secret.length || provided !== secret) {
