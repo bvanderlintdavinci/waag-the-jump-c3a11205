@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieNotice } from "@/components/CookieNotice";
 import { VisitTracker } from "@/components/VisitTracker";
+import { CoffeeButton } from "@/components/CoffeeButton";
 
 
 function NotFoundComponent() {
@@ -172,6 +173,7 @@ function RootComponent() {
       <Outlet />
       <Toaster richColors position="top-center" />
       <CookieNotice />
+      <CoffeeButton />
       <VisitTracker />
 
     </QueryClientProvider>
