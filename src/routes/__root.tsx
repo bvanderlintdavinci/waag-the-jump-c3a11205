@@ -173,6 +173,7 @@ function RootComponent() {
       <Outlet />
       <Toaster richColors position="top-center" />
       <CookieNotice />
+      <CoffeeButton />
       <VisitTracker />
 
     </QueryClientProvider>
