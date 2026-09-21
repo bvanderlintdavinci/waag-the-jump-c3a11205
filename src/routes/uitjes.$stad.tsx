@@ -71,9 +71,15 @@ function CityPage() {
               Wees de eerste: plaats zelf een Waagje in {city} en nodig de buurt uit.
             </p>
             <div>
-              <Link to={user ? "/waagje/nieuw" : "/auth"} search={user ? undefined : { tab: "signup" }}>
-                <Button className="cta-glow">Plaats het eerste uitje</Button>
-              </Link>
+              {user ? (
+                <Link to="/waagje/nieuw">
+                  <Button className="cta-glow">Plaats het eerste uitje</Button>
+                </Link>
+              ) : (
+                <Link to="/auth" search={{ tab: "signup" }}>
+                  <Button className="cta-glow">Plaats het eerste uitje</Button>
+                </Link>
+              )}
             </div>
           </div>
         ) : (
