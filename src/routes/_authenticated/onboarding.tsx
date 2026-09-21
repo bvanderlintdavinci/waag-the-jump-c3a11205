@@ -74,10 +74,6 @@ function Onboarding() {
       toast.error("Je moet minimaal 18 jaar zijn om mee te doen.");
       return;
     }
-    if (!profile?.avatar_url && !file) {
-      toast.error("Upload een echte profielfoto (geen avatar of tekening).");
-      return;
-    }
     if (lgbtqBadge && !lgbtqConsent) {
       toast.error("Geef expliciet toestemming om de community-badge te tonen.");
       return;
@@ -159,7 +155,10 @@ function Onboarding() {
 
       <form onSubmit={submit} className="grid gap-5">
         <section className="surface grid gap-4 p-5">
-          <h2 className="text-base font-bold">Basis (verplicht)</h2>
+          <h2 className="text-base font-bold">Basis</h2>
+          <p className="-mt-2 text-xs text-muted-foreground">
+            Alleen voornaam, geboortedatum (18+) en woonplaats zijn nu nodig. De rest vul je later in je profiel aan.
+          </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="grid gap-1.5">
               <Label htmlFor="fn">Voornaam</Label>
@@ -179,7 +178,7 @@ function Onboarding() {
             </div>
           </div>
           <div className="grid gap-1.5">
-            <Label htmlFor="photo">Echte profielfoto (geen avatars of tekeningen)</Label>
+            <Label htmlFor="photo">Profielfoto (mag je later toevoegen)</Label>
             <Input
               id="photo"
               type="file"

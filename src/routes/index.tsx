@@ -70,6 +70,9 @@ function Landing() {
           </span>
         </div>
         <div className="flex items-center gap-2">
+          <Link to="/uitjes" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
+            Uitjes per plaats
+          </Link>
           <Link to="/verhaal" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
             Het verhaal
           </Link>
@@ -284,6 +287,9 @@ function Landing() {
           </Link>
           <Link to="/verhaal" className="underline hover:text-foreground">
             Het verhaal
+          </Link>
+          <Link to="/uitjes" className="underline hover:text-foreground">
+            Uitjes per plaats
           </Link>
 
         </div>

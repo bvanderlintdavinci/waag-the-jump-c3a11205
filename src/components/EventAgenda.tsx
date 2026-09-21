@@ -262,7 +262,11 @@ export function EventAgenda() {
                           {event.kind === "date" ? <Badge variant="outline">Date-oproep</Badge> : null}
                           {event.source ? <Badge variant="secondary">via {event.source}</Badge> : null}
                         </div>
-                        <h4 className="mt-2 text-base font-bold text-foreground">{event.title}</h4>
+                        <h4 className="mt-2 text-base font-bold text-foreground">
+                          <Link to="/uitje/$id" params={{ id: event.id }} className="hover:underline">
+                            {event.title}
+                          </Link>
+                        </h4>
                         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{event.description}</p>
                         {event.with_kids ? (
                           <p className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-mint px-2.5 py-1 text-xs font-semibold text-mint-foreground">
@@ -289,6 +293,14 @@ export function EventAgenda() {
                             {event.distance != null ? ` · ${event.distance} km` : ""}
                           </div>
                         </dl>
+
+                        <Link
+                          to="/uitje/$id"
+                          params={{ id: event.id }}
+                          className="mt-2 text-xs font-semibold text-primary underline underline-offset-2"
+                        >
+                          Bekijk en deel dit uitje
+                        </Link>
 
                         {event.source_url ? (
                           <a
