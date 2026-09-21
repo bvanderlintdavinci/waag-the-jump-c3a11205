@@ -28,6 +28,9 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as UitjeIdRouteImport } from './routes/uitje.$id'
+import { Route as UitjesIndexRouteImport } from './routes/uitjes.index'
+import { Route as UitjesStadRouteImport } from './routes/uitjes.$stad'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
@@ -137,6 +140,21 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/callback',
   getParentRoute: () => AuthRoute,
 } as any)
+const UitjeIdRoute = UitjeIdRouteImport.update({
+  id: '/uitje/$id',
+  path: '/uitje/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UitjesIndexRoute = UitjesIndexRouteImport.update({
+  id: '/uitjes/',
+  path: '/uitjes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UitjesStadRoute = UitjesStadRouteImport.update({
+  id: '/uitjes/$stad',
+  path: '/uitjes/$stad',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -225,7 +243,10 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
+  '/uitjes/': typeof UitjesIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -257,7 +278,10 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth': typeof AuthIndexRoute
+  '/uitjes': typeof UitjesIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -292,7 +316,10 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
+  '/uitjes/': typeof UitjesIndexRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -327,7 +354,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth/'
+    | '/uitjes/'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -359,7 +389,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth'
+    | '/uitjes'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -393,7 +426,10 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth/'
+    | '/uitjes/'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
     | '/_authenticated/waagje/$id'
@@ -420,6 +456,9 @@ export interface RootRouteChildren {
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
+  UitjeIdRoute: typeof UitjeIdRoute
+  UitjesStadRoute: typeof UitjesStadRoute
+  UitjesIndexRoute: typeof UitjesIndexRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
   ApiPublicLiveVersionRoute: typeof ApiPublicLiveVersionRoute
@@ -564,6 +603,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/uitje/$id': {
+      id: '/uitje/$id'
+      path: '/uitje/$id'
+      fullPath: '/uitje/$id'
+      preLoaderRoute: typeof UitjeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uitjes/': {
+      id: '/uitjes/'
+      path: '/uitjes'
+      fullPath: '/uitjes/'
+      preLoaderRoute: typeof UitjesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uitjes/$stad': {
+      id: '/uitjes/$stad'
+      path: '/uitjes/$stad'
+      fullPath: '/uitjes/$stad'
+      preLoaderRoute: typeof UitjesStadRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
@@ -715,6 +775,9 @@ const rootRouteChildren: RootRouteChildren = {
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,
+  UitjeIdRoute: UitjeIdRoute,
+  UitjesStadRoute: UitjesStadRoute,
+  UitjesIndexRoute: UitjesIndexRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
   ApiPublicLiveVersionRoute: ApiPublicLiveVersionRoute,
