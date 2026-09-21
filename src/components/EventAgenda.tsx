@@ -226,7 +226,9 @@ export function EventAgenda() {
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Agenda laden...</p>
       ) : groups.length === 0 ? (
-        <p className="text-sm text-muted-foreground">Er staan nu geen events in de agenda.</p>
+        <p className="text-sm text-muted-foreground">
+          Er staan nu geen uitjes in dit tijdvak. Kies een andere week of plaats zelf het eerste Waagje.
+        </p>
       ) : (
         <div className="space-y-10">
           {groups.map((group) => (
