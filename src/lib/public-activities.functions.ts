@@ -40,8 +40,7 @@ export const getPublicActivity = createServerFn({ method: "GET" })
     return (row as PublicActivity | null) ?? null;
   });
 
-/** Alle komende openbare uitjes, gebruikt voor stadspagina's en de sitemap. */
-export const listPublicActivities = createServerFn({ method: "GET" }).handler(async (): Promise<PublicActivity[]> => {
+async function fetchUpcoming(): Promise<PublicActivity[]> {
   const { data } = await publicClient()
     .from("activities")
     .select(COLUMNS)
@@ -51,12 +50,15 @@ export const listPublicActivities = createServerFn({ method: "GET" }).handler(as
     .order("starts_at", { ascending: true })
     .limit(500);
   return (data ?? []) as PublicActivity[];
-});
+}
+
+/** Alle komende openbare uitjes, gebruikt voor stadspagina's en de sitemap. */
+export const listPublicActivities = createServerFn({ method: "GET" }).handler(async () => fetchUpcoming());
 
 /** Komende uitjes in één plaats. */
 export const getCityActivities = createServerFn({ method: "GET" })
   .inputValidator((input: { slug: string }) => ({ slug: String(input?.slug ?? "").slice(0, 60) }))
   .handler(async ({ data }): Promise<PublicActivity[]> => {
-    const all = (await listPublicActivities()) as PublicActivity[];
+    const all = await fetchUpcoming();
     return all.filter((a) => citySlug(cityFromLocation(a.location_name)) === data.slug);
   });
