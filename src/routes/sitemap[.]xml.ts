@@ -6,7 +6,7 @@ import { listPublicActivities } from "@/lib/public-activities.functions";
 const STATIC_PATHS = ["/", "/verhaal", "/uitjes", "/privacy", "/cookies", "/voorwaarden", "/disclaimer"];
 
 /** Sitemap met alle openbare pagina's, inclusief elk uitje en elke plaats. */
-export const Route = createFileRoute("/sitemap[.]xml")({
+export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
