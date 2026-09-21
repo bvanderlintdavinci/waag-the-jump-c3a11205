@@ -16,6 +16,7 @@ import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
 import { Route as VoorwaardenRouteImport } from './routes/voorwaarden'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -28,6 +29,9 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as UitjeIdRouteImport } from './routes/uitje.$id'
+import { Route as UitjesIndexRouteImport } from './routes/uitjes.index'
+import { Route as UitjesStadRouteImport } from './routes/uitjes.$stad'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 import { Route as AuthenticatedProfielIdRouteImport } from './routes/_authenticated/profiel.$id'
@@ -74,6 +78,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerhaalRoute = VerhaalRouteImport.update({
@@ -136,6 +145,21 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
   getParentRoute: () => AuthRoute,
+} as any)
+const UitjeIdRoute = UitjeIdRouteImport.update({
+  id: '/uitje/$id',
+  path: '/uitje/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UitjesIndexRoute = UitjesIndexRouteImport.update({
+  id: '/uitjes/',
+  path: '/uitjes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UitjesStadRoute = UitjesStadRouteImport.update({
+  id: '/uitjes/$stad',
+  path: '/uitjes/$stad',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
@@ -214,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -225,7 +250,10 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
+  '/uitjes/': typeof UitjesIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -246,6 +274,7 @@ export interface FileRoutesByTo {
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -257,7 +286,10 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth': typeof AuthIndexRoute
+  '/uitjes': typeof UitjesIndexRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -281,6 +313,7 @@ export interface FileRoutesById {
   '/disclaimer': typeof DisclaimerRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -292,7 +325,10 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/uitje/$id': typeof UitjeIdRoute
+  '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
+  '/uitjes/': typeof UitjesIndexRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/profiel/$id': typeof AuthenticatedProfielIdRoute
   '/_authenticated/waagje/$id': typeof AuthenticatedWaagjeIdRoute
@@ -316,6 +352,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/privacy'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -327,7 +364,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth/'
+    | '/uitjes/'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -348,6 +388,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/privacy'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -359,7 +400,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth'
+    | '/uitjes'
     | '/chats/$id'
     | '/profiel/$id'
     | '/waagje/$id'
@@ -382,6 +426,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/privacy'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/verhaal'
     | '/voorwaarden'
     | '/_authenticated/admin'
@@ -393,7 +438,10 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/uitje/$id'
+    | '/uitjes/$stad'
     | '/auth/'
+    | '/uitjes/'
     | '/_authenticated/chats/$id'
     | '/_authenticated/profiel/$id'
     | '/_authenticated/waagje/$id'
@@ -417,9 +465,13 @@ export interface RootRouteChildren {
   DisclaimerRoute: typeof DisclaimerRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
+  UitjeIdRoute: typeof UitjeIdRoute
+  UitjesStadRoute: typeof UitjesStadRoute
+  UitjesIndexRoute: typeof UitjesIndexRoute
   ApiPublicDoneerRoute: typeof ApiPublicDoneerRoute
   ApiPublicImportUitagendaRoute: typeof ApiPublicImportUitagendaRoute
   ApiPublicLiveVersionRoute: typeof ApiPublicLiveVersionRoute
@@ -479,6 +531,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verhaal': {
@@ -564,6 +623,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/uitje/$id': {
+      id: '/uitje/$id'
+      path: '/uitje/$id'
+      fullPath: '/uitje/$id'
+      preLoaderRoute: typeof UitjeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uitjes/': {
+      id: '/uitjes/'
+      path: '/uitjes'
+      fullPath: '/uitjes/'
+      preLoaderRoute: typeof UitjesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uitjes/$stad': {
+      id: '/uitjes/$stad'
+      path: '/uitjes/$stad'
+      fullPath: '/uitjes/$stad'
+      preLoaderRoute: typeof UitjesStadRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
@@ -712,9 +792,13 @@ const rootRouteChildren: RootRouteChildren = {
   DisclaimerRoute: DisclaimerRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,
+  UitjeIdRoute: UitjeIdRoute,
+  UitjesStadRoute: UitjesStadRoute,
+  UitjesIndexRoute: UitjesIndexRoute,
   ApiPublicDoneerRoute: ApiPublicDoneerRoute,
   ApiPublicImportUitagendaRoute: ApiPublicImportUitagendaRoute,
   ApiPublicLiveVersionRoute: ApiPublicLiveVersionRoute,

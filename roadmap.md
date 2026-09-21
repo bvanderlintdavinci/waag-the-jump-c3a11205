@@ -17,3 +17,8 @@
 - [x] Kinderen (geslacht + geboortejaar) in het profiel
 - [x] Connecties en favorietenoverzicht
 - [x] Telefoonnummer optioneel, alleen zichtbaar voor connecties
+- [x] Openbare, deelbare pagina per uitje (/uitje/$id) met Event-structuurdata
+- [x] Stadspagina's (/uitjes en /uitjes/$stad) voor lokale vindbaarheid
+- [x] Automatische sitemap met alle uitjes en plaatsen
+- [x] Aanmelden korter: profielfoto niet meer verplicht bij de start
+- [x] "Wees een van de eersten"-uitnodiging op de landingspagina

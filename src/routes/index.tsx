@@ -70,6 +70,9 @@ function Landing() {
           </span>
         </div>
         <div className="flex items-center gap-2">
+          <Link to="/uitjes" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
+            Uitjes per plaats
+          </Link>
           <Link to="/verhaal" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block">
             Het verhaal
           </Link>
@@ -124,6 +127,25 @@ function Landing() {
       </section>
 
       <EventAgenda />
+
+      <section className="mx-auto max-w-5xl px-4 pb-2">
+        <div className="surface grid gap-3 rounded-[1.75rem] p-6 sm:p-8">
+          <p className="eyebrow">Net begonnen</p>
+          <h2 className="text-2xl text-foreground sm:text-3xl">Dare2Meet start net: wees een van de eersten</h2>
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            De agenda staat vol met uitjes, de leden komen er nu bij. Plaats zelf een Waagje of meld je aan bij een
+            uitje: de eerste die springt, maakt het voor de rest makkelijker. Je krijgt bericht zodra iemand aanhaakt.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {user ? (
+              <Link to="/waagje/nieuw"><Button className="cta-glow">Plaats een Waagje</Button></Link>
+            ) : (
+              <Link to="/auth" search={{ tab: "signup" }}><Button className="cta-glow">Maak gratis een account</Button></Link>
+            )}
+            <Link to="/uitjes"><Button variant="outline">Uitjes bij jou in de buurt</Button></Link>
+          </div>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-4">
         <div className="border-y border-border py-6 text-center">
@@ -284,6 +306,9 @@ function Landing() {
           </Link>
           <Link to="/verhaal" className="underline hover:text-foreground">
             Het verhaal
+          </Link>
+          <Link to="/uitjes" className="underline hover:text-foreground">
+            Uitjes per plaats
           </Link>
 
         </div>
