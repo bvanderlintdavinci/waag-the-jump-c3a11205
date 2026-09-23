@@ -89,7 +89,7 @@ function Story() {
           </p>
           <p>
             Wil je Dare2Meet steunen? Dat mag vrijwillig met{" "}
-            <a href="/api/public/doneer" className="font-semibold text-primary underline">
+            <a href="https://buymeacoffee.com/dare2meet" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">
               een kop koffie
             </a>
             . Dat is alles.
