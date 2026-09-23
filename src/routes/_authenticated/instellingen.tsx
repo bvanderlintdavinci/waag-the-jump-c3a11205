@@ -508,7 +508,35 @@ function Visitors() {
           <Link to="/bezoekers">Bekijk voor € 2,99</Link>
         </Button>
       </div>
+      <AnonymousVisitsToggle />
     </div>
+  );
+}
+
+function AnonymousVisitsToggle() {
+  const { user } = useSession();
+  const [on, setOn] = useState<boolean | null>(null);
+  useEffect(() => {
+    if (!user) return;
+    void supabase.from("profiles").select("anonymous_visits").eq("id", user.id).maybeSingle()
+      .then(({ data }) => setOn(!!data?.anonymous_visits));
+  }, [user]);
+  async function toggle(v: boolean) {
+    if (!user) return;
+    setOn(v);
+    const { error } = await supabase.from("profiles").update({ anonymous_visits: v }).eq("id", user.id);
+    if (error) { setOn(!v); toast.error("Opslaan mislukt"); } else toast.success(v ? "Je bezoekt profielen nu anoniem" : "Anoniem bezoeken staat uit");
+  }
+  return (
+    <label className="surface flex items-start gap-3 p-5">
+      <input type="checkbox" className="mt-1" disabled={on === null} checked={!!on} onChange={(e) => void toggle(e.target.checked)} />
+      <span>
+        <span className="block font-bold text-foreground">Anoniem profielen bekijken</span>
+        <span className="text-sm text-muted-foreground">
+          Staat dit aan, dan word je niet getoond in de betaalde bezoekerslijst van anderen en wordt je bezoek niet opgeslagen.
+        </span>
+      </span>
+    </label>
   );
 }
 
