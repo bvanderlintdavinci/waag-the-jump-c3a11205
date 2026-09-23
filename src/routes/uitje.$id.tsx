@@ -3,7 +3,7 @@ import { CalendarDays, MapPin, Users } from "lucide-react";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { Button } from "@/components/ui/button";
-import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
+import { resolveActivityImage } from "@/lib/activity-templates";
 import { formatEventRange } from "@/lib/date-time";
 import { getPublicActivity } from "@/lib/public-activities.functions";
 import { cityFromLocation, citySlug, shortSummary, SITE_URL } from "@/lib/public-activities";
@@ -73,7 +73,15 @@ function PublicActivityPage() {
   const { activity } = Route.useLoaderData();
   const { user } = useSession();
   const city = cityFromLocation(activity.location_name);
-  const image = ACTIVITY_IMAGES[pickImageKey({ imageKey: activity.image_key, category: activity.category, title: activity.title, id: activity.id })];
+  const image = resolveActivityImage({
+    imageKey: activity.image_key,
+    imageUrl: activity.image_url,
+    source: activity.source,
+    category: activity.category,
+    title: activity.title,
+    description: activity.description,
+    id: activity.id,
+  });
 
   return (
     <div className="penguin-texture min-h-screen bg-background">
@@ -100,9 +108,17 @@ function PublicActivityPage() {
           <span className="inline-flex items-center gap-1.5"><MapPin className="size-4" />{activity.location_name}</span>
         </div>
 
-        {image ? (
-          <img src={image} alt={activity.title} width={1200} height={630} className="mt-6 aspect-[16/9] w-full rounded-2xl object-cover" loading="lazy" />
-        ) : null}
+        <img
+          src={image.src}
+          onError={(event) => {
+            if (event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
+          }}
+          alt={activity.title}
+          width={1280}
+          height={800}
+          className="mt-6 aspect-[16/9] w-full rounded-2xl object-cover"
+          loading="lazy"
+        />
 
         {activity.description ? (
           <p className="mt-6 whitespace-pre-line text-[1.0625rem] leading-relaxed text-foreground">{activity.description}</p>
