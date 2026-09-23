@@ -43,7 +43,8 @@ async function resolveOrCreateCustomer(
 
 export const createVisitorCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: { returnUrl: string; environment: StripeEnv }) => {
+  .inputValidator((data: { returnUrl: string; environment: StripeEnv; waiveWithdrawal: boolean }) => {
+    if (data.waiveWithdrawal !== true) throw new Error("Bevestig eerst dat je afziet van je bedenktijd.");
     if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Invalid env");
     if (typeof data.returnUrl !== "string" || !/^https?:\/\//.test(data.returnUrl)) throw new Error("Invalid returnUrl");
     return data;
@@ -52,6 +53,10 @@ export const createVisitorCheckout = createServerFn({ method: "POST" })
     try {
       const userId = context.userId;
       const email = (context.claims as { email?: string } | undefined)?.email;
+      const { collectVisitors, lastSnapshotAt } = await import("@/lib/visitor-snapshot.server");
+      const since = await lastSnapshotAt(userId, data.environment);
+      const fresh = await collectVisitors(userId, since);
+      if (!fresh.length) return { error: "Er zijn nog geen nieuwe bezoekers sinds je vorige momentopname." };
       const stripe = createStripeClient(data.environment);
 
       const prices = await stripe.prices.list({ lookup_keys: [VISITOR_SNAPSHOT_PRICE] });
@@ -69,11 +74,45 @@ export const createVisitorCheckout = createServerFn({ method: "POST" })
         return_url: data.returnUrl,
         customer: customerId,
         payment_intent_data: { description: product.name },
-        metadata: { userId, purpose: "visitor_snapshot", managed_payments: "true" },
+        metadata: { userId, purpose: "visitor_snapshot", managed_payments: "true", withdrawal_waiver_at: new Date().toISOString() },
         managed_payments: { enabled: true },
       } as Stripe.Checkout.SessionCreateParams);
 
       return { clientSecret: session.client_secret ?? "" };
+    } catch (error) {
+      return { error: getStripeErrorMessage(error) };
+    }
+  });
+
+export const getVisitorPurchaseStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { environment: StripeEnv }) => {
+    if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Invalid env");
+    return data;
+  })
+  .handler(async ({ data, context }) => {
+    const { collectVisitors, lastSnapshotAt } = await import("@/lib/visitor-snapshot.server");
+    const since = await lastSnapshotAt(context.userId, data.environment);
+    const fresh = await collectVisitors(context.userId, since);
+    return { newVisitors: fresh.length, canBuy: fresh.length > 0 };
+  });
+
+export const confirmVisitorCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { sessionId: string; environment: StripeEnv }) => {
+    if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Invalid env");
+    if (typeof data.sessionId !== "string" || !/^cs_[A-Za-z0-9_]+$/.test(data.sessionId)) throw new Error("Invalid session");
+    return data;
+  })
+  .handler(async ({ data, context }): Promise<{ status: "fulfilled" | "pending" } | { error: string }> => {
+    try {
+      const stripe = createStripeClient(data.environment);
+      const session = await stripe.checkout.sessions.retrieve(data.sessionId);
+      if (session.metadata?.["userId"] !== context.userId) return { error: "Deze betaling hoort niet bij jouw account." };
+      if (session.payment_status === "unpaid") return { status: "pending" };
+      const { fulfillVisitorSnapshot } = await import("@/lib/visitor-snapshot.server");
+      await fulfillVisitorSnapshot(session, data.environment);
+      return { status: "fulfilled" };
     } catch (error) {
       return { error: getStripeErrorMessage(error) };
     }
