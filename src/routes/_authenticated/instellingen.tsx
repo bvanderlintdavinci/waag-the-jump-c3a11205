@@ -523,41 +523,18 @@ function Visitors() {
       </div>
 
 
-      {!unlocked ? (
-        <div className="surface flex flex-wrap items-center gap-4 p-5">
-          <Eye className="size-6 text-primary" />
-          <div className="min-w-52 flex-1">
-            <p className="font-bold text-foreground">Profielbezoekers ontgrendelen</p>
-            <p className="text-sm text-muted-foreground">
-              Eenmalig € 2,99 om te zien wie je profiel de afgelopen periode bezocht. Geen abonnement.
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            onClick={() =>
-              toast.info("Betaalprovider koppelen", {
-                description: "Stripe of Mollie moet nog gekoppeld worden om deze micro-transactie live te zetten.",
-              })
-            }
-          >
-            Ontgrendel € 2,99
-          </Button>
+      <div className="surface flex flex-wrap items-center gap-4 p-5">
+        <Eye className="size-6 text-primary" />
+        <div className="min-w-52 flex-1">
+          <p className="font-bold text-foreground">Wie bekeek mijn profiel?</p>
+          <p className="text-sm text-muted-foreground">
+            Eenmalig € 2,99: de laatste 5 bezoekers, hoe lang ze keken en hun relatiestatus. Geen abonnement.
+          </p>
         </div>
-      ) : !visits?.length ? (
-        <EmptyState description="Nog geen profielbezoekers om te tonen." />
-      ) : (
-        <div className="grid gap-2">
-          {visits.map((v) => (
-            <div key={v.id} className="surface flex items-center gap-3 p-4">
-              <span className="font-semibold text-foreground">{v.profile?.first_name ?? "Lid"}</span>
-              <span className="text-xs text-muted-foreground">{v.profile?.city}</span>
-              <span className="ml-auto text-xs text-muted-foreground">
-                {new Date(v.created_at).toLocaleDateString("nl-NL")}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+        <Button asChild variant="outline">
+          <Link to="/bezoekers">Bekijk voor € 2,99</Link>
+        </Button>
+      </div>
     </div>
   );
 }

@@ -26,7 +26,7 @@ const SELECTS: Array<{
 }> = [
   { key: "education_level", label: "Opleidingsniveau", placeholder: "Kies indien gewenst", options: ["Middelbare school", "Mbo", "Hbo", "Universiteit", "Anders"] },
   { key: "living_situation", label: "Woonsituatie", placeholder: "Kies indien gewenst", options: ["Alleenwonend", "Met kinderen", "Met huisgenoten", "Anders"] },
-  { key: "relationship_status", label: "Relatiestatus", placeholder: "Kies indien gewenst", options: ["Single", "Gescheiden", "Weduwe / weduwnaar", "Open relatie", "Anders"] },
+  { key: "relationship_status", label: "Relatiestatus", placeholder: "Kies indien gewenst", options: ["Single", "In een relatie", "Getrouwd", "Gescheiden", "Weduwe / weduwnaar", "Open relatie", "Anders"] },
   { key: "has_children", label: "Kinderen", placeholder: "Kies indien gewenst", options: ["Geen kinderen", "Kinderen thuis", "Uitwonende kinderen", "Co-ouderschap", "Zeg ik liever niet"] },
   { key: "child_wish", label: "Kinderwens", placeholder: "Kies indien gewenst", options: ["Ja", "Nee", "Misschien", "Niet meer", "Zeg ik liever niet"] },
 ];
