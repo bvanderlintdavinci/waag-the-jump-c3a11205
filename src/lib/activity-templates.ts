@@ -376,12 +376,14 @@ export type ActivityImageInput = {
 /** Eén betrouwbare fotokeuze voor alle agenda-, plaats- en detailweergaven. */
 export function resolveActivityImage(input: ActivityImageInput): { src: string; fallbackSrc: string } {
   const localKey = pickImageKey({
-    imageKey: input.imageKey,
-    category: input.category,
+    imageKey: input.imageKey ?? null,
+    category: input.category ?? null,
     title: `${input.title ?? ""} ${input.description ?? ""}`,
-    id: input.id,
+    id: input.id ?? null,
   });
-  const fallbackSrc = ACTIVITY_IMAGES[localKey] ?? ACTIVITY_IMAGES.social;
+  const socialFallback = ACTIVITY_IMAGES["social"];
+  const fallbackSrc = ACTIVITY_IMAGES[localKey] ?? socialFallback;
+  if (!fallbackSrc) throw new Error("Het standaard activiteitbeeld ontbreekt.");
   const sourceImage = input.source ? validSourceImage(input.imageUrl) : null;
   return { src: sourceImage ?? fallbackSrc, fallbackSrc };
 }
