@@ -517,6 +517,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          anonymous_visits: boolean
           appearance_style: string
           avatar_url: string | null
           bio: string
@@ -563,6 +564,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          anonymous_visits?: boolean
           appearance_style?: string
           avatar_url?: string | null
           bio?: string
@@ -609,6 +611,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          anonymous_visits?: boolean
           appearance_style?: string
           avatar_url?: string | null
           bio?: string
@@ -737,51 +740,39 @@ export type Database = {
         }
         Relationships: []
       }
-      visit_unlocks: {
-        Row: {
-          created_at: string
-          expires_at: string | null
-          id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          expires_at?: string | null
-          id?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          expires_at?: string | null
-          id?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       visitor_snapshots: {
         Row: {
           checkout_session_id: string
           created_at: string
           environment: string
           id: string
+          payment_intent_id: string | null
+          revoked_at: string | null
           user_id: string
           visitors: Json
+          withdrawal_waiver_at: string | null
         }
         Insert: {
           checkout_session_id: string
           created_at?: string
           environment: string
           id?: string
+          payment_intent_id?: string | null
+          revoked_at?: string | null
           user_id: string
           visitors?: Json
+          withdrawal_waiver_at?: string | null
         }
         Update: {
           checkout_session_id?: string
           created_at?: string
           environment?: string
           id?: string
+          payment_intent_id?: string | null
+          revoked_at?: string | null
           user_id?: string
           visitors?: Json
+          withdrawal_waiver_at?: string | null
         }
         Relationships: []
       }

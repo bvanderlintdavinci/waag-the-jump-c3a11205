@@ -114,6 +114,7 @@ function ProfilePage() {
     let visitId: string | null = null;
     let activeMs = 0;
     let since = document.visibilityState === "visible" ? Date.now() : 0;
+    let cancelled = false;
     const save = () => {
       if (since) {
         activeMs += Date.now() - since;
@@ -125,14 +126,16 @@ function ProfilePage() {
         .update({ duration_seconds: Math.round(activeMs / 1000) })
         .eq("id", visitId);
     };
-    void supabase
-      .from("profile_visits")
-      .insert({ visitor_id: user.id, profile_id: id })
-      .select("id")
-      .single()
-      .then(({ data }) => {
-        visitId = data?.id ?? null;
-      });
+    void (async () => {
+      const { data: me } = await supabase.from("profiles").select("anonymous_visits").eq("id", user.id).maybeSingle();
+      if (cancelled || me?.anonymous_visits) return;
+      const { data } = await supabase
+        .from("profile_visits")
+        .insert({ visitor_id: user.id, profile_id: id })
+        .select("id")
+        .single();
+      visitId = data?.id ?? null;
+    })();
     const onVis = () => {
       if (document.visibilityState === "hidden") save();
       else since = Date.now();
@@ -140,6 +143,7 @@ function ProfilePage() {
     document.addEventListener("visibilitychange", onVis);
     const interval = window.setInterval(save, 15000);
     return () => {
+      cancelled = true;
       document.removeEventListener("visibilitychange", onVis);
       window.clearInterval(interval);
       save();

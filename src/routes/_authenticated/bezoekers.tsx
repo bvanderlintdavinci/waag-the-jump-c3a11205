@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, Eye, Heart, Loader2 } from "lucide-react";
@@ -7,7 +7,8 @@ import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
-import { createVisitorCheckout } from "@/lib/payments.functions";
+import { confirmVisitorCheckout, createVisitorCheckout, getVisitorPurchaseStatus } from "@/lib/payments.functions";
+import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { UserAvatar } from "@/components/UserAvatar";
@@ -52,10 +53,36 @@ function VisitorsPage() {
   const { user } = useSession();
   const { session_id } = Route.useSearch();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [waiver, setWaiver] = useState(false);
+  const [confirmError, setConfirmError] = useState<string | null>(null);
+  const statusFn = useServerFn(getVisitorPurchaseStatus);
+  const confirmFn = useServerFn(confirmVisitorCheckout);
+  const env = (() => { try { return getStripeEnvironment(); } catch { return null; } })();
+
+  const { data: status, refetch: refetchStatus } = useQuery({
+    queryKey: ["visitor-status", user?.id, env],
+    enabled: !!user && !!env,
+    queryFn: () => statusFn({ data: { environment: env! } }),
+  });
+
+  useEffect(() => {
+    if (!session_id || !env) return;
+    let tries = 0;
+    let stop = false;
+    const run = async () => {
+      const r = await confirmFn({ data: { sessionId: session_id, environment: env } }).catch((e: Error) => ({ error: e.message }));
+      if (stop) return;
+      if ("error" in r) setConfirmError(r.error);
+      else if (r.status === "pending" && ++tries < 20) setTimeout(run, 3000);
+      else void refetchStatus();
+    };
+    void run();
+    return () => { stop = true; };
+  }, [session_id, env]);
 
   const { data: snapshots, isLoading } = useQuery({
-    queryKey: ["visitor-snapshots", user?.id],
-    enabled: !!user,
+    queryKey: ["visitor-snapshots", user?.id, env],
+    enabled: !!user && !!env,
     refetchInterval: (q) => {
       const rows = q.state.data as { created_at: string }[] | undefined;
       if (!session_id) return false;
@@ -67,6 +94,8 @@ function VisitorsPage() {
         .from("visitor_snapshots")
         .select("id, visitors, created_at")
         .eq("user_id", user!.id)
+        .eq("environment", env!)
+        .is("revoked_at", null)
         .order("created_at", { ascending: false })
         .limit(20);
       return (data ?? []).map((r) => ({ ...r, visitors: (r.visitors as unknown as SnapshotVisitor[]) ?? [] }));
@@ -81,6 +110,7 @@ function VisitorsPage() {
     const result = await createVisitorCheckout({
       data: {
         environment: getStripeEnvironment(),
+        waiveWithdrawal: waiver,
         returnUrl: `${window.location.origin}/bezoekers?session_id={CHECKOUT_SESSION_ID}`,
       },
     });
@@ -100,20 +130,36 @@ function VisitorsPage() {
           </p>
         </div>
 
-        {waiting && (
+        {confirmError && <p className="surface p-4 text-sm text-destructive">{confirmError}</p>}
+        {waiting && !confirmError && (
           <div className="surface flex items-center gap-3 p-4 text-sm">
             <Loader2 className="size-4 animate-spin text-primary" /> Betaling ontvangen, je bezoekers worden opgehaald…
           </div>
         )}
 
         {!checkoutOpen ? (
-          <div className="surface flex flex-wrap items-center gap-4 p-5">
-            <Eye className="size-6 text-primary" />
-            <div className="min-w-52 flex-1">
-              <p className="font-bold text-foreground">Nieuwe momentopname</p>
-              <p className="text-sm text-muted-foreground">De laatste 5 bezoekers van nu, eenmalig € 2,99.</p>
+          <div className="surface grid gap-3 p-5">
+            <div className="flex flex-wrap items-center gap-4">
+              <Eye className="size-6 text-primary" />
+              <div className="min-w-52 flex-1">
+                <p className="font-bold text-foreground">Nieuwe momentopname</p>
+                <p className="text-sm text-muted-foreground">
+                  {status?.canBuy
+                    ? `${status.newVisitors >= 5 ? "5 of meer" : status.newVisitors} nieuwe bezoeker(s) sinds je vorige momentopname.`
+                    : "Nog geen nieuwe bezoekers sinds je vorige momentopname. Kom later terug."}
+                </p>
+              </div>
+              <Button disabled={!status?.canBuy || !waiver} onClick={() => setCheckoutOpen(true)}>
+                Bekijk voor € 2,99
+              </Button>
             </div>
-            <Button onClick={() => setCheckoutOpen(true)}>Bekijk voor € 2,99</Button>
+            <label className="flex items-start gap-2 text-xs text-muted-foreground">
+              <input type="checkbox" className="mt-0.5" checked={waiver} onChange={(e) => setWaiver(e.target.checked)} />
+              <span>
+                Ik wil direct toegang tot deze digitale inhoud en zie daarmee af van mijn wettelijke bedenktijd van 14 dagen.
+                Zie de <Link to="/voorwaarden" className="underline">voorwaarden</Link>.
+              </span>
+            </label>
           </div>
         ) : (
           <div className="surface overflow-hidden p-2">

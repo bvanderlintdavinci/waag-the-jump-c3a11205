@@ -59,6 +59,13 @@ function Terms() {
         server- en onderhoudskosten te dekken; dat staat altijd vooraf duidelijk vermeld. Doneren mag vrijwillig
         en geeft geen extra rechten.
       </p>
+      <p>
+        <strong>Premium "Wie bekeek mijn profiel?"</strong> kost eenmalig € 2,99 en toont de laatste 5 bezoekers
+        van je profiel op het moment van aankoop. Een nieuwe aankoop is alleen mogelijk als er sinds je vorige
+        momentopname nieuwe bezoekers zijn. Omdat de inhoud direct na betaling wordt geleverd, vragen we je vooraf
+        uitdrukkelijk af te zien van je herroepingsrecht (bedenktijd van 14 dagen); zonder die bevestiging kun je
+        niet afrekenen. Wordt een betaling terugbetaald of betwist, dan vervalt de bijbehorende momentopname.
+      </p>
 
       <h2>5. Moderatie</h2>
       <p>
