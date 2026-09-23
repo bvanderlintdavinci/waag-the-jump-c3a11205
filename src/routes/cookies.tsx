@@ -46,8 +46,8 @@ function Cookies() {
       <h2>Externe diensten</h2>
       <p>
         Bij het inloggen met Google verloopt de authenticatie via Google. Daarbij gelden ook de voorwaarden van
-        Google. Bij een donatie word je doorgestuurd naar PayPal; die transactie verloopt volledig bij PayPal en
-        wij ontvangen geen betaalgegevens.
+        Google. Bij een donatie word je doorgestuurd naar Buy Me a Coffee; die transactie verloopt volledig bij
+        Buy Me a Coffee en wij ontvangen geen betaalgegevens.
       </p>
 
       <h2>Zelf wissen</h2>
