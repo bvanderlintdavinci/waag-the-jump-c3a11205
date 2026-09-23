@@ -357,7 +357,9 @@ function validSourceImage(value?: string | null): string | null {
   if (!value) return null;
   try {
     const url = new URL(value);
-    return url.protocol === "https:" ? url.toString() : null;
+    if (url.protocol !== "https:") return null;
+    url.pathname = url.pathname.replace(/-\d{2,4}x\d{2,4}(?=\.[a-z]{3,5}$)/i, "");
+    return url.toString();
   } catch {
     return null;
   }
