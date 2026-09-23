@@ -45,7 +45,8 @@ function Privacy() {
         <li>Activiteiten: uitjes die je plaatst of waar je je voor aanmeldt.</li>
         <li>Berichten: de inhoud van je 1 op 1 gesprekken en groepschats.</li>
         <li>Veiligheid en moderatie: blokkades met reden, meldingen, en logregels van de woordenfilter.</li>
-        <li>Profielbezoeken: wie jouw profiel bekeek en wanneer.</li>
+        <li>Profielbezoeken: wie jouw profiel bekeek, wanneer en hoe lang. Leden die de betaalde functie "Wie bekeek mijn profiel?" kopen, zien van hun laatste 5 bezoekers de voornaam, foto, woonplaats, kijktijd en relatiestatus. Wil je dat niet, zet dan in Instellingen "Anoniem profielen bekijken" aan; je bezoeken worden dan niet opgeslagen. Geblokkeerde leden zien je nooit in deze lijst.</li>
+        <li>Betalingen: we bewaren alleen een betalingskenmerk en het moment van aankoop; kaartgegevens worden verwerkt door onze betaalpartner en komen niet bij ons.</li>
         <li>Technische gegevens: minimale logbestanden van onze hostingpartij om misbruik te voorkomen.</li>
       </ul>
 
