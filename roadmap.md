@@ -24,3 +24,4 @@
 - [x] "Wees een van de eersten"-uitnodiging op de landingspagina
 
 - [x] Gebruik de geüploade pinguïn als favicon en sociale deelafbeelding
+- [ ] Maak activiteitfoto’s specifieker, minder herhalend en inhoudelijk passend
