@@ -34,7 +34,9 @@ export const Route = createFileRoute("/uitje/$id")({
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:image", content: "https://dare2meet.nl/og-image.png" },
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:image", content: "https://dare2meet.nl/og-image.png" },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
