@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Coffee, Eye, Trash2, UserCheck } from "lucide-react";
 import { toast } from "sonner";
@@ -420,33 +420,6 @@ function BlockedList() {
 function Visitors() {
   const { user } = useSession();
 
-  const { data: unlocked } = useQuery({
-    queryKey: ["unlock", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data } = await supabase.from("visit_unlocks").select("id").eq("user_id", user!.id).limit(1);
-      return !!data?.length;
-    },
-  });
-
-  const { data: visits } = useQuery({
-    queryKey: ["visits", user?.id, unlocked],
-    enabled: !!user && unlocked === true,
-    queryFn: async () => {
-      const { data: rows } = await supabase
-        .from("profile_visits")
-        .select("id, visitor_id, created_at")
-        .eq("profile_id", user!.id)
-        .order("created_at", { ascending: false })
-        .limit(100);
-      const ids = [...new Set((rows ?? []).map((r) => r.visitor_id))];
-      const { data: profiles } = ids.length
-        ? await supabase.from("profiles").select("id, first_name, city").in("id", ids)
-        : { data: [] };
-      const map = new Map((profiles ?? []).map((p) => [p.id, p]));
-      return (rows ?? []).map((r) => ({ ...r, profile: map.get(r.visitor_id) }));
-    },
-  });
 
   return (
     <div className="grid gap-4">
