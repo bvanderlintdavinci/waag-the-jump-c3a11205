@@ -152,7 +152,7 @@ De visuele identiteit draait om de mascotte 'Waag de Pinguïn': pinguïns staan 
 
 - **GEEN Premium Account Status:** Iedereen is gelijk en heeft 100% gratis toegang tot de kernfuncties.
 
-- **Vrijwillige Donatieknop:** 'Buy Me a Coffee (€2,99)' integratie via Stripe/Mollie.
+- **Vrijwillige Donatieknop:** donaties lopen via Buy Me a Coffee (https://buymeacoffee.com/dare2meet), zonderStripe/Mollie-koppeling.
 
 - **Micro-transactie:** **Profielbezoekers Ontgrendelen (€2,99)** eenmalig/los via Stripe/Mollie om te zien wie je profiel de afgelopen periode heeft bezocht.
 
