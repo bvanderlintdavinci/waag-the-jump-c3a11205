@@ -3,7 +3,7 @@ import { CalendarDays, MapPin } from "lucide-react";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { Button } from "@/components/ui/button";
-import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
+import { resolveActivityImage } from "@/lib/activity-templates";
 import { formatEventDateTime } from "@/lib/date-time";
 import { getCityActivities } from "@/lib/public-activities.functions";
 import { cityLabelFromSlug, SITE_URL } from "@/lib/public-activities";
@@ -87,11 +87,29 @@ function CityPage() {
         ) : (
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {activities.map((a) => {
-              const image = ACTIVITY_IMAGES[pickImageKey({ imageKey: a.image_key, category: a.category, title: a.title, id: a.id })];
+              const image = resolveActivityImage({
+                imageKey: a.image_key,
+                imageUrl: a.image_url,
+                source: a.source,
+                category: a.category,
+                title: a.title,
+                description: a.description,
+                id: a.id,
+              });
               return (
                 <li key={a.id} className="surface overflow-hidden">
                   <Link to="/uitje/$id" params={{ id: a.id }} className="block">
-                    {image ? <img src={image} alt={a.title} className="aspect-[16/9] w-full object-cover" loading="lazy" /> : null}
+                    <img
+                      src={image.src}
+                      onError={(event) => {
+                        if (event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
+                      }}
+                      alt={a.title}
+                      width={1280}
+                      height={800}
+                      className="aspect-[16/9] w-full object-cover"
+                      loading="lazy"
+                    />
                     <div className="grid gap-1.5 p-4">
                       <h2 className="text-base font-bold leading-snug text-foreground">{a.title}</h2>
                       <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">

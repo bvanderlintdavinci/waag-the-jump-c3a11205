@@ -38,6 +38,10 @@ import vinylMarketImg from "@/assets/event-vinyl-market.jpg";
 import theatreCabaretImg from "@/assets/event-theatre-cabaret.jpg";
 import foodtruckMarketImg from "@/assets/event-foodtruck-market.jpg";
 import cityTourImg from "@/assets/event-city-tour.jpg";
+import fleaMarketImg from "@/assets/event-flea-market.jpg";
+import expoFairImg from "@/assets/event-expo-fair.jpg";
+import scienceImg from "@/assets/event-science.jpg";
+import animalsImg from "@/assets/event-animals.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -81,6 +85,10 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   "theatre-cabaret": theatreCabaretImg,
   "foodtruck-market": foodtruckMarketImg,
   "city-tour": cityTourImg,
+  "flea-market": fleaMarketImg,
+  "expo-fair": expoFairImg,
+  science: scienceImg,
+  animals: animalsImg,
 };
 
 export type ActivityTemplate = {
@@ -270,15 +278,24 @@ export const ACTIVITY_TEMPLATES: ActivityTemplate[] = [
 
 /** Trefwoorden per sfeerbeeld, gebruikt om events zonder eigen beeld te verdelen. */
 const IMAGE_KEYWORDS: Array<[string, string[]]> = [
+  ["flea-market", ["vlooienmarkt", "curiosamarkt", "curiosabeurs", "rommelmarkt", "snuffelmarkt"]],
   ["antique-books-market", ["antiek- en boekenmarkt", "antiek en boekenmarkt", "boekenmarkt", "antiekmarkt", "boekenbeurs"]],
   ["vinyl-market", ["vinylmarkt", "platenmarkt", "platenbeurs", "vinylbeurs"]],
   ["foodtruck-market", ["foodtruck", "food truck", "culinaire markt", "foodfestival", "food festival"]],
   ["theatre-cabaret", ["cabaret", "stand-up", "stand up", "comedy", "toneel", "theatervoorstelling"]],
   ["city-tour", ["stadswandeling", "stadsrondleiding", "city tour", "wandeltour", "architectuurwandeling"]],
   ["outdoor-market", ["weekmarkt", "buitenmarkt", "braderie", "jaarmarkt", "streekmarkt", "warenmarkt"]],
+  ["cinema", ["filmfestival", "film festival", "filmavond", "filmvertoning", "cinekid"]],
+  ["science", ["science week", "wetenschapsfestival", "wetenschap", "techniekfestival", "sterrenkijk", "planetarium"]],
+  ["animals", ["dierendag", "dierenmarkt", "dierenfestival", "hondenshow", "paardenshow", "boerderijdag", "schaapskudde"]],
+  ["running", ["marathon", "halve marathon", "hardloopevenement", "singelloop", "city run", "trailrun"]],
+  ["craft", ["ambachtsmarkt", "ambachtsroute", "kunstroute", "atelierroute", "open atelier", "handwerkmarkt"]],
+  ["tasting", ["bierroute", "wijnroute", "bockbier", "speciaalbier", "bierfestival", "wijnfestival"]],
+  ["family", ["kinderactiviteit", "kinderfestival", "familiedag", "familiefestival", "voor kinderen"]],
+  ["expo-fair", ["woonbeurs", "vakbeurs", "publieksbeurs", "consumentenbeurs", "expo", "expositiehal"]],
   ["festival", ["festival", "kermis", "feest", "carnaval", "dance"]],
   ["music", ["muziek", "concert", "band", "koor", "orkest", "dj", "theater", "podium"]],
-  ["market", ["markt", "fair", "beurs", "rommelmarkt", "vlooienmarkt", "marktkraam"]],
+  ["market", ["markt", "fair", "marktkraam"]],
   ["cooking", ["kookworkshop", "kookles", "samen koken", "keukenworkshop"]],
   ["food", ["eten", "food", "diner", "restaurant", "kook", "bbq", "barbecue", "lunch"]],
   ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
@@ -290,7 +307,7 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["dance", ["dans", "salsa", "stijldans", "disco", "bal"]],
   ["dogwalk", ["hond", "baas", "uitlaten", "hondenveld"]],
   ["bowling", ["bowl", "kegel", "biljart", "poolen"]],
-  ["running", ["hardlopen", "hardloop", "rondje rennen", "rennen", "run", "jogging", "trimloop"]],
+  ["running", ["hardlopen", "hardloop", "rondje rennen", "rennen", "jogging", "trimloop"]],
   ["picnic", ["picknick", "picknicken", "kleedje"]],
   ["books", ["boek", "lezen", "leesclub", "bibliotheek", "schrijf", "poëzie"]],
   ["winter", ["schaats", "ijsbaan", "winter", "sneeuw", "kerst", "glühwein"]],
@@ -321,12 +338,50 @@ export function pickImageKey(input: {
   title?: string | null;
   id?: string | null;
 }): string {
-  const haystack = `${input.category ?? ""} ${input.title ?? ""}`.toLowerCase();
+  const haystack = `${input.category ?? ""} ${input.title ?? ""}`.toLocaleLowerCase("nl-NL");
   for (const [image, words] of IMAGE_KEYWORDS) {
-    if (words.some((w) => haystack.includes(w))) return image;
+    if (words.some((word) => containsTerm(haystack, word))) return image;
   }
 
   const key = input.imageKey ?? "";
   if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
   return "social";
+}
+
+function containsTerm(text: string, term: string): boolean {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^\\p{L}\\p{N}])${escaped}([^\\p{L}\\p{N}]|$)`, "iu").test(text);
+}
+
+function validSourceImage(value?: string | null): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
+export type ActivityImageInput = {
+  imageKey?: string | null;
+  imageUrl?: string | null;
+  source?: string | null;
+  category?: string | null;
+  title?: string | null;
+  description?: string | null;
+  id?: string | null;
+};
+
+/** Eén betrouwbare fotokeuze voor alle agenda-, plaats- en detailweergaven. */
+export function resolveActivityImage(input: ActivityImageInput): { src: string; fallbackSrc: string } {
+  const localKey = pickImageKey({
+    imageKey: input.imageKey,
+    category: input.category,
+    title: `${input.title ?? ""} ${input.description ?? ""}`,
+    id: input.id,
+  });
+  const fallbackSrc = ACTIVITY_IMAGES[localKey] ?? ACTIVITY_IMAGES.social;
+  const sourceImage = input.source ? validSourceImage(input.imageUrl) : null;
+  return { src: sourceImage ?? fallbackSrc, fallbackSrc };
 }

@@ -11,7 +11,7 @@ import { distanceKm } from "@/lib/geo";
 import { downloadIcs, googleCalendarUrl } from "@/lib/ics";
 import { ensureActivityConversation } from "@/lib/activity-chat";
 import { refreshUitagendaIfStale } from "@/lib/external-events.functions";
-import { ACTIVITY_IMAGES, pickImageKey } from "@/lib/activity-templates";
+import { resolveActivityImage } from "@/lib/activity-templates";
 import { formatEventTime } from "@/lib/date-time";
 import { capacityLabel } from "@/lib/activity-status";
 import { UserAvatar } from "@/components/UserAvatar";
@@ -239,19 +239,22 @@ export function EventAgenda() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {group.items.map((event) => {
                   const date = new Date(event.starts_at);
+                  const image = resolveActivityImage({
+                    imageKey: event.image_key,
+                    imageUrl: event.image_url,
+                    source: event.source,
+                    category: event.category,
+                    title: event.title,
+                    description: event.description,
+                    id: event.id,
+                  });
                   return (
                     <article key={event.id} className="surface-lift flex flex-col overflow-hidden">
                       <img
-                        src={
-                          ACTIVITY_IMAGES[
-                            pickImageKey({
-                              imageKey: event.image_key,
-                              category: event.category,
-                              title: event.title,
-                              id: event.id,
-                            })
-                          ] || event.image_url || ACTIVITY_IMAGES["social"]
-                        }
+                        src={image.src}
+                        onError={(event) => {
+                          if (event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
+                        }}
                         alt={event.title}
                         loading="lazy"
                         width={1024}

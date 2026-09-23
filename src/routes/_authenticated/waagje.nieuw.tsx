@@ -8,7 +8,7 @@ import { useMyProfile, useSession } from "@/hooks/use-auth";
 import { guardText } from "@/lib/moderation-guard";
 import { resolveLocation } from "@/lib/geo";
 import { CATEGORIES } from "@/lib/pinguingo";
-import { ACTIVITY_TEMPLATES, type ActivityTemplate } from "@/lib/activity-templates";
+import { ACTIVITY_TEMPLATES, resolveActivityImage, type ActivityTemplate } from "@/lib/activity-templates";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -170,7 +170,7 @@ function NewActivity() {
                 }`}
               >
                 <img
-                  src={t.image}
+                  src={resolveActivityImage({ imageKey: t.key, category: t.category, title: t.title }).src}
                   alt={t.label}
                   loading="lazy"
                   width={1024}
