@@ -459,7 +459,7 @@ function Visitors() {
           </p>
         </div>
         <Button asChild>
-          <a href="/api/public/doneer" target="_blank" rel="noreferrer noopener">
+          <a href="https://buymeacoffee.com/dare2meet" target="_blank" rel="noopener noreferrer">
             Doneer een koffie
           </a>
         </Button>
