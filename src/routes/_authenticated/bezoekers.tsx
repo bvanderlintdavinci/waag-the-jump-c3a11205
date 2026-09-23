@@ -15,8 +15,8 @@ import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/bezoekers")({
-  validateSearch: (s: Record<string, unknown>): { session_id?: string } => ({
-    session_id: typeof s.session_id === "string" ? s.session_id : undefined,
+  validateSearch: (s: Record<string, unknown>): { session_id?: string | undefined } => ({
+    session_id: typeof s['session_id'] === "string" ? s['session_id'] : undefined,
   }),
   head: () => ({
     meta: [
