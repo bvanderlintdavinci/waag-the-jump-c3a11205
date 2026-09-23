@@ -32,7 +32,9 @@ export const Route = createFileRoute("/uitjes/")({
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
-        { name: "twitter:card", content: "summary" },
+        { property: "og:image", content: "https://dare2meet.nl/og-image.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:image", content: "https://dare2meet.nl/og-image.png" },
       ],
       links: [{ rel: "canonical", href: url }],
     };

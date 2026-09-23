@@ -22,3 +22,5 @@
 - [x] Automatische sitemap met alle uitjes en plaatsen
 - [x] Aanmelden korter: profielfoto niet meer verplicht bij de start
 - [x] "Wees een van de eersten"-uitnodiging op de landingspagina
+
+- [x] Gebruik de geüploade pinguïn als favicon en sociale deelafbeelding
