@@ -494,18 +494,21 @@ export type Database = {
       profile_visits: {
         Row: {
           created_at: string
+          duration_seconds: number
           id: string
           profile_id: string
           visitor_id: string
         }
         Insert: {
           created_at?: string
+          duration_seconds?: number
           id?: string
           profile_id: string
           visitor_id: string
         }
         Update: {
           created_at?: string
+          duration_seconds?: number
           id?: string
           profile_id?: string
           visitor_id?: string
@@ -752,6 +755,33 @@ export type Database = {
           expires_at?: string | null
           id?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      visitor_snapshots: {
+        Row: {
+          checkout_session_id: string
+          created_at: string
+          environment: string
+          id: string
+          user_id: string
+          visitors: Json
+        }
+        Insert: {
+          checkout_session_id: string
+          created_at?: string
+          environment: string
+          id?: string
+          user_id: string
+          visitors?: Json
+        }
+        Update: {
+          checkout_session_id?: string
+          created_at?: string
+          environment?: string
+          id?: string
+          user_id?: string
+          visitors?: Json
         }
         Relationships: []
       }

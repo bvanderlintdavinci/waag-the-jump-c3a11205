@@ -108,10 +108,43 @@ function ProfilePage() {
     }
   }
 
+  const visitProfileReady = !!profile;
   useEffect(() => {
-    if (!user || isMe || !profile) return;
-    void supabase.from("profile_visits").insert({ visitor_id: user.id, profile_id: id });
-  }, [user, isMe, profile, id]);
+    if (!user || isMe || !visitProfileReady) return;
+    let visitId: string | null = null;
+    let activeMs = 0;
+    let since = document.visibilityState === "visible" ? Date.now() : 0;
+    const save = () => {
+      if (since) {
+        activeMs += Date.now() - since;
+        since = document.visibilityState === "visible" ? Date.now() : 0;
+      }
+      if (!visitId) return;
+      void supabase
+        .from("profile_visits")
+        .update({ duration_seconds: Math.round(activeMs / 1000) })
+        .eq("id", visitId);
+    };
+    void supabase
+      .from("profile_visits")
+      .insert({ visitor_id: user.id, profile_id: id })
+      .select("id")
+      .single()
+      .then(({ data }) => {
+        visitId = data?.id ?? null;
+      });
+    const onVis = () => {
+      if (document.visibilityState === "hidden") save();
+      else since = Date.now();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    const interval = window.setInterval(save, 15000);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      window.clearInterval(interval);
+      save();
+    };
+  }, [user, isMe, visitProfileReady, id]);
 
   async function startChat() {
     if (!user) return;
