@@ -50,6 +50,8 @@ import kiteFestivalImg from "@/assets/event-kite-festival.jpg";
 import camperFairImg from "@/assets/event-camper-fair.jpg";
 import beerFestivalImg from "@/assets/event-beer-festival.jpg";
 import designFairImg from "@/assets/event-design-fair.jpg";
+import secondhandMarketImg from "@/assets/event-secondhand-market.jpg";
+import tractorPullImg from "@/assets/event-tractor-pull.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -105,6 +107,8 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   "camper-fair": camperFairImg,
   "beer-festival": beerFestivalImg,
   "design-fair": designFairImg,
+  "secondhand-market": secondhandMarketImg,
+  "tractor-pull": tractorPullImg,
 };
 
 export type ActivityTemplate = {
@@ -298,7 +302,10 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["camper-fair", ["kampeer & caravan", "kampeer en caravan", "camperbeurs", "caravanbeurs", "campingbeurs"]],
   ["design-fair", ["design week", "designbeurs", "designfestival", "design event"]],
   ["art-exhibition", ["kunstenhal", "kunsthal", "kunstbeurs", "kunsttentoonstelling", "kunstexpositie", "kunstmarkt", "pan amsterdam", "museumnacht"]],
-  ["beer-festival", ["bockbier", "bokbier", "bierfestival", "bierfeest", "bierroute", "biertocht", "oktoberfest"]],
+  ["beer-festival", ["bockbier", "bockbierfestival", "bokbier", "bierfestival", "bierfeest", "bierroute", "biertocht", "oktoberfest"]],
+  ["tractor-pull", ["trekkertrek", "tractorpulling", "tractor pulling"]],
+  ["animals", ["animal event", "animal fair", "dierenfestival", "dierenbeurs"]],
+  ["outdoor-market", ["marktendagen", "baistemaart", "koeiemart", "braderie", "jaarmarkt"]],
   ["neighborhood-fair", ["home made market", "swan market", "feelgood market", "sunday market", "makersmarkt", "creatieve markt", "hippe markt"]],
   ["flea-market", ["vlooienmarkt", "curiosamarkt", "curiosabeurs", "rommelmarkt", "snuffelmarkt"]],
   ["flea-market", ["kofferbakverkoop", "kofferbakmarkt", "kringloopmarkt"]],
@@ -355,11 +362,11 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
 
 const IMAGE_VARIANTS: Record<string, string[]> = {
   market: ["market", "outdoor-market", "neighborhood-fair"],
-  "flea-market": ["flea-market", "antique-books-market"],
+  "flea-market": ["flea-market", "secondhand-market"],
   festival: ["festival", "street-festival"],
   music: ["music", "live-music"],
   "live-music": ["live-music", "music"],
-  "expo-fair": ["expo-fair", "design-fair"],
+  "expo-fair": ["expo-fair", "camper-fair"],
 };
 
 function matchImage(text: string): string | null {
@@ -393,7 +400,7 @@ export function pickImageKey(input: {
   if (titleMatch) return stableVariant(titleMatch, input.title ?? input.id ?? "");
   const key = input.imageKey ?? "";
   if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
-  const contextMatch = matchImage(input.category ?? "") ?? matchImage(input.description ?? "");
+  const contextMatch = matchImage(input.description ?? "") ?? matchImage(input.category ?? "");
   if (contextMatch) return stableVariant(contextMatch, input.title ?? input.id ?? "");
   return "social";
 }
