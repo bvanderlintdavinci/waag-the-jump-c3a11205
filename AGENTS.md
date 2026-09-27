@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Agenda-, stad- en detailbeelden gebruiken `resolveActivityImage` met scherpe lokale terugval; bronminiaturen mogen niet worden uitgerekt, omdat die onscherp worden.

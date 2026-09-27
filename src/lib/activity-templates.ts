@@ -42,6 +42,14 @@ import fleaMarketImg from "@/assets/event-flea-market.jpg";
 import expoFairImg from "@/assets/event-expo-fair.jpg";
 import scienceImg from "@/assets/event-science.jpg";
 import animalsImg from "@/assets/event-animals.jpg";
+import streetFestivalImg from "@/assets/event-street-festival.jpg";
+import artExhibitionImg from "@/assets/event-art-exhibition.jpg";
+import neighborhoodFairImg from "@/assets/event-neighborhood-fair.jpg";
+import liveMusicImg from "@/assets/event-live-music.jpg";
+import kiteFestivalImg from "@/assets/event-kite-festival.jpg";
+import camperFairImg from "@/assets/event-camper-fair.jpg";
+import beerFestivalImg from "@/assets/event-beer-festival.jpg";
+import designFairImg from "@/assets/event-design-fair.jpg";
 
 /** Alle beschikbare sfeerbeelden, gedeeld door de agenda en het plaatsformulier. */
 export const ACTIVITY_IMAGES: Record<string, string> = {
@@ -89,6 +97,14 @@ export const ACTIVITY_IMAGES: Record<string, string> = {
   "expo-fair": expoFairImg,
   science: scienceImg,
   animals: animalsImg,
+  "street-festival": streetFestivalImg,
+  "art-exhibition": artExhibitionImg,
+  "neighborhood-fair": neighborhoodFairImg,
+  "live-music": liveMusicImg,
+  "kite-festival": kiteFestivalImg,
+  "camper-fair": camperFairImg,
+  "beer-festival": beerFestivalImg,
+  "design-fair": designFairImg,
 };
 
 export type ActivityTemplate = {
@@ -278,7 +294,14 @@ export const ACTIVITY_TEMPLATES: ActivityTemplate[] = [
 
 /** Trefwoorden per sfeerbeeld, gebruikt om events zonder eigen beeld te verdelen. */
 const IMAGE_KEYWORDS: Array<[string, string[]]> = [
+  ["kite-festival", ["vliegerfestival", "vliegerfeest", "vliegerdagen"]],
+  ["camper-fair", ["kampeer & caravan", "kampeer en caravan", "camperbeurs", "caravanbeurs", "campingbeurs"]],
+  ["design-fair", ["design week", "designbeurs", "designfestival", "design event"]],
+  ["art-exhibition", ["kunstenhal", "kunsthal", "kunstbeurs", "kunsttentoonstelling", "kunstexpositie", "kunstmarkt", "pan amsterdam", "museumnacht"]],
+  ["beer-festival", ["bockbier", "bokbier", "bierfestival", "bierfeest", "bierroute", "biertocht", "oktoberfest"]],
+  ["neighborhood-fair", ["home made market", "swan market", "feelgood market", "sunday market", "makersmarkt", "creatieve markt", "hippe markt"]],
   ["flea-market", ["vlooienmarkt", "curiosamarkt", "curiosabeurs", "rommelmarkt", "snuffelmarkt"]],
+  ["flea-market", ["kofferbakverkoop", "kofferbakmarkt", "kringloopmarkt"]],
   ["antique-books-market", ["antiek- en boekenmarkt", "antiek en boekenmarkt", "boekenmarkt", "antiekmarkt", "boekenbeurs"]],
   ["vinyl-market", ["vinylmarkt", "platenmarkt", "platenbeurs", "vinylbeurs"]],
   ["foodtruck-market", ["foodtruck", "food truck", "culinaire markt", "foodfestival", "food festival"]],
@@ -292,17 +315,19 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["craft", ["ambachtsmarkt", "ambachtsroute", "kunstroute", "atelierroute", "open atelier", "handwerkmarkt", "creatieve workshop", "maakworkshop"]],
   ["tasting", ["bierroute", "wijnroute", "bockbier", "speciaalbier", "bierfestival", "wijnfestival"]],
   ["family", ["kinderactiviteit", "kinderfestival", "familiedag", "familiefestival", "voor kinderen"]],
-  ["expo-fair", ["woonbeurs", "vakbeurs", "publieksbeurs", "consumentenbeurs", "expo", "expositiehal"]],
+  ["expo-fair", ["woonbeurs", "vakbeurs", "publieksbeurs", "consumentenbeurs", "expo", "expositiehal", "jaarbeurs", "beurs", "lego world", "reis event"]],
   ["winter", ["kerstmarkt", "wintermarkt", "schaats", "ijsbaan", "winter", "sneeuw", "kerst", "glühwein"]],
   ["festival", ["festival", "kermis", "feest", "carnaval", "dance", "koningsdag", "vrijmarkt"]],
+  ["street-festival", ["lichtjesavond", "straatfeest", "stadsfeest", "buurtfeest"]],
+  ["live-music", ["bluesroute", "popweek", "live muziek", "livemuziek", "muziekfestival"]],
   ["music", ["muziek", "concert", "band", "koor", "orkest", "dj", "theater", "podium"]],
-  ["market", ["markt", "fair", "marktkraam"]],
+  ["market", ["markt", "market", "fair", "marktkraam", "baistemaart", "koeiemart"]],
   ["cooking", ["kookworkshop", "kookles", "samen koken", "keukenworkshop"]],
   ["food", ["eten", "food", "diner", "restaurant", "kook", "bbq", "barbecue", "lunch"]],
   ["tasting", ["proeverij", "wijn", "bier", "whisky", "whiskey", "borrel", "tasting"]],
   ["coffee", ["koffie", "café", "cafe", "thee", "high tea", "ontbijt"]],
   ["museum", ["museum", "kunsthal", "galerie", "tentoonstelling", "expositie", "kunst bekijken"]],
-  ["craft", ["creatief", "knutselen", "handwerk", "klus", "atelier", "workshop", "cursus", "masterclass"]],
+  ["craft", ["creatief", "knutselen", "handwerk", "klus", "atelier", "workshop", "cursus", "masterclass", "papierknipfestival", "herfststukjes"]],
   ["cinema", ["film", "bioscoop", "cinema", "movie", "première"]],
   ["games", ["spel", "spelletjes", "bordspel", "quiz", "kaarten", "darten", "game"]],
   ["dance", ["dans", "salsa", "stijldans", "disco", "bal"]],
@@ -321,12 +346,37 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["swim", ["zwem", "zwembad", "sauna", "water"]],
   ["squash", ["squash", "padel", "badminton"]],
   ["motor", ["motor", "auto", "oldtimer", "rit", "toer"]],
-  ["family", ["gezin", "kinderen", "familie", "kids", "jeugd"]],
+  ["family", ["gezin", "kinderen", "familie", "kids", "jeugd", "kindermaand", "sinterklaas", "lego", "betovering"]],
   ["playground", ["speeltuin", "speel", "kinderboerderij"]],
   ["pancake", ["pannenkoek", "poffertjes"]],
   ["shopping", ["shop", "winkel", "koopavond", "mode"]],
   ["citytrip", ["stad", "citytrip", "rondleiding", "tour", "historisch", "lezing", "presentatie", "symposium"]],
 ];
+
+const IMAGE_VARIANTS: Record<string, string[]> = {
+  market: ["market", "outdoor-market", "neighborhood-fair"],
+  "flea-market": ["flea-market", "antique-books-market"],
+  festival: ["festival", "street-festival"],
+  music: ["music", "live-music"],
+  "live-music": ["live-music", "music"],
+  "expo-fair": ["expo-fair", "design-fair"],
+};
+
+function matchImage(text: string): string | null {
+  const normalized = text.toLocaleLowerCase("nl-NL");
+  for (const [image, words] of IMAGE_KEYWORDS) {
+    if (words.some((word) => containsTerm(normalized, word))) return image;
+  }
+  return null;
+}
+
+function stableVariant(key: string, identity: string): string {
+  const variants = IMAGE_VARIANTS[key];
+  if (!variants) return key;
+  let hash = 0;
+  for (const character of identity) hash = (Math.imul(31, hash) + character.charCodeAt(0)) | 0;
+  return variants[Math.abs(hash % variants.length)] ?? key;
+}
 
 /**
  * Kiest eerst op specifieke inhoud en gebruikt daarna pas de handmatige keuze.
@@ -336,15 +386,15 @@ export function pickImageKey(input: {
   imageKey?: string | null;
   category?: string | null;
   title?: string | null;
+  description?: string | null;
   id?: string | null;
 }): string {
-  const haystack = `${input.category ?? ""} ${input.title ?? ""}`.toLocaleLowerCase("nl-NL");
-  for (const [image, words] of IMAGE_KEYWORDS) {
-    if (words.some((word) => containsTerm(haystack, word))) return image;
-  }
-
+  const titleMatch = matchImage(input.title ?? "");
+  if (titleMatch) return stableVariant(titleMatch, input.title ?? input.id ?? "");
   const key = input.imageKey ?? "";
   if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
+  const contextMatch = matchImage(input.category ?? "") ?? matchImage(input.description ?? "");
+  if (contextMatch) return stableVariant(contextMatch, input.title ?? input.id ?? "");
   return "social";
 }
 
@@ -358,6 +408,9 @@ function validSourceImage(value?: string | null): string | null {
   try {
     const url = new URL(value);
     if (url.protocol !== "https:") return null;
+    // Deze bron levert zelfs zonder de thumbnail-suffix slechts 200px beelden.
+    if (url.hostname === "wattedoenin.nl" || url.hostname === "www.wattedoenin.nl") return null;
+    if (/-\d{2,3}x\d{2,3}(?=\.[a-z]{3,5}$)/i.test(url.pathname)) return null;
     url.pathname = url.pathname.replace(/-\d{2,4}x\d{2,4}(?=\.[a-z]{3,5}$)/i, "");
     return url.toString();
   } catch {
@@ -380,7 +433,8 @@ export function resolveActivityImage(input: ActivityImageInput): { src: string; 
   const localKey = pickImageKey({
     imageKey: input.imageKey ?? null,
     category: input.category ?? null,
-    title: `${input.title ?? ""} ${input.description ?? ""}`,
+    title: input.title ?? null,
+    description: input.description ?? null,
     id: input.id ?? null,
   });
   const socialFallback = ACTIVITY_IMAGES["social"];
