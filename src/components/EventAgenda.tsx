@@ -255,11 +255,14 @@ export function EventAgenda() {
                         onError={(event) => {
                           if (event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
                         }}
+                        onLoad={(event) => {
+                          if (event.currentTarget.naturalWidth < 640 && event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
+                        }}
                         alt={event.title}
                         loading="lazy"
                         width={1024}
                         height={640}
-                        className="h-40 w-full object-cover"
+                        className="aspect-[8/5] w-full object-cover"
                       />
                       <div className="flex flex-1 flex-col p-4">
                         <div className="flex flex-wrap items-center gap-2">

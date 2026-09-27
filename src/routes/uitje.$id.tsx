@@ -113,6 +113,9 @@ function PublicActivityPage() {
           onError={(event) => {
             if (event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
           }}
+          onLoad={(event) => {
+            if (event.currentTarget.naturalWidth < 640 && event.currentTarget.src !== image.fallbackSrc) event.currentTarget.src = image.fallbackSrc;
+          }}
           alt={activity.title}
           width={1280}
           height={800}

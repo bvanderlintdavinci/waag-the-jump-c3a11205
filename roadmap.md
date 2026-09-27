@@ -25,3 +25,4 @@
 
 - [x] Gebruik de geüploade pinguïn als favicon en sociale deelafbeelding
 - [x] Maak activiteitfoto’s specifieker, minder herhalend en inhoudelijk passend
+- [x] Vervang onscherpe bronminiaturen door scherpe, gevarieerde activiteitbeelden
