@@ -318,7 +318,7 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["cinema", ["filmfestival", "film festival", "filmavond", "filmvertoning", "cinekid"]],
   ["science", ["science week", "wetenschapsfestival", "wetenschap", "techniekfestival", "sterrenkijk", "planetarium"]],
   ["animals", ["dierendag", "dierenmarkt", "dierenfestival", "hondenshow", "paardenshow", "boerderijdag", "schaapskudde"]],
-  ["running", ["marathon", "halve marathon", "hardloopevenement", "singelloop", "city run", "trailrun"]],
+  ["running", ["marathon", "halve marathon", "hardloopevenement", "singelloop", "city run", "trailrun", "4 mijl", "vier mijl"]],
   ["craft", ["ambachtsmarkt", "ambachtsroute", "kunstroute", "atelierroute", "open atelier", "handwerkmarkt", "creatieve workshop", "maakworkshop"]],
   ["tasting", ["bierroute", "wijnroute", "bockbier", "speciaalbier", "bierfestival", "wijnfestival"]],
   ["family", ["kinderactiviteit", "kinderfestival", "familiedag", "familiefestival", "voor kinderen"]],
@@ -366,7 +366,6 @@ const IMAGE_VARIANTS: Record<string, string[]> = {
   festival: ["festival", "street-festival"],
   music: ["music", "live-music"],
   "live-music": ["live-music", "music"],
-  "expo-fair": ["expo-fair", "camper-fair"],
 };
 
 function matchImage(text: string): string | null {
@@ -400,7 +399,7 @@ export function pickImageKey(input: {
   if (titleMatch) return stableVariant(titleMatch, input.title ?? input.id ?? "");
   const key = input.imageKey ?? "";
   if (key && key !== "social" && ACTIVITY_IMAGES[key]) return key;
-  const contextMatch = matchImage(input.description ?? "") ?? matchImage(input.category ?? "");
+  const contextMatch = matchImage(input.category ?? "") ?? matchImage(input.description ?? "");
   if (contextMatch) return stableVariant(contextMatch, input.title ?? input.id ?? "");
   return "social";
 }
