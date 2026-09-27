@@ -302,7 +302,7 @@ const IMAGE_KEYWORDS: Array<[string, string[]]> = [
   ["camper-fair", ["kampeer & caravan", "kampeer en caravan", "camperbeurs", "caravanbeurs", "campingbeurs"]],
   ["design-fair", ["design week", "designbeurs", "designfestival", "design event"]],
   ["art-exhibition", ["kunstenhal", "kunsthal", "kunstbeurs", "kunsttentoonstelling", "kunstexpositie", "kunstmarkt", "pan amsterdam", "museumnacht"]],
-  ["beer-festival", ["bockbier", "bockbierfestival", "bokbier", "bierfestival", "bierfeest", "bierroute", "biertocht", "oktoberfest"]],
+  ["beer-festival", ["bockbier", "bockbiertocht", "bockbierfestival", "bokbier", "bierfestival", "bierfeest", "bierroute", "biertocht", "oktoberfest"]],
   ["tractor-pull", ["trekkertrek", "tractorpulling", "tractor pulling"]],
   ["animals", ["animal event", "animal fair", "dierenfestival", "dierenbeurs"]],
   ["outdoor-market", ["marktendagen", "baistemaart", "koeiemart", "braderie", "jaarmarkt"]],
