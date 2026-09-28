@@ -21,7 +21,10 @@ export type PublicActivity = {
 const COLUMNS = "id, title, description, category, starts_at, ends_at, location_name, image_key, image_url, source, source_url";
 
 function publicClient() {
-  return createClient<Database>(process.env["SUPABASE_URL"]!, process.env["SUPABASE_PUBLISHABLE_KEY"]!, {
+  // De live-hosting kent soms alleen de ingebakken publieke waarden; val daarop terug.
+  const url = process.env["SUPABASE_URL"] || import.meta.env["VITE_SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  return createClient<Database>(url, key, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });
 }

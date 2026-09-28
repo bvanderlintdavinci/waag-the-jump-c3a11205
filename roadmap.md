@@ -26,3 +26,6 @@
 - [x] Gebruik de geüploade pinguïn als favicon en sociale deelafbeelding
 - [x] Maak activiteitfoto’s specifieker, minder herhalend en inhoudelijk passend
 - [x] Vervang onscherpe bronminiaturen door scherpe, gevarieerde activiteitbeelden
+- [x] Herstel foutmelding op de live uitjespagina en volledige sitemap
+- [x] Controleer dat alle donatieknoppen naar buymeacoffee.com/dare2meet gaan
+- [ ] Google Search Console en Google Ads koppelen (wacht op koppeling door eigenaar)
