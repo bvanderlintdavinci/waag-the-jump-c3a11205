@@ -30,6 +30,15 @@ function Terms() {
       title="Algemene voorwaarden"
       intro="Door een account aan te maken ga je akkoord met deze spelregels. Ze zijn er om het voor iedereen prettig en veilig te houden."
     >
+      <h2>Over Dare2Meet: van mensen, voor mensen</h2>
+      <p>
+        Dare2Meet is een open, particulier initiatief zonder commercieel doel, ontstaan om mensen bij elkaar in
+        de buurt te laten ontmoeten. Het wordt vrijwillig en naar beste kunnen beheerd door een privépersoon, niet
+        door een bedrijf met personeel of een klantenservice. De site wordt aangeboden zoals hij is ("as is"),
+        zonder garanties over beschikbaarheid, juistheid of geschiktheid voor een bepaald doel. Alle profielen zijn
+        van echte leden; de beheerder maakt geen nepprofielen aan.
+      </p>
+
       <h2>1. Deelname</h2>
       <ul>
         <li>Je bent 18 jaar of ouder en maakt één account op eigen naam aan.</li>
@@ -100,6 +109,15 @@ function Terms() {
         Mocht er toch aansprakelijkheid bestaan, dan is die beperkt tot het bedrag dat je in de twaalf maanden
         daarvoor aan Dare2Meet hebt betaald. Deze beperking geldt niet bij opzet of bewuste roekeloosheid.
       </p>
+
+      <h2>Eigen verantwoordelijkheid van leden</h2>
+      <ul>
+        <li>Je bepaalt zelf met wie je contact hebt en of, waar en wanneer je iemand ontmoet.</li>
+        <li>Je controleert zelf de identiteit en betrouwbaarheid van anderen; de beheerder doet dat niet.</li>
+        <li>Strafbare feiten meld je bij de politie (112 bij nood, anders 0900-8844); meld het daarnaast via de site.</li>
+        <li>De beheerder is niet verantwoordelijk voor kosten, reizen, tickets of eigendommen rond een uitje.</li>
+        <li>Buiten de macht van de beheerder (overmacht), zoals storingen bij hosting of betaalpartners, geeft geen recht op vergoeding.</li>
+      </ul>
 
       <h2>9. Vrijwaring</h2>
       <p>
