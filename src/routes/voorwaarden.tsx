@@ -30,6 +30,15 @@ function Terms() {
       title="Algemene voorwaarden"
       intro="Door een account aan te maken ga je akkoord met deze spelregels. Ze zijn er om het voor iedereen prettig en veilig te houden."
     >
+      <h2>Over Dare2Meet: van mensen, voor mensen</h2>
+      <p>
+        Dare2Meet is een open, particulier initiatief zonder commercieel doel, ontstaan om mensen bij elkaar in
+        de buurt te laten ontmoeten. Het wordt vrijwillig en naar beste kunnen beheerd door een privépersoon, niet
+        door een bedrijf met personeel of een klantenservice. De site wordt aangeboden zoals hij is ("as is"),
+        zonder garanties over beschikbaarheid, juistheid of geschiktheid voor een bepaald doel. Alle profielen zijn
+        van echte leden; de beheerder maakt geen nepprofielen aan.
+      </p>
+
       <h2>1. Deelname</h2>
       <ul>
         <li>Je bent 18 jaar of ouder en maakt één account op eigen naam aan.</li>
