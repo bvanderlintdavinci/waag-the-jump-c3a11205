@@ -87,7 +87,28 @@ function Terms() {
         verwijderd. Wij kunnen een account beëindigen bij herhaalde of ernstige schending van deze voorwaarden.
       </p>
 
-      <h2>8. Wijzigingen en recht</h2>
+      <h2>8. Aansprakelijkheid</h2>
+      <p>
+        Dare2Meet is alleen een platform dat leden met elkaar in contact brengt. De beheerder organiseert geen
+        uitjes of dates, controleert leden niet vooraf en is geen partij bij afspraken tussen leden. Je neemt
+        volledig op eigen risico en verantwoordelijkheid deel aan contact en ontmoetingen.
+      </p>
+      <p>
+        Voor zover de wet dat toestaat, is de beheerder niet aansprakelijk voor schade, letsel, verlies of
+        geschillen die voortkomen uit het gebruik van het platform, uit gedrag of uitingen van andere leden, uit
+        ontmoetingen, uit onjuiste informatie van leden of derden, of uit storingen en onderbrekingen van de site.
+        Mocht er toch aansprakelijkheid bestaan, dan is die beperkt tot het bedrag dat je in de twaalf maanden
+        daarvoor aan Dare2Meet hebt betaald. Deze beperking geldt niet bij opzet of bewuste roekeloosheid.
+      </p>
+
+      <h2>9. Vrijwaring</h2>
+      <p>
+        Je vrijwaart de beheerder van Dare2Meet voor aanspraken van derden, inclusief redelijke kosten, die
+        ontstaan doordat jij deze voorwaarden of de wet overtreedt, of door wat jij plaatst, verstuurt of doet
+        tijdens een ontmoeting.
+      </p>
+
+      <h2>10. Wijzigingen en recht</h2>
       <p>
         We kunnen deze voorwaarden aanpassen; belangrijke wijzigingen melden we in de app. Op deze voorwaarden
         is Nederlands recht van toepassing.

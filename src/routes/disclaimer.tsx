@@ -80,6 +80,10 @@ function Disclaimer() {
         van het platform, uit gedrag van andere leden of uit ontmoetingen die via Dare2Meet tot stand kwamen.
         Deze beperking geldt niet bij opzet of bewuste roekeloosheid van onze kant.
       </p>
+      <p>
+        Gebruikers vrijwaren de beheerder voor aanspraken van derden die voortkomen uit hun eigen gedrag,
+        berichten, geplaatste inhoud of ontmoetingen. Zie ook artikel 8 en 9 van de algemene voorwaarden.
+      </p>
 
       <h2>Auteursrecht en intellectueel eigendom</h2>
       <p>
