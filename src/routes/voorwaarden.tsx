@@ -110,6 +110,15 @@ function Terms() {
         daarvoor aan Dare2Meet hebt betaald. Deze beperking geldt niet bij opzet of bewuste roekeloosheid.
       </p>
 
+      <h2>Eigen verantwoordelijkheid van leden</h2>
+      <ul>
+        <li>Je bepaalt zelf met wie je contact hebt en of, waar en wanneer je iemand ontmoet.</li>
+        <li>Je controleert zelf de identiteit en betrouwbaarheid van anderen; de beheerder doet dat niet.</li>
+        <li>Strafbare feiten meld je bij de politie (112 bij nood, anders 0900-8844); meld het daarnaast via de site.</li>
+        <li>De beheerder is niet verantwoordelijk voor kosten, reizen, tickets of eigendommen rond een uitje.</li>
+        <li>Buiten de macht van de beheerder (overmacht), zoals storingen bij hosting of betaalpartners, geeft geen recht op vergoeding.</li>
+      </ul>
+
       <h2>9. Vrijwaring</h2>
       <p>
         Je vrijwaart de beheerder van Dare2Meet voor aanspraken van derden, inclusief redelijke kosten, die
