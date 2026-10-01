@@ -139,7 +139,13 @@ function Members() {
           <p className="text-sm text-muted-foreground">Leden laden...</p>
         ) : visible.length === 0 ? (
           <div className="sm:col-span-2">
-            <EmptyState description="Geen leden gevonden binnen deze filters. Vergroot je afstandscirkel eens." />
+            <EmptyState
+              description={
+                (members ?? []).filter((m) => m.id !== user?.id).length === 0
+                  ? "Je bent een van de eerste leden! Zodra anderen hun profiel afronden, zie je ze hier. Nodig gerust vrienden uit."
+                  : "Geen leden gevonden binnen deze filters. Vergroot je afstandscirkel eens."
+              }
+            />
           </div>
         ) : (
           visible.map((m) => {
