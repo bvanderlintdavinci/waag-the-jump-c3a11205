@@ -8,6 +8,7 @@ import { formatEventRange } from "@/lib/date-time";
 import { getPublicActivity } from "@/lib/public-activities.functions";
 import { cityFromLocation, citySlug, shortSummary, SITE_URL } from "@/lib/public-activities";
 import { useSession } from "@/hooks/use-auth";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export const Route = createFileRoute("/uitje/$id")({
   loader: async ({ params }) => {
@@ -146,6 +147,14 @@ function PublicActivityPage() {
             ) : null}
           </div>
         </div>
+
+        <div className="mt-6">
+          <ShareButtons
+            url={`${SITE_URL}/uitje/${activity.id}`}
+            text={`Zin om samen naar ${activity.title}${city ? ` in ${city}` : ""} te gaan?`}
+          />
+        </div>
+
 
         {activity.source_url ? (
           <p className="mt-6 text-xs text-muted-foreground">
