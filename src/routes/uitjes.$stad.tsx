@@ -8,6 +8,7 @@ import { formatEventDateTime } from "@/lib/date-time";
 import { getCityActivities } from "@/lib/public-activities.functions";
 import { cityLabelFromSlug, SITE_URL } from "@/lib/public-activities";
 import { useSession } from "@/hooks/use-auth";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export const Route = createFileRoute("/uitjes/$stad")({
   loader: async ({ params }) => ({
@@ -34,6 +35,34 @@ export const Route = createFileRoute("/uitjes/$stad")({
         ...(count === 0 ? [{ name: "robots", content: "noindex, follow" }] : []),
       ],
       links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Dare2Meet", item: `${SITE_URL}/` },
+                  { "@type": "ListItem", position: 2, name: "Uitjes", item: `${SITE_URL}/uitjes` },
+                  { "@type": "ListItem", position: 3, name: city, item: url },
+                ],
+              },
+              {
+                "@type": "ItemList",
+                name: `Uitjes in ${city}`,
+                itemListElement: (loaderData?.activities ?? []).slice(0, 30).map((a, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  url: `${SITE_URL}/uitje/${a.id}`,
+                  name: a.title,
+                })),
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
   component: CityPage,
@@ -41,6 +70,7 @@ export const Route = createFileRoute("/uitjes/$stad")({
 
 function CityPage() {
   const { activities, city } = Route.useLoaderData();
+  const { stad: slug } = Route.useParams();
   const { user } = useSession();
 
   return (
@@ -128,6 +158,30 @@ function CityPage() {
             })}
           </ul>
         )}
+
+        <div className="mt-8">
+          <ShareButtons url={`${SITE_URL}/uitjes/${slug}`} text={`Uitjes in ${city} om samen naartoe te gaan`} />
+        </div>
+
+        <section className="surface mt-10 grid gap-4 p-6">
+          <h2 className="text-xl font-bold text-foreground">Nieuwe mensen ontmoeten in {city}</h2>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Nieuw in {city}, je vriendengroep is kleiner geworden of je hebt gewoon zin in iets anders? Op Dare2Meet zie je
+            welke uitjes er in en rond {city} gepland staan en wie er nog meer heen wil. Zo ga je niet alleen, maar samen
+            met mensen uit de buurt.
+          </p>
+          <h3 className="font-semibold text-foreground">Hoe werkt het?</h3>
+          <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
+            <li>Maak een gratis basisaccount aan.</li>
+            <li>Kies een uitje in {city} of plaats zelf een Waagje.</li>
+            <li>Spreek af met andere leden en ontmoet elkaar op een openbare plek.</li>
+          </ol>
+          <h3 className="font-semibold text-foreground">Veilig afspreken</h3>
+          <p className="text-sm text-muted-foreground">
+            Alle profielen zijn van echte mensen. Spreek af op een drukke, openbare plek, laat iemand weten waar je bent en
+            meld ongepast gedrag direct via de site.
+          </p>
+        </section>
 
         <div className="mt-10">
           <Link to="/uitjes" className="text-sm font-semibold text-primary underline">Bekijk alle plaatsen</Link>
