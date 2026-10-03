@@ -142,6 +142,41 @@ function ActivityDetail() {
     });
   }
 
+  async function cancelWaagje() {
+    if (!user) return;
+    if (!window.confirm("Weet je zeker dat je dit Waagje wilt annuleren? Iedereen die meedoet krijgt een melding. Het telt nog steeds mee voor je 2 Waagjes per maand.")) return;
+    setBusy(true);
+    const { error } = await supabase
+      .from("activities")
+      .update({ cancelled: true, status: "cancelled" })
+      .eq("id", id);
+    setBusy(false);
+    if (error) {
+      toast.error("Annuleren mislukt", { description: error.message });
+      return;
+    }
+    await qc.invalidateQueries();
+    toast.success("Waagje geannuleerd", {
+      description: "De anderen hebben een melding gekregen. Dit Waagje telt mee voor je maandlimiet.",
+    });
+  }
+
+  async function skipWaagje() {
+    if (!user) return;
+    if (!window.confirm("Wil je je afmelden voor dit Waagje? De plaatser krijgt een melding.")) return;
+    setBusy(true);
+    const { error } = isDate
+      ? await supabase.from("activity_requests").delete().eq("activity_id", id).eq("requester_id", user.id)
+      : await supabase.from("activity_participants").delete().eq("activity_id", id).eq("user_id", user.id);
+    setBusy(false);
+    if (error) {
+      toast.error("Afmelden mislukt", { description: error.message });
+      return;
+    }
+    await qc.invalidateQueries();
+    toast.success("Je bent afgemeld");
+  }
+
   async function sendRequest() {
     if (!user || !requestMessage.trim()) return;
     setBusy(true);
@@ -307,9 +342,37 @@ function ActivityDetail() {
             </span>
           )}
         </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Gezelschap:{" "}
+          {activity.party_type === "group"
+            ? `groep van ${activity.party_adults} volwassenen`
+            : activity.party_type === "couple"
+              ? "een stel"
+              : activity.party_type === "other_person"
+                ? "geplaatst voor een andere persoon"
+                : "plaatser zelf"}
+          {activity.with_kids
+            ? `, met ${activity.kids_count ?? ""} kind(eren)${activity.kids_ages ? ` (${activity.kids_ages})` : ""}`
+            : ", zonder kinderen"}
+          . Maximaal 15 personen in totaal.
+        </p>
         {activity.location_note ? (
           <p className="mt-3 rounded-lg bg-muted p-3 text-sm text-foreground">{activity.location_note}</p>
         ) : null}
+        {activity.cancelled ? (
+          <p className="mt-3 rounded-lg bg-destructive/10 p-3 text-sm font-semibold text-destructive">
+            Dit Waagje is geannuleerd.
+          </p>
+        ) : isOrganiser ? (
+          <Button variant="destructive" className="mt-4" disabled={busy} onClick={() => void cancelWaagje()}>
+            Waagje annuleren
+          </Button>
+        ) : joined || (myRequest && myRequest.status !== "declined") ? (
+          <Button variant="outline" className="mt-4" disabled={busy} onClick={() => void skipWaagje()}>
+            Ik skip / afmelden
+          </Button>
+        ) : null}
+
 
         {creator ? (
           <Link

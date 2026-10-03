@@ -48,6 +48,8 @@ function NewActivity() {
   const [withKids, setWithKids] = useState(false);
   const [kidsCount, setKidsCount] = useState("1");
   const [kidsAges, setKidsAges] = useState("");
+  const [partyType, setPartyType] = useState<"solo" | "other_person" | "couple" | "group">("solo");
+  const [partyAdults, setPartyAdults] = useState("3");
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -84,6 +86,15 @@ function NewActivity() {
       toast.error("Titel en datum/tijd zijn verplicht.");
       return;
     }
+    const adults =
+      partyType === "group" ? Number(partyAdults) || 0 : partyType === "couple" ? 2 : 1;
+    const kids = withKids ? Number(kidsCount) || 0 : 0;
+    if (adults < 1 || adults + kids > 15) {
+      toast.error("Groep te groot", {
+        description: "Een groep is maximaal 15 personen, kinderen meegeteld. Zo voorkomen we overlast.",
+      });
+      return;
+    }
     if (!(await guardText("activity", `${title} ${description}`, user.id))) return;
 
     setBusy(true);
@@ -106,6 +117,8 @@ function NewActivity() {
         with_kids: withKids,
         kids_count: withKids && kidsCount ? Number(kidsCount) : null,
         kids_ages: withKids ? kidsAges.trim() : "",
+        party_type: partyType,
+        party_adults: adults,
         notes: notes.trim(),
         lat: place?.lat ?? profile?.lat ?? null,
         lng: place?.lng ?? profile?.lng ?? null,
@@ -267,6 +280,40 @@ function NewActivity() {
           />
           <p className="text-xs text-muted-foreground">
             Geef gerust een exacte plek op, bijvoorbeeld een markt, zwembad of verzamelpunt.
+          </p>
+        </div>
+
+        <div className="grid gap-3 rounded-xl border border-border bg-muted/40 p-4">
+          <div className="grid gap-1.5">
+            <Label>Voor wie is dit Waagje?</Label>
+            <Select value={partyType} onValueChange={(v) => setPartyType(v as typeof partyType)}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="solo">Voor mezelf</SelectItem>
+                <SelectItem value="other_person">Voor een andere persoon</SelectItem>
+                <SelectItem value="couple">Voor ons als stel</SelectItem>
+                <SelectItem value="group">Voor een groep</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          {partyType === "group" ? (
+            <div className="grid gap-1.5">
+              <Label htmlFor="party-adults">Aantal volwassenen in je groep</Label>
+              <Input
+                id="party-adults"
+                type="number"
+                min={1}
+                max={15}
+                value={partyAdults}
+                onChange={(e) => setPartyAdults(e.target.value)}
+              />
+            </div>
+          ) : null}
+          <p className="text-xs text-muted-foreground">
+            Groepen zijn nooit groter dan 15 personen in totaal (inclusief kinderen en wie aansluit), om overlast te
+            voorkomen.
           </p>
         </div>
 

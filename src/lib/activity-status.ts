@@ -18,6 +18,7 @@ export function capacityLabel(count: number, max: number | null | undefined): st
 export function activityStatusLabel(status: string | null | undefined): string | null {
   if (status === "fulfilled") return "Vervuld";
   if (status === "expired") return "Verlopen";
+  if (status === "cancelled") return "Geannuleerd";
   return null;
 }
 
