@@ -142,6 +142,41 @@ function ActivityDetail() {
     });
   }
 
+  async function cancelWaagje() {
+    if (!user) return;
+    if (!window.confirm("Weet je zeker dat je dit Waagje wilt annuleren? Iedereen die meedoet krijgt een melding. Het telt nog steeds mee voor je 2 Waagjes per maand.")) return;
+    setBusy(true);
+    const { error } = await supabase
+      .from("activities")
+      .update({ cancelled: true, status: "cancelled" })
+      .eq("id", id);
+    setBusy(false);
+    if (error) {
+      toast.error("Annuleren mislukt", { description: error.message });
+      return;
+    }
+    await qc.invalidateQueries();
+    toast.success("Waagje geannuleerd", {
+      description: "De anderen hebben een melding gekregen. Dit Waagje telt mee voor je maandlimiet.",
+    });
+  }
+
+  async function skipWaagje() {
+    if (!user) return;
+    if (!window.confirm("Wil je je afmelden voor dit Waagje? De plaatser krijgt een melding.")) return;
+    setBusy(true);
+    const { error } = isDate
+      ? await supabase.from("activity_requests").delete().eq("activity_id", id).eq("requester_id", user.id)
+      : await supabase.from("activity_participants").delete().eq("activity_id", id).eq("user_id", user.id);
+    setBusy(false);
+    if (error) {
+      toast.error("Afmelden mislukt", { description: error.message });
+      return;
+    }
+    await qc.invalidateQueries();
+    toast.success("Je bent afgemeld");
+  }
+
   async function sendRequest() {
     if (!user || !requestMessage.trim()) return;
     setBusy(true);
