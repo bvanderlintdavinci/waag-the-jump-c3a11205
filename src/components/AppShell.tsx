@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin, useMyProfile } from "@/hooks/use-auth";
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
 import { FeedbackButtons } from "@/components/FeedbackButtons";
+import { NotificationBell } from "@/components/NotificationBell";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 
@@ -61,6 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             ) : null}
           </nav>
           <div className="ml-auto flex items-center gap-2 sm:ml-2">
+            <NotificationBell />
             <Link to="/profiel/$id" params={{ id: profile?.id ?? "" }}>
               <UserAvatar path={profile?.avatar_url} name={profile?.first_name} className="size-9" />
             </Link>
