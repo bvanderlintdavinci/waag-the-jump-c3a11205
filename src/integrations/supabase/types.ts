@@ -37,6 +37,8 @@ export type Database = {
           location_note: string
           max_participants: number | null
           notes: string
+          party_adults: number
+          party_type: string
           source: string | null
           source_url: string | null
           starts_at: string
@@ -66,6 +68,8 @@ export type Database = {
           location_note?: string
           max_participants?: number | null
           notes?: string
+          party_adults?: number
+          party_type?: string
           source?: string | null
           source_url?: string | null
           starts_at: string
@@ -95,6 +99,8 @@ export type Database = {
           location_note?: string
           max_participants?: number | null
           notes?: string
+          party_adults?: number
+          party_type?: string
           source?: string | null
           source_url?: string | null
           starts_at?: string
@@ -458,6 +464,44 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      notifications: {
+        Row: {
+          activity_id: string | null
+          body: string
+          created_at: string
+          id: string
+          read_at: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          activity_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          activity_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "activities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profile_children: {
         Row: {
