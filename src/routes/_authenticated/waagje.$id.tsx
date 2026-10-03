@@ -342,9 +342,37 @@ function ActivityDetail() {
             </span>
           )}
         </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Gezelschap:{" "}
+          {activity.party_type === "group"
+            ? `groep van ${activity.party_adults} volwassenen`
+            : activity.party_type === "couple"
+              ? "een stel"
+              : activity.party_type === "other_person"
+                ? "geplaatst voor een andere persoon"
+                : "plaatser zelf"}
+          {activity.with_kids
+            ? `, met ${activity.kids_count ?? ""} kind(eren)${activity.kids_ages ? ` (${activity.kids_ages})` : ""}`
+            : ", zonder kinderen"}
+          . Maximaal 15 personen in totaal.
+        </p>
         {activity.location_note ? (
           <p className="mt-3 rounded-lg bg-muted p-3 text-sm text-foreground">{activity.location_note}</p>
         ) : null}
+        {activity.cancelled ? (
+          <p className="mt-3 rounded-lg bg-destructive/10 p-3 text-sm font-semibold text-destructive">
+            Dit Waagje is geannuleerd.
+          </p>
+        ) : isOrganiser ? (
+          <Button variant="destructive" className="mt-4" disabled={busy} onClick={() => void cancelWaagje()}>
+            Waagje annuleren
+          </Button>
+        ) : joined || (myRequest && myRequest.status !== "declined") ? (
+          <Button variant="outline" className="mt-4" disabled={busy} onClick={() => void skipWaagje()}>
+            Ik skip / afmelden
+          </Button>
+        ) : null}
+
 
         {creator ? (
           <Link
