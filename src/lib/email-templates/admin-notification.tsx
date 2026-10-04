@@ -38,7 +38,7 @@ function AdminNotificationEmail({ kindLabel, message, extra, submittedAt }: Admi
 
 export const template = {
   component: AdminNotificationEmail,
-  subject: (d: Record<string, any>) => `Dare2Meet-melding: ${d.kindLabel ?? 'nieuw bericht'}`,
+  subject: (d: Record<string, any>) => `Dare2Meet-melding: ${d['kindLabel'] ?? 'nieuw bericht'}`,
   displayName: 'Beheerdersmelding',
   to: 'dare2meet@proton.me',
   previewData: {
