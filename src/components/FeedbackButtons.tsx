@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
+import { notifyAdmin } from "@/lib/admin-notify.functions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -28,7 +29,7 @@ const COPY: Record<Kind, { title: string; description: string; placeholder: stri
   abuse: {
     title: "Meld ongewenst gedrag",
     description:
-      "Beschrijf wat er is gebeurd en om wie het gaat. De beheerder bekijkt elke melding persoonlijk.",
+      "Beschrijf wat er is gebeurd en om wie het gaat. De beheerder bekijkt elke melding persoonlijk. Bij bedreiging, afpersing of ander strafbaar gedrag: bel ook de politie via 0900-8844 of doe aangifte op politie.nl. Bij acute dreiging bel 112.",
     placeholder: "Ik kreeg een vervelend bericht van...",
   },
 };
@@ -59,7 +60,22 @@ export function FeedbackButtons({ floating = true }: { floating?: boolean }) {
       toast.error("Versturen mislukt", { description: error.message });
       return;
     }
-    toast.success("Bedankt! Je bericht staat bij de beheerder.");
+    void notifyAdmin({
+      data: {
+        kind,
+        message: text.slice(0, 2000),
+        extra: email.trim() ? `Terugkoppeling naar: ${email.trim()}` : undefined,
+      },
+    });
+    if (kind === "abuse") {
+      toast.success("Bedankt! Je melding staat bij de beheerder.", {
+        description:
+          "Bij bedreiging of ander strafbaar gedrag: bel de politie via 0900-8844 of doe aangifte op politie.nl. Bij acute dreiging bel 112.",
+        duration: 8000,
+      });
+    } else {
+      toast.success("Bedankt! Je bericht staat bij de beheerder.");
+    }
     setMessage("");
     setEmail("");
     setKind(null);
