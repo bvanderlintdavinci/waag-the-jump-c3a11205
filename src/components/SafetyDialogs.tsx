@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-auth";
 import { BLOCK_REASONS, REPORT_REASONS } from "@/lib/pinguingo";
+import { notifyAdmin } from "@/lib/admin-notify.functions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -40,6 +41,9 @@ export function BlockDialog({ userId, userName }: { userId: string; userName: st
       toast.error("Blokkeren mislukt", { description: error.message });
       return;
     }
+    void notifyAdmin({
+      data: { kind: "block", message: `${userName} geblokkeerd. Reden: ${fullReason}` },
+    });
     toast.success(`${userName} is geblokkeerd`, {
       description: "De reden is doorgestuurd naar de beheerder.",
     });
@@ -115,7 +119,17 @@ export function ReportDialog({
       toast.error("Melden mislukt", { description: error.message });
       return;
     }
-    toast.success("Bedankt voor je melding", { description: "Een moderator kijkt ernaar." });
+    void notifyAdmin({
+      data: {
+        kind: "report",
+        message: `Context: ${context}\nReden: ${reason}${details.trim() ? `\nToelichting: ${details.trim()}` : ""}`,
+      },
+    });
+    toast.success("Bedankt voor je melding", {
+      description:
+        "Een moderator kijkt ernaar. Bij bedreiging, afpersing of ander strafbaar gedrag: bel de politie via 0900-8844 of doe aangifte op politie.nl.",
+      duration: 8000,
+    });
     setOpen(false);
   }
 
@@ -130,7 +144,18 @@ export function ReportDialog({
         <DialogHeader>
           <DialogTitle>Melding maken</DialogTitle>
           <DialogDescription>
-            Bij 2 of meer meldingen wordt het account automatisch tijdelijk stilgezet voor herziening.
+            Bij 2 of meer meldingen wordt het account automatisch tijdelijk stilgezet voor
+            herziening. Gaat het om bedreiging, afpersing of ander strafbaar gedrag? Bel dan ook de
+            politie via 0900-8844 of doe aangifte op{" "}
+            <a
+              href="https://www.politie.nl/aangifte-of-melding-doen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              politie.nl
+            </a>
+            . Bij acute dreiging bel 112.
           </DialogDescription>
         </DialogHeader>
         <RadioGroup value={reason} onValueChange={setReason} className="gap-2">
