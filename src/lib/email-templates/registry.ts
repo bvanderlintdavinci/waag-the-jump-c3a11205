@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { template as weeklyReportTemplate } from './weekly-report'
+import { template as adminNotificationTemplate } from './admin-notification'
 
 
 export interface TemplateEntry {
@@ -21,5 +22,6 @@ export interface TemplateEntry {
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'weekly-report': weeklyReportTemplate,
+  'admin-notification': adminNotificationTemplate,
 }
 
