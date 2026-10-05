@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { computeReadiness, ProfileNotReadyError } from "@/lib/profile-readiness";
 
 /** Zoekt een bestaande 1-op-1 chat met `otherId` of maakt er een aan. Geeft het conversatie-id terug. */
 export async function openDirectChat(myId: string, otherId: string, title?: string | null) {
@@ -23,6 +24,13 @@ export async function openDirectChat(myId: string, otherId: string, title?: stri
     const direct = (convs ?? []).find((c) => !c.is_group);
     if (direct) return direct.id;
   }
+
+  // Profile readiness gate: alleen nieuwe gesprekken worden geblokkeerd.
+  const [{ data: authData }, { data: me }] = await Promise.all([
+    supabase.auth.getUser(),
+    supabase.from("profiles").select("avatar_url, bio, interests").eq("id", myId).maybeSingle(),
+  ]);
+  if (!computeReadiness(me, authData.user).ready) throw new ProfileNotReadyError();
 
   const { data: conv, error } = await supabase
     .from("conversations")
