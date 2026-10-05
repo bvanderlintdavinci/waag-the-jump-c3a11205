@@ -1,4 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { openDirectChat } from "@/lib/direct-chat";
+import { ProfileNotReadyError } from "@/lib/profile-readiness";
+import { ProfileReadinessDialog } from "@/components/ProfileReadiness";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Baby, BriefcaseBusiness, GraduationCap, Heart, House, Languages, MapPin, MessageCircle, Phone, Rainbow, Sparkles, UserCheck, UserPlus } from "lucide-react";
@@ -41,6 +44,7 @@ function ProfilePage() {
   const { user } = useSession();
   const navigate = useNavigate();
   const isMe = user?.id === id;
+  const [gateOpen, setGateOpen] = useState(false);
 
   const { data: profile, isLoading } = useQuery({
     queryKey: ["profile", id],
@@ -152,40 +156,13 @@ function ProfilePage() {
 
   async function startChat() {
     if (!user) return;
-    const { data: mine } = await supabase
-      .from("conversation_participants")
-      .select("conversation_id")
-      .eq("user_id", user.id);
-    const { data: theirs } = await supabase
-      .from("conversation_participants")
-      .select("conversation_id")
-      .eq("user_id", id);
-    const shared = (mine ?? []).find((m) => (theirs ?? []).some((t) => t.conversation_id === m.conversation_id));
-    if (shared) {
-      const { data: conv } = await supabase
-        .from("conversations")
-        .select("id, is_group")
-        .eq("id", shared.conversation_id)
-        .maybeSingle();
-      if (conv && !conv.is_group) {
-        navigate({ to: "/chats/$id", params: { id: conv.id } });
-        return;
-      }
+    try {
+      const convId = await openDirectChat(user.id, id, profile?.first_name ?? null);
+      navigate({ to: "/chats/$id", params: { id: convId } });
+    } catch (e) {
+      if (e instanceof ProfileNotReadyError) setGateOpen(true);
+      else toast.error("Chat starten mislukt", { description: e instanceof Error ? e.message : undefined });
     }
-    const { data: conv, error } = await supabase
-      .from("conversations")
-      .insert({ is_group: false, created_by: user.id, title: profile?.first_name ?? null })
-      .select("id")
-      .single();
-    if (error || !conv) {
-      toast.error("Chat starten mislukt", { description: error?.message });
-      return;
-    }
-    await supabase.from("conversation_participants").insert([
-      { conversation_id: conv.id, user_id: user.id },
-      { conversation_id: conv.id, user_id: id },
-    ]);
-    navigate({ to: "/chats/$id", params: { id: conv.id } });
   }
 
   if (isLoading) {
@@ -245,6 +222,7 @@ function ProfilePage() {
 
   return (
     <AppShell>
+      <ProfileReadinessDialog open={gateOpen} onOpenChange={setGateOpen} />
       <div className="surface p-6">
         <div className="flex flex-wrap items-center gap-4">
           <UserAvatar path={profile.avatar_url} name={profile.first_name} className="size-20" />
