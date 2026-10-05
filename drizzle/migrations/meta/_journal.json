@@ -15,6 +15,13 @@
       "when": 1791010804623,
       "tag": "0001_request_withdraw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791193666279,
+      "tag": "0002_chat_meetups_read_status",
+      "breakpoints": true
     }
   ]
 }

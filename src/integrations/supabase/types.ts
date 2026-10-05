@@ -409,6 +409,9 @@ export type Database = {
           conversation_id: string
           created_at: string
           id: string
+          kind: string
+          meetup: Json | null
+          read_at: string | null
           sender_id: string
         }
         Insert: {
@@ -416,6 +419,9 @@ export type Database = {
           conversation_id: string
           created_at?: string
           id?: string
+          kind?: string
+          meetup?: Json | null
+          read_at?: string | null
           sender_id: string
         }
         Update: {
@@ -423,6 +429,9 @@ export type Database = {
           conversation_id?: string
           created_at?: string
           id?: string
+          kind?: string
+          meetup?: Json | null
+          read_at?: string | null
           sender_id?: string
         }
         Relationships: [
@@ -836,6 +845,14 @@ export type Database = {
       is_conversation_member: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean
+      }
+      mark_conversation_read: {
+        Args: { _conversation_id: string }
+        Returns: undefined
+      }
+      respond_meetup: {
+        Args: { _message_id: string; _proposed_at?: string; _status: string }
+        Returns: undefined
       }
     }
     Enums: {
