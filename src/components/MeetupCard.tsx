@@ -28,7 +28,7 @@ function fmt(iso: string | null) {
   });
 }
 
-export function MeetupCard({ messageId, meetup, myId }: { messageId: string; meetup: MeetupPayload; myId?: string }) {
+export function MeetupCard({ messageId, meetup, myId }: { messageId: string; meetup: MeetupPayload; myId?: string | undefined }) {
   const [newDate, setNewDate] = useState("");
   const [busy, setBusy] = useState(false);
   const open = meetup.status === "pending" || meetup.status === "rescheduled";
@@ -39,7 +39,7 @@ export function MeetupCard({ messageId, meetup, myId }: { messageId: string; mee
     const { error } = await supabase.rpc("respond_meetup", {
       _message_id: messageId,
       _status: status,
-      _proposed_at: status === "rescheduled" && newDate ? new Date(newDate).toISOString() : undefined,
+      ...(status === "rescheduled" && newDate ? { _proposed_at: new Date(newDate).toISOString() } : {}),
     });
     setBusy(false);
     if (error) toast.error("Bijwerken mislukt", { description: error.message });

@@ -15,7 +15,7 @@ export interface MeetupDraft {
 
 export function MeetupDialog({ onSend }: { onSend: (d: MeetupDraft) => Promise<boolean> }) {
   const [open, setOpen] = useState(false);
-  const [type, setType] = useState(MEETUP_TYPES[0]);
+  const [type, setType] = useState<string>(MEETUP_TYPES[0] ?? "Koffie drinken");
   const [when, setWhen] = useState("");
   const [location, setLocation] = useState("");
 
