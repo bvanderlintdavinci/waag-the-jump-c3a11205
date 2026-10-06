@@ -177,6 +177,45 @@ function Landing() {
       <AdSpace className="px-4" />
 
       <section className="mx-auto max-w-5xl px-4 pb-14">
+        <p className="eyebrow">Veelgestelde vragen</p>
+        <h2 className="mt-2 text-3xl text-foreground">Alles over Dare2Meet</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="surface-lift p-6">
+            <h3 className="text-lg font-bold text-foreground">Wat is Dare2Meet precies?</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Dare2Meet is een open, particulier initiatief van mensen voor mensen. Het is een lokaal sociaal netwerk
+              waar je nieuwe mensen ontmoet via echte uitjes in je eigen buurt: vriendschap, een buddy of een date.
+              Geen eindeloos swipen, maar samen iets doen.
+            </p>
+          </div>
+          <div className="surface-lift p-6">
+            <h3 className="text-lg font-bold text-foreground">Hoe werkt de 4-weken agenda?</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              In de agenda zie je alle uitjes van de komende vier weken, ook uit openbare agenda's uit de regio. Je
+              filtert op plaats en afstand, zodat je alleen ziet wat echt dichtbij is.
+            </p>
+          </div>
+          <div className="surface-lift p-6">
+            <h3 className="text-lg font-bold text-foreground">Zijn de profielen echt?</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Ja. Dare2Meet gebruikt bewust geen nepprofielen of opvulaccounts. Iedereen die je ziet is een echt
+              persoon die zichzelf heeft aangemeld. Ongewenst gedrag kun je melden; de beheerder kijkt elke melding na.
+            </p>
+          </div>
+          <div className="surface-lift p-6">
+            <h3 className="text-lg font-bold text-foreground">Hoe blijft het veilig?</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Profielen zijn alleen zichtbaar voor ingelogde leden, je kunt iedereen blokkeren en melden, en groepen
+              zijn nooit groter dan vijftien personen. Lees ook onze{" "}
+              <Link to="/veilig-afspreken" className="underline hover:text-foreground">tips voor veilig afspreken</Link>{" "}
+              en{" "}
+              <Link to="/ideeen" className="underline hover:text-foreground">ideeën voor een eerste ontmoeting</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-14">
         <div className="grid items-center gap-6 border-y border-border py-10 sm:grid-cols-[auto_1fr] sm:gap-9">
           <Dare2MeetLogo className="mx-auto size-28 sm:size-36" />
           <div>
@@ -311,6 +350,12 @@ function Landing() {
           </Link>
           <Link to="/uitjes" className="underline hover:text-foreground">
             Uitjes per plaats
+          </Link>
+          <Link to="/veilig-afspreken" className="underline hover:text-foreground">
+            Veilig afspreken
+          </Link>
+          <Link to="/ideeen" className="underline hover:text-foreground">
+            Ideeën voor een uitje
           </Link>
 
         </div>
