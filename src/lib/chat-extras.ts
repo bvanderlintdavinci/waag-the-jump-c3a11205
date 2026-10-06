@@ -59,7 +59,7 @@ export function buildIcebreakers(shared: string[]): string[] {
   const out: string[] = [];
   for (const i of shared) {
     const key = Object.keys(ICEBREAKERS).find((k) => i.toLowerCase().includes(k));
-    out.push(key ? ICEBREAKERS[key] : `Jullie houden allebei van ${i.toLowerCase()}. Hoe ben jij daarmee begonnen?`);
+    out.push(key && ICEBREAKERS[key] ? ICEBREAKERS[key] : `Jullie houden allebei van ${i.toLowerCase()}. Hoe ben jij daarmee begonnen?`);
     if (out.length === 3) return out;
   }
   for (const g of GENERIC) {
