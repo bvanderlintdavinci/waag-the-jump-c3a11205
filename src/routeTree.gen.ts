@@ -14,9 +14,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as IdeeenRouteImport } from './routes/ideeen'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VeiligAfsprekenRouteImport } from './routes/veilig-afspreken'
 import { Route as VerhaalRouteImport } from './routes/verhaal'
 import { Route as VoorwaardenRouteImport } from './routes/voorwaarden'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -72,6 +74,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
   path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IdeeenRoute = IdeeenRouteImport.update({
+  id: '/ideeen',
+  path: '/ideeen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -85,6 +92,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VeiligAfsprekenRoute = VeiligAfsprekenRouteImport.update({
+  id: '/veilig-afspreken',
+  path: '/veilig-afspreken',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerhaalRoute = VerhaalRouteImport.update({
@@ -249,9 +261,11 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/veilig-afspreken': typeof VeiligAfsprekenRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -287,9 +301,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/veilig-afspreken': typeof VeiligAfsprekenRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -328,9 +344,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/veilig-afspreken': typeof VeiligAfsprekenRoute
   '/verhaal': typeof VerhaalRoute
   '/voorwaarden': typeof VoorwaardenRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -369,9 +387,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookies'
     | '/disclaimer'
+    | '/ideeen'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/veilig-afspreken'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -407,9 +427,11 @@ export interface FileRouteTypes {
     | '/'
     | '/cookies'
     | '/disclaimer'
+    | '/ideeen'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/veilig-afspreken'
     | '/verhaal'
     | '/voorwaarden'
     | '/admin'
@@ -447,9 +469,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookies'
     | '/disclaimer'
+    | '/ideeen'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/veilig-afspreken'
     | '/verhaal'
     | '/voorwaarden'
     | '/_authenticated/admin'
@@ -488,9 +512,11 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   CookiesRoute: typeof CookiesRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  IdeeenRoute: typeof IdeeenRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VeiligAfsprekenRoute: typeof VeiligAfsprekenRoute
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
@@ -545,6 +571,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ideeen': {
+      id: '/ideeen'
+      path: '/ideeen'
+      fullPath: '/ideeen'
+      preLoaderRoute: typeof IdeeenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -564,6 +597,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/veilig-afspreken': {
+      id: '/veilig-afspreken'
+      path: '/veilig-afspreken'
+      fullPath: '/veilig-afspreken'
+      preLoaderRoute: typeof VeiligAfsprekenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verhaal': {
@@ -832,9 +872,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   CookiesRoute: CookiesRoute,
   DisclaimerRoute: DisclaimerRoute,
+  IdeeenRoute: IdeeenRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VeiligAfsprekenRoute: VeiligAfsprekenRoute,
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,

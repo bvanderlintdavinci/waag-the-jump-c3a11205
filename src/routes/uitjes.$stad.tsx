@@ -179,7 +179,22 @@ function CityPage() {
           <h3 className="font-semibold text-foreground">Veilig afspreken</h3>
           <p className="text-sm text-muted-foreground">
             Alle profielen zijn van echte mensen. Spreek af op een drukke, openbare plek, laat iemand weten waar je bent en
-            meld ongepast gedrag direct via de site.
+            meld ongepast gedrag direct via de site. Lees ook de{" "}
+            <Link to="/veilig-afspreken" className="underline hover:text-foreground">gids voor veilig afspreken</Link>{" "}
+            en{" "}
+            <Link to="/ideeen" className="underline hover:text-foreground">ideeën voor een eerste ontmoeting</Link>.
+          </p>
+          <h3 className="font-semibold text-foreground">Wat kun je doen in {city}?</h3>
+          <p className="text-sm text-muted-foreground">
+            Denk aan koffie drinken in het centrum, een wandeling in een park of natuurgebied, een museum of markt
+            bezoeken, samen sporten of met een groepje naar een lokaal evenement. Op Dare2Meet plaats je zelf een
+            Waagje voor iets dat jij leuk vindt, of je haakt aan bij een uitje van iemand anders.
+          </p>
+          <h3 className="font-semibold text-foreground">Voor wie is Dare2Meet in {city}?</h3>
+          <p className="text-sm text-muted-foreground">
+            Voor iedereen in en rond {city} die nieuwe mensen wil leren kennen: nieuwe inwoners, jonge ouders,
+            singles, gescheiden ouders, hobbyisten en iedereen die zijn of haar vriendenkring wil uitbreiden. Je bepaalt
+            zelf of je zoekt naar vriendschap, een buddy voor een hobby of een date.
           </p>
         </section>
 

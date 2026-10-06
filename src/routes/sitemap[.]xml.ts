@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { cityFromLocation, citySlug, SITE_URL } from "@/lib/public-activities";
 import { listPublicActivities } from "@/lib/public-activities.functions";
 
-const STATIC_PATHS = ["/", "/verhaal", "/uitjes", "/privacy", "/cookies", "/voorwaarden", "/disclaimer"];
+const STATIC_PATHS = ["/", "/verhaal", "/uitjes", "/veilig-afspreken", "/ideeen", "/privacy", "/cookies", "/voorwaarden", "/disclaimer"];
 
 /** Sitemap met alle openbare pagina's, inclusief elk uitje en elke plaats. */
 export const Route = createFileRoute("/sitemap.xml")({
