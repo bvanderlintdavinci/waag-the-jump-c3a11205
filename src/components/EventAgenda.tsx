@@ -291,7 +291,7 @@ export function EventAgenda() {
                         <dl className="mt-3 space-y-1 text-xs text-muted-foreground">
                           <div className="flex items-center gap-1.5">
                             <CalendarDays className="size-3.5" />
-                            {date.toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "long" })}
+                            {date.toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "long", timeZone: "Europe/Amsterdam" })}
                             <Clock className="ml-2 size-3.5" />
                             {formatEventTime(event.starts_at)}
                           </div>
