@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/CookieNotice";
 import { Link } from "@tanstack/react-router";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";
@@ -42,6 +43,7 @@ export function LegalPage({
           <Link to="/cookies" className="underline hover:text-foreground">
             Cookies
           </Link>
+          <CookieSettingsLink className="underline hover:text-foreground" />
           <Link to="/voorwaarden" className="underline hover:text-foreground">
             Voorwaarden
           </Link>

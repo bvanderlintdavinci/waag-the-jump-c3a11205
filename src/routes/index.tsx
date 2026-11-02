@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/CookieNotice";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lucide-react";
 
@@ -339,6 +340,7 @@ function Landing() {
           <Link to="/cookies" className="underline hover:text-foreground">
             Cookies
           </Link>
+          <CookieSettingsLink className="underline hover:text-foreground" />
           <Link to="/voorwaarden" className="underline hover:text-foreground">
             Algemene voorwaarden
           </Link>
