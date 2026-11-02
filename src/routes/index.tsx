@@ -339,6 +339,7 @@ function Landing() {
           <Link to="/cookies" className="underline hover:text-foreground">
             Cookies
           </Link>
+          <CookieSettingsLink className="underline hover:text-foreground" />
           <Link to="/voorwaarden" className="underline hover:text-foreground">
             Algemene voorwaarden
           </Link>
