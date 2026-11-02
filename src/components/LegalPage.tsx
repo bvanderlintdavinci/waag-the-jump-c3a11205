@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/CookieNotice";
 import { Link } from "@tanstack/react-router";
 
 import { Dare2MeetLogo } from "@/components/Dare2MeetLogo";

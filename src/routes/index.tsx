@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/CookieNotice";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Coffee, HeartHandshake, MapPin, ShieldCheck, Sparkles, Users } from "lucide-react";
 
