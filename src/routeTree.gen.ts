@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as GidsenRouteImport } from './routes/gidsen'
 import { Route as IdeeenRouteImport } from './routes/ideeen'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -32,6 +33,7 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AdminDeployStatusRouteImport } from './routes/admin.deploy-status'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as GidsSlugRouteImport } from './routes/gids.$slug'
 import { Route as UitjeIdRouteImport } from './routes/uitje.$id'
 import { Route as UitjesIndexRouteImport } from './routes/uitjes.index'
 import { Route as UitjesStadRouteImport } from './routes/uitjes.$stad'
@@ -72,6 +74,11 @@ const CookiesRoute = CookiesRouteImport.update({
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GidsenRoute = GidsenRouteImport.update({
+  id: '/gidsen',
+  path: '/gidsen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IdeeenRoute = IdeeenRouteImport.update({
@@ -164,6 +171,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
   getParentRoute: () => AuthRoute,
+} as any)
+const GidsSlugRoute = GidsSlugRouteImport.update({
+  id: '/gids/$slug',
+  path: '/gids/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const UitjeIdRoute = UitjeIdRouteImport.update({
   id: '/uitje/$id',
@@ -261,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/gidsen': typeof GidsenRoute
   '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -278,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/gids/$slug': typeof GidsSlugRoute
   '/uitje/$id': typeof UitjeIdRoute
   '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
@@ -301,6 +315,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/gidsen': typeof GidsenRoute
   '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -318,6 +333,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/gids/$slug': typeof GidsSlugRoute
   '/uitje/$id': typeof UitjeIdRoute
   '/uitjes/$stad': typeof UitjesStadRoute
   '/auth': typeof AuthIndexRoute
@@ -344,6 +360,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/cookies': typeof CookiesRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/gidsen': typeof GidsenRoute
   '/ideeen': typeof IdeeenRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -361,6 +378,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/admin/deploy-status': typeof AdminDeployStatusRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/gids/$slug': typeof GidsSlugRoute
   '/uitje/$id': typeof UitjeIdRoute
   '/uitjes/$stad': typeof UitjesStadRoute
   '/auth/': typeof AuthIndexRoute
@@ -387,6 +405,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookies'
     | '/disclaimer'
+    | '/gidsen'
     | '/ideeen'
     | '/privacy'
     | '/reset-password'
@@ -404,6 +423,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/gids/$slug'
     | '/uitje/$id'
     | '/uitjes/$stad'
     | '/auth/'
@@ -427,6 +447,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cookies'
     | '/disclaimer'
+    | '/gidsen'
     | '/ideeen'
     | '/privacy'
     | '/reset-password'
@@ -444,6 +465,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/gids/$slug'
     | '/uitje/$id'
     | '/uitjes/$stad'
     | '/auth'
@@ -469,6 +491,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookies'
     | '/disclaimer'
+    | '/gidsen'
     | '/ideeen'
     | '/privacy'
     | '/reset-password'
@@ -486,6 +509,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/admin/deploy-status'
     | '/auth/callback'
+    | '/gids/$slug'
     | '/uitje/$id'
     | '/uitjes/$stad'
     | '/auth/'
@@ -512,6 +536,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   CookiesRoute: typeof CookiesRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  GidsenRoute: typeof GidsenRoute
   IdeeenRoute: typeof IdeeenRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -520,6 +545,7 @@ export interface RootRouteChildren {
   VerhaalRoute: typeof VerhaalRoute
   VoorwaardenRoute: typeof VoorwaardenRoute
   AdminDeployStatusRoute: typeof AdminDeployStatusRoute
+  GidsSlugRoute: typeof GidsSlugRoute
   UitjeIdRoute: typeof UitjeIdRoute
   UitjesStadRoute: typeof UitjesStadRoute
   UitjesIndexRoute: typeof UitjesIndexRoute
@@ -569,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/disclaimer'
       fullPath: '/disclaimer'
       preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gidsen': {
+      id: '/gidsen'
+      path: '/gidsen'
+      fullPath: '/gidsen'
+      preLoaderRoute: typeof GidsenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ideeen': {
@@ -696,6 +729,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/gids/$slug': {
+      id: '/gids/$slug'
+      path: '/gids/$slug'
+      fullPath: '/gids/$slug'
+      preLoaderRoute: typeof GidsSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/uitje/$id': {
       id: '/uitje/$id'
@@ -872,6 +912,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   CookiesRoute: CookiesRoute,
   DisclaimerRoute: DisclaimerRoute,
+  GidsenRoute: GidsenRoute,
   IdeeenRoute: IdeeenRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
@@ -880,6 +921,7 @@ const rootRouteChildren: RootRouteChildren = {
   VerhaalRoute: VerhaalRoute,
   VoorwaardenRoute: VoorwaardenRoute,
   AdminDeployStatusRoute: AdminDeployStatusRoute,
+  GidsSlugRoute: GidsSlugRoute,
   UitjeIdRoute: UitjeIdRoute,
   UitjesStadRoute: UitjesStadRoute,
   UitjesIndexRoute: UitjesIndexRoute,
