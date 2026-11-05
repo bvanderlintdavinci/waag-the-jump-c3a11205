@@ -359,6 +359,9 @@ function Landing() {
           <Link to="/ideeen" className="underline hover:text-foreground">
             Ideeën voor een uitje
           </Link>
+          <Link to="/gidsen" className="underline hover:text-foreground">
+            Gidsen
+          </Link>
 
         </div>
       </footer>
