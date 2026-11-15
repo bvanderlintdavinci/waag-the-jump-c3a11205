@@ -9,6 +9,12 @@ import { getPublicActivity } from "@/lib/public-activities.functions";
 import { cityFromLocation, citySlug, shortSummary, SITE_URL } from "@/lib/public-activities";
 import { useSession } from "@/hooks/use-auth";
 import { ShareButtons } from "@/components/ShareButtons";
+import { buildEventStructuredData } from "@/lib/event-structured-data";
+
+const activityImage = (activity: Parameters<typeof buildEventStructuredData>[0]) => resolveActivityImage({
+  imageKey: activity.image_key, imageUrl: activity.image_url, source: activity.source,
+  category: activity.category, title: activity.title, description: activity.description, id: activity.id,
+});
 
 export const Route = createFileRoute("/uitje/$id")({
   loader: async ({ params }) => {
@@ -22,6 +28,8 @@ export const Route = createFileRoute("/uitje/$id")({
       return { meta: [{ title: "Uitje niet gevonden | Dare2Meet" }, { name: "robots", content: "noindex" }] };
     }
     const { activity } = loaderData;
+    const image = activityImage(activity);
+    const shareImage = image.src.startsWith("https://") ? image.src : null;
     const city = cityFromLocation(activity.location_name);
     const title = `${activity.title}${city ? ` in ${city}` : ""} | Dare2Meet`;
     const description = shortSummary(
@@ -35,27 +43,17 @@ export const Route = createFileRoute("/uitje/$id")({
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        { property: "og:image", content: "https://dare2meet.nl/og-image.png" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: "https://dare2meet.nl/og-image.png" },
+        ...(shareImage ? [
+          { property: "og:image", content: shareImage },
+          { name: "twitter:image", content: shareImage },
+        ] : []),
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
         {
           type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Event",
-            name: activity.title,
-            startDate: activity.starts_at,
-            ...(activity.ends_at ? { endDate: activity.ends_at } : {}),
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            eventStatus: "https://schema.org/EventScheduled",
-            description,
-            location: { "@type": "Place", name: activity.location_name, address: { "@type": "PostalAddress", addressLocality: city, addressCountry: "NL" } },
-            url,
-            organizer: { "@type": "Organization", name: "Dare2Meet", url: `${SITE_URL}/` },
-          }),
+          children: JSON.stringify(buildEventStructuredData(activity, image.src, description)).replace(/</g, "\\u003c"),
         },
       ],
     };
@@ -74,15 +72,7 @@ function PublicActivityPage() {
   const { activity } = Route.useLoaderData();
   const { user } = useSession();
   const city = cityFromLocation(activity.location_name);
-  const image = resolveActivityImage({
-    imageKey: activity.image_key,
-    imageUrl: activity.image_url,
-    source: activity.source,
-    category: activity.category,
-    title: activity.title,
-    description: activity.description,
-    id: activity.id,
-  });
+  const image = activityImage(activity);
 
   return (
     <div className="penguin-texture min-h-screen bg-background">
