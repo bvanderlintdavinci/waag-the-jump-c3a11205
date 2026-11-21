@@ -1,4 +1,5 @@
 import { PLACES } from "@/lib/geo";
+import { knownEventEnd } from "@/lib/event-end-date";
 
 export type ScrapedEvent = {
   source: string;
@@ -9,6 +10,7 @@ export type ScrapedEvent = {
   city: string | null;
   location_name: string | null;
   starts_at: string;
+  ends_at: string | null;
   image_url: string | null;
   lat: number | null;
   lng: number | null;
@@ -17,6 +19,7 @@ export type ScrapedEvent = {
 type RawEvent = {
   title?: unknown;
   starts_at?: unknown;
+  ends_at?: unknown;
   city?: unknown;
   location_name?: unknown;
   url?: unknown;
@@ -30,6 +33,7 @@ const EXTRACT_PROMPT =
   "Each event has: title, starts_at (ISO 8601 date-time in Europe/Amsterdam; copy the exact start time when shown. " +
   "When the source only provides a date, use 00:00:00Z so the app labels the time as unknown. Use the event date shown on the page, " +
   "assume the current or next year, never a past year), city, location_name, url (absolute link to the event page), " +
+  "ends_at (ISO 8601 with timezone, only when an explicit end date and time are shown; otherwise null; never infer a duration), " +
   "category (one Dutch word), description (max 200 characters), image_url (absolute). " +
   "Skip advertisements and navigation items. Maximum 20 events.";
 
@@ -121,6 +125,7 @@ function toEvent(raw: RawEvent, source: string, city: string, baseUrl: string): 
     city: eventCity,
     location_name: text(raw.location_name, 120),
     starts_at: starts,
+    ends_at: knownEventEnd(raw.ends_at, starts),
     image_url: text(raw.image_url, 500),
     lat: coords.lat,
     lng: coords.lng,
@@ -178,6 +183,7 @@ export async function importUitagenda(cities: string[]) {
         location_name: [r.location_name, r.city].filter(Boolean).join(", ") || (r.city ?? "Onbekend"),
         location_note: "",
         starts_at: r.starts_at,
+        ...(r.ends_at ? { ends_at: r.ends_at } : {}),
         lat: r.lat,
         lng: r.lng,
         source: r.source,

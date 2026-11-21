@@ -11,3 +11,4 @@
 
 - Agenda-, stad- en detailbeelden gebruiken `resolveActivityImage` met scherpe lokale terugval; bronminiaturen mogen niet worden uitgerekt, omdat die onscherp worden.
 - Build Event JSON-LD through the shared event metadata helper using the displayed image and known dates only; never invent admission prices, performers or event organizers to silence optional Google warnings.
+- External agenda imports preserve explicit timezone-qualified end times in the existing activity end-date column; missing source values must not overwrite known end times.
